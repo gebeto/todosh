@@ -9,11 +9,17 @@ import CONFIG from './config';
 
 import App from './components/';
 
+import './styles.scss';
+
 
 const AuthApp = () => (
-	<div>
-		<a href={`https://www.wunderlist.com/oauth/authorize?client_id=${CONFIG.client_id}&redirect_uri=${window.location.href}auth&state=TOKENSNSNSNSSNSNSNSNSNNS`}>AUTH</a>
-		Hello
+	<div className="login-button-wrapper">
+		<a
+			href={`https://www.wunderlist.com/oauth/authorize?client_id=${CONFIG.client_id}&redirect_uri=${window.location.href}auth&state=TOKENSNSNSNSSNSNSNSNSNNS`}
+			className="login-button"
+		>
+			Login with Wunderlist
+		</a>
 	</div>
 );
 
