@@ -14,11 +14,6 @@ app.get('/', function (req, res) {
 });
 
 app.get('/auth', async function (req, res) {
-	console.log("DATA", {
-		client_id: CONFIG.client_id,
-		client_secret: CONFIG.client_secret,
-		code: req.query.code,
-	});
 	const response = await fetch("https://www.wunderlist.com/oauth/access_token", {
 		method: "POST",
 		headers: {

@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const CONFIG = require('@wsl/config');
+
 
 const baseConfig = () => ({
 	entry: path.resolve(__dirname, "src", "index.tsx"),
@@ -61,8 +63,7 @@ const baseConfig = () => ({
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			"process.env.CLIENT_ID": JSON.stringify(process.env.CLIENT_ID),
-			"process.env.CLIENT_SECRET": JSON.stringify(process.env.CLIENT_SECRET),
+			"process.env.CLIENT_ID": JSON.stringify(CONFIG.client_id),
 		})
 	],
 });
