@@ -1,0 +1,23 @@
+.list-item {
+	list-style: none;
+	background: #fff;
+	
+	height: 3.4em;
+	// padding: 1em;
+	padding-left: 1em;
+	margin-bottom: 0.3em;
+	border-radius: 0.8em;
+
+	display: flex;
+	align-items: center;
+
+	&-check {
+		background: transparent;
+		height: 28px;
+		width: 28px;
+		margin-right: 1em;
+		border-radius: 50%;
+		// border: 2px solid #efefef;
+		border: 2px solid #ddd;
+	}
+}
