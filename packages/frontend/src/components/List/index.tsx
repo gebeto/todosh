@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import './styles.scss';
 
 import { WTask } from '../../Wunderlist';
-import Item from '../Item/';
-import AddButton from '../AddButton/';
+import Item from './Item/';
 
 interface ListProps {
 	tasks: WTask[];
@@ -14,7 +13,6 @@ interface ListProps {
 const List = ({ tasks }: ListProps) => {
 	return (
 		<ul className="list">
-			<AddButton />
 			{tasks.map((task: any) => <Item key={task.id} data={task} />)}
 		</ul>
 	)

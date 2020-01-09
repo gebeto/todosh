@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './styles.scss';
 
-import { WTask } from '../../Wunderlist';
+import { WTask } from '../../../Wunderlist';
 
 
 interface ItemProps {
