@@ -1,4 +1,7 @@
 .list-item {
+	
+	$check-size: 34px;
+
 	list-style: none;
 	background: #fff;
 	
@@ -12,12 +15,44 @@
 	align-items: center;
 
 	&-check {
+		box-sizing: border-box;
 		background: transparent;
-		height: 28px;
-		width: 28px;
+		height: $check-size;
+		width: $check-size;
 		margin-right: 1em;
 		border-radius: 50%;
-		// border: 2px solid #efefef;
 		border: 2px solid #ddd;
+		position: relative;
+		overflow: hidden;
+
+		&:before {
+			content: " ";
+			position: absolute;
+			left: $check-size / 2 - 1px;
+			top: $check-size / 2 - 1px;
+			width: 2px;
+			height: 2px;
+			background: #ddd;
+			// background: #e74c3c;
+			background: #fdc;
+			display: block;
+			border-radius: 50%;
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s;
+			transition-timing-function: fade-in-out;
+			opacity: 0;
+		}
+
+	}
+
+	&-completed &-check {
+		&:before {
+			transition-timing-function: fade-in-out;
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s 0.1s;
+			opacity: 1;
+			left: 2px;
+			top: 2px;
+			width: $check-size - 8px;
+			height: $check-size - 8px;
+		}
 	}
 }

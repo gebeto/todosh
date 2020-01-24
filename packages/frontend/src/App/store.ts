@@ -12,12 +12,16 @@ interface InitialState {
 	tasks: WTask[];
 	isFetching: boolean;
 	isFetchingError: boolean;
+	ids: number[];
+	byId: Record<number, any>;
 }
 
 const initialState: InitialState = {
-	tasks: [],
-	isFetching: true,
 	isFetchingError: false,
+	isFetching: true,
+	tasks: [],
+	ids: [],
+	byId: {},
 };
 
 
@@ -33,6 +37,11 @@ const tasks = createSlice({
 			...state,
 			isFetching: false,
 			tasks: payload,
+			ids: payload.map((item: any) => item.id),
+			byId: payload.reduce((curr: any, item: any) => {
+				curr[item.id] = item;
+				return curr;
+			}, {})
 		}),
 		fetchingError: (state, action) => ({
 			...state,
@@ -43,6 +52,16 @@ const tasks = createSlice({
 			...state,
 			tasks: [...state.tasks, action.payload],
 		}),
+		completed: (state, action) => {
+			state.byId[action.payload] = {
+				...state.byId[action.payload],
+				completed: true,
+			}
+			return {
+				...state,
+				byId: { ...state.byId }
+			}
+		},
 	},
 });
 

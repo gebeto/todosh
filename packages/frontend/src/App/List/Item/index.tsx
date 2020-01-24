@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './styles.scss';
 
-import { WTask } from '../../../Wunderlist';
+import { WTask } from '../../Wunderlist';
 
 
 interface ItemProps {
@@ -11,8 +11,14 @@ interface ItemProps {
 }
 
 const Item = ({ data }: ItemProps) => {
+	const [isChecked, setIsChecked] = React.useState(false);
+
+	const handleClick = React.useCallback(() => {
+		setIsChecked(!isChecked);
+	}, [isChecked]);
+
 	return (
-		<li className="list-item">
+		<li onClick={handleClick} className={`list-item${isChecked ? ' list-item-completed' : ''}`}>
 			<div className="list-item-check"></div>
 			{ data.title }
 		</li>
