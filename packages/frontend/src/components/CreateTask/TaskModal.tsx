@@ -1,32 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { useTransition } from '../hooks';
 
-
-
-function focusAndOpenKeyboard(el: HTMLInputElement, timeout: number) {
-	var __tempEl__: HTMLInputElement = document.createElement('input') as HTMLInputElement;
-	// __tempEl__.style.position = 'absolute';
-	// __tempEl__.style.top = (el.offsetTop + 7) + 'px';
-	// __tempEl__.style.left = el.offsetLeft + 'px';
-	// __tempEl__.style.height = '0';
-	// __tempEl__.style.opacity = '0';
-	document.body.appendChild(__tempEl__);
-	__tempEl__.focus();
-	setTimeout(function() {
-		el.focus();
-		el.click();
-		// document.body.removeChild(__tempEl__);
-	}, timeout);
-}
-
-
-export const TaskModal = (props: any) => {
-	const transitionState = useTransition(props.isOpened, 500);
-
+export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 	const wrapperRef = React.useRef(null);
-	const inputRef = React.useRef(null);
+
+	const [ value, setValue ] = React.useState("");
+	const handleInputChange = React.useCallback(e => setValue(e.target.value), []);
 
 	const handleWrapperClick = React.useCallback((e) => {
 		if (e.target === wrapperRef.current) {
@@ -35,38 +15,37 @@ export const TaskModal = (props: any) => {
 	}, [])
 	
 	const handleFormSubmit = React.useCallback((e) => {
+		console.log(inputRef);
 		e.preventDefault();
 		e.stopPropagation();
-		(inputRef.current as unknown as HTMLInputElement).blur();
-		props.onSubmit((inputRef.current as unknown as HTMLInputElement).value);
+		inputRef.current.blur();
+		props.onSubmit(value);
 		props.handleClose();
+		setTimeout(() => {
+			setValue("");
+		}, 300);
 		return false;
-	}, [])
-	
-	React.useEffect(() => {
-		console.log('UPDA', props.isOpened);
-		if (props.isOpened === true) {
-			// focusAndOpenKeyboard((inputRef.current as unknown as HTMLInputElement), 600); 
-			console.log(inputRef.current)
-			// setTimeout(() => {
-			// 	inputRef.current.focus()
-			// 	inputRef.current.click()
-			// }, 1000);
-			// inputRef.current.focus();
-		}
-	}, [props.isOpened]);
+	}, [value]);
+
 		
 	return (
 		<form
 			onSubmit={handleFormSubmit}
 			onClick={handleWrapperClick}
 			ref={wrapperRef}
-			className={`inputter ${transitionState}`}
+			className={`inputter ${props.transitionState}`}
 		>
-			<input type="text" ref={inputRef} />
+			<input
+				ref={inputRef}
+				type="text"
+				className="input"
+				value={value}
+				onChange={handleInputChange}
+			/>
 		</form>
 	);
-}
+});
 
 
-export default (props) => ReactDOM.createPortal(<TaskModal {...props} />, document.body);
+// export default (props: any) => ReactDOM.createPortal(<TaskModal {...props} />, document.body);
+export default TaskModal;

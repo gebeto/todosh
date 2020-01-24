@@ -1,16 +1,19 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import './styles.scss';
 
 import { WTask } from '../../Wunderlist';
 import { addNewTask } from '../../store';
+import TaskModal from './TaskModal';
 
+import { useTransition } from '../hooks';
 
-const prevent = e => {
-	e.preventDefault();
-	e.stopPropagation();
+const useFocus = () => {
+	const htmlElRef = React.useRef(null)
+	const setFocus = () => {htmlElRef.current &&  (htmlElRef.current as any).focus()}
+
+	return [ htmlElRef,  setFocus ];
 }
 
 
@@ -18,59 +21,44 @@ interface CreateTaskProps {
 }
 
 
-const CreateTask = (props: CreateTaskProps) => {
+const CreateTask = (props: any) => {
 	const [ isOpened, setIsOpened ] = React.useState(false);
-	const [ value, setValue ] = React.useState("");
 
-	const ref = React.useRef(null);
+	const transitionState = useTransition("exited", isOpened, 500);
+	const [ ref, setFocus ] = useFocus() as any;
 
-	const handleOpen = React.useCallback((e) => {
-		prevent(e);
+	const handleOpen = React.useCallback(() => {
 		setIsOpened(true);
-		return false;
-	}, []);
+		setFocus();
+	}, [])
 
-	const handleClose = React.useCallback((e) => {
-		prevent(e);
+	const handleClose = React.useCallback(() => {
 		setIsOpened(false);
-	}, []);
-
-	const handleValueChange = React.useCallback((e) => {
-		setValue(e.target.value);
-	}, []);
-
-	const handleSubmit = React.useCallback((e) => {
-		prevent(e);
-		setIsOpened(false);
-		props.handleCreateTask(value);
-		setValue("");
-		ref.current.blur();
-	}, [value]);
-
+	}, [])
 
 	return (
-		<form className="create-task" onSubmit={handleSubmit}>
-			<input
+		<React.Fragment>
+			<div className="create-task">
+				<div onClick={handleOpen} className="create-task-input">Add item to list</div>
+			</div>
+			<TaskModal
+				transitionState={transitionState}
+				onSubmit={props.handleSubmitItem}
+				handleClose={handleClose}
 				ref={ref}
-				placeholder="Add item to list"
-				className="create-task-input"
-				onChange={handleValueChange}
-				value={value}
-				name="task"
-				type="text"
 			/>
-		</form>
+		</React.Fragment>
 	)
 }
 
 
 export default connect(
-	(state) => ({
+	(state: any) => ({
 
 	}),
-	(dispatch) => ({
-		handleCreateTask(taskText) {
-			dispatch(addNewTask(taskText));
+	(dispatch: any) => ({
+		handleSubmitItem(itemText: string) {
+			dispatch(addNewTask(itemText))
 		}
 	})
 )(CreateTask);
