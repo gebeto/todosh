@@ -1,11 +1,17 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import './styles.scss';
 
 import { WTask } from '../../Wunderlist';
 import { addNewTask } from '../../store';
-import TaskModal from './TaskModal';
+
+
+const prevent = e => {
+	e.preventDefault();
+	e.stopPropagation();
+}
 
 
 interface CreateTaskProps {
@@ -14,24 +20,46 @@ interface CreateTaskProps {
 
 const CreateTask = (props: CreateTaskProps) => {
 	const [ isOpened, setIsOpened ] = React.useState(false);
+	const [ value, setValue ] = React.useState("");
 
-	const handleOpen = React.useCallback(() => {
+	const ref = React.useRef(null);
+
+	const handleOpen = React.useCallback((e) => {
+		prevent(e);
 		setIsOpened(true);
-	}, [])
+		return false;
+	}, []);
 
-	const handleClose = React.useCallback(() => {
+	const handleClose = React.useCallback((e) => {
+		prevent(e);
 		setIsOpened(false);
-	}, [])
+	}, []);
+
+	const handleValueChange = React.useCallback((e) => {
+		setValue(e.target.value);
+	}, []);
+
+	const handleSubmit = React.useCallback((e) => {
+		prevent(e);
+		setIsOpened(false);
+		props.handleCreateTask(value);
+		setValue("");
+		ref.current.blur();
+	}, [value]);
+
 
 	return (
-		<div className="create-task">
-			<div onClick={handleOpen} className="create-task-input">Add item to list</div>
-			<TaskModal
-				isOpened={isOpened}
-				handleClose={handleClose}
-				onSubmit={props.handleSubmitItem}
+		<form className="create-task" onSubmit={handleSubmit}>
+			<input
+				ref={ref}
+				placeholder="Add item to list"
+				className="create-task-input"
+				onChange={handleValueChange}
+				value={value}
+				name="task"
+				type="text"
 			/>
-		</div>
+		</form>
 	)
 }
 
@@ -41,8 +69,8 @@ export default connect(
 
 	}),
 	(dispatch) => ({
-		handleSubmitItem(itemText) {
-			dispatch(addNewTask(itemText))
+		handleCreateTask(taskText) {
+			dispatch(addNewTask(taskText));
 		}
 	})
 )(CreateTask);

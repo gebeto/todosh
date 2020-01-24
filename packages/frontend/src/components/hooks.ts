@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 
-export const useTransition = (isIn, timeout) => {
-	const [ state, setState ] = React.useState("exited");
+export const useTransition = (initialState, isIn, timeout) => {
+	const [ state, setState ] = React.useState(initialState);
 	const [timeoutId, setTimeoutId] = React.useState(undefined);
 	
 	React.useEffect(() => {
