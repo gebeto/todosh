@@ -47,7 +47,7 @@ export interface WTask {
 
 
 
-class Wunderlist {
+export class Wunderlist {
   headers: any;
   endpoint: string;
 
@@ -126,18 +126,15 @@ class Wunderlist {
  //    return this.request(url);
  //  }
 
- //  createTask(listId, title, state, starred, due_date) {
- //    let url = {
- //      url:  this.endpoint + 'tasks',
- //      method: 'POST',
- //      json: {
- //        "list_id": listId,
- //        "title": title,
- //        "completed": state,
- //        "starred": starred,
-	// "due_date": due_date
- //      }
- //    }
+  createTask(listId: number, title: string, isCompleted?: boolean, isStarred?: boolean, due_date?: Date) {
+    return this.request("tasks", RequestMethod.POST, {
+        "list_id": listId,
+        "title": title,
+        "completed": isCompleted,
+        "starred": isStarred,
+        "due_date": due_date
+      });
+    }
 
  //    return this.request(url);
  //  }
@@ -342,6 +339,3 @@ class Wunderlist {
  //    return this.request(url);
  //  }
 }
-
-
-export default Wunderlist;

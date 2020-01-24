@@ -15,7 +15,6 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 	}, [])
 	
 	const handleFormSubmit = React.useCallback((e) => {
-		console.log(inputRef);
 		e.preventDefault();
 		e.stopPropagation();
 		inputRef.current.blur();
