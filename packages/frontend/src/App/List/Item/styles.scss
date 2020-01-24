@@ -23,7 +23,7 @@
 		border-radius: 50%;
 		border: 2px solid #ddd;
 		position: relative;
-		overflow: hidden;
+		// overflow: hidden;
 
 		&:before {
 			content: " ";
@@ -32,13 +32,13 @@
 			top: $check-size / 2 - 1px;
 			width: 2px;
 			height: 2px;
-			background: #ddd;
+			// background: #ddd;
 			// background: #e74c3c;
-			background: #fdc;
+			// background: #000;
+			background: #fda;
 			display: block;
 			border-radius: 50%;
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s;
-			transition-timing-function: fade-in-out;
 			opacity: 0;
 		}
 
@@ -46,8 +46,8 @@
 
 	&-completed &-check {
 		&:before {
-			transition-timing-function: fade-in-out;
-			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s 0.1s;
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
+			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
 			opacity: 1;
 			left: 2px;
 			top: 2px;
