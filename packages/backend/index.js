@@ -8,6 +8,7 @@ const app = express();
 
 
 app.use('/dist', express.static(path.resolve(__dirname, "../frontend/dist")));
+app.use('/static', express.static(path.resolve(__dirname, "static")));
 
 app.get('/', function (req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
@@ -15,16 +16,11 @@ app.get('/', function (req, res) {
 
 app.get('/manifest.json', function(req, res) {
   res.send({
-    "short_name": "Wunds",
+    "short_name": "WundShoppingList",
     "name": "WunderShoppingList",
     "icons": [
       {
-        "src": "/images/icons-192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/images/icons-512.png",
+        "src": "/static/icon@512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
