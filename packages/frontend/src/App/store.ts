@@ -77,7 +77,14 @@ export const addNewTask = (taskText: string) => (dispatch: Dispatch) => {
 export const loadTasks = () => (dispatch: Dispatch) => {
 	wunderlist.getTasksForState(LIST_ID, false)
 		.then(response => {
-			dispatch(tasks.actions.fetchingSuccess(response));
+			// if (typeof response === "")
+			if (Array.isArray(response)) {
+				dispatch(tasks.actions.fetchingSuccess(response));
+			} else {
+				dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
+			}
+		}).catch(err => {
+			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
 		});
 }
 

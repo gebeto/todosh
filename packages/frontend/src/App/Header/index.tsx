@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './styles.scss';
 
 import settingsIcon from './settings-icon.svg';
 
