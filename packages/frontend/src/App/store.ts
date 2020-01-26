@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import CONFIG from '../config';
-import { WTask, Wunderlist } from './Wunderlist';
+import { Wunderlist, WTask } from './Wunderlist';
 
 const wunderlist = new Wunderlist(CONFIG);
 const LIST_ID = 365103446;

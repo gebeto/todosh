@@ -1,6 +1,3 @@
-import CONFIG from './config';
-
-
 enum RequestMethod {
   GET = "GET",
   POST = "POST",
