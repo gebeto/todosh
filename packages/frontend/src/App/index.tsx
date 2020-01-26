@@ -23,9 +23,7 @@ const App = (props: any) => {
 				<div className="main">
 					<List />
 				</div>
-				<div>
-					<CreateTask />
-				</div>
+				<CreateTask />
 			</div>
 		</Provider>
 	)
