@@ -39,7 +39,9 @@ const CreateTask = (props: any) => {
 	return (
 		<React.Fragment>
 			<div className="create-task">
-				<div onClick={handleOpen} className="create-task-input">Add item to list</div>
+				<div className="container">
+					<div onClick={handleOpen} className="create-task-input">Add item to list</div>
+				</div>
 			</div>
 			<TaskModal
 				transitionState={transitionState}

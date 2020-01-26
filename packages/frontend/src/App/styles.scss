@@ -3,3 +3,9 @@
 	padding-top: calc(5.5em + env(safe-area-inset-top));
 	padding-bottom: calc(5.5em + env(safe-area-inset-bottom));
 }
+
+.container {
+	max-width: 500px;
+	width: 100%;
+	margin: 0 auto;
+}

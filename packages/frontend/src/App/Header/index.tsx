@@ -12,8 +12,10 @@ const Header = (props: any) => {
 
 	return (
 		<div className="header">
-			<h1>List</h1>
-			<img src={settingsIcon} height="28" onClick={handleLogout} />
+			<div className="container header-container">
+				<h1>List</h1>
+				<img src={settingsIcon} height="28" onClick={handleLogout} />
+			</div>
 		</div>
 	)
 }

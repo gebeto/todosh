@@ -12,9 +12,11 @@ interface ListProps {
 
 const List = ({ tasksIds }: ListProps) => {
 	return (
-		<ul className="list">
-			{tasksIds.map((taskId: any) => <Item key={taskId} taskId={taskId} />)}
-		</ul>
+		<div className="container">
+			<ul className="list">
+				{tasksIds.map((taskId: any) => <Item key={taskId} taskId={taskId} />)}
+			</ul>
+		</div>
 	)
 }
 
