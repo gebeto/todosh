@@ -1,0 +1,21 @@
+{
+    "name": "WunderShoppingList",
+    "short_name": "WundShoppingList",
+    "icons": [
+        {
+            "src": "/static/pwa/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/pwa/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "scope": "/",
+    "start_url": "/",
+    "background_color": "#f5f5f5",
+    "display": "standalone",
+    "theme_color": "#f5f5f5"
+}

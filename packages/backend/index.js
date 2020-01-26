@@ -14,29 +14,29 @@ app.get('/', function (req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-app.get('/manifest.json', function(req, res) {
-  res.send({
-    "short_name": "WundShoppingList",
-    "name": "WunderShoppingList",
-    "icons": [
-      {
-        "src": "/static/icon@512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      },
-      {
-        "src": "/static/icon@192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      }
-    ],
-    "start_url": "/",
-    "background_color": "#f5f5f5",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#f5f5f5"
-  });
-})
+// app.get('/manifest.json', function(req, res) {
+//   res.send({
+//     "short_name": "WundShoppingList",
+//     "name": "WunderShoppingList",
+//     "icons": [
+//       {
+//         "src": "/static/icon@512.png",
+//         "type": "image/png",
+//         "sizes": "512x512"
+//       },
+//       {
+//         "src": "/static/icon@192.png",
+//         "type": "image/png",
+//         "sizes": "192x192"
+//       }
+//     ],
+//     "start_url": "/",
+//     "background_color": "#f5f5f5",
+//     "display": "standalone",
+//     "scope": "/",
+//     "theme_color": "#f5f5f5"
+//   });
+// })
 
 app.get('/auth', async function (req, res) {
 	const response = await fetch("https://www.wunderlist.com/oauth/access_token", {
