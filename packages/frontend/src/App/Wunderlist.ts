@@ -114,6 +114,13 @@ export class Wunderlist {
     return this.request<WTask[]>(`tasks?list_id=${id}&completed=${completed}`, RequestMethod.GET);
   }
 
+  completeTask(taskId: number, revision: number, isCompleted: boolean) {
+    return this.request<WTask>(`tasks/${taskId}`, RequestMethod.PATCH, {
+      "revision": revision,
+      "completed": isCompleted,
+    });
+  }
+
  //  getTask(id) {
  //    let url ={
  //      url: this.endpoint + 'tasks/' + id,
@@ -132,9 +139,6 @@ export class Wunderlist {
         "due_date": due_date
       });
     }
-
- //    return this.request(url);
- //  }
 
  //  deleteTask(id, revision) {
  //    let url = {

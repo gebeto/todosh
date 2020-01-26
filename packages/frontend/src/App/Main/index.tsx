@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 
 import './styles.scss';
 
-import { WTask } from '../../Wunderlist';
+import { WTask } from '../Wunderlist';
 import Item from './Item/';
 
 interface ListProps {
-	tasks: WTask[];
+	tasksIds: string[];
 }
 
-const List = ({ tasks }: ListProps) => {
+const List = ({ tasksIds }: ListProps) => {
 	return (
 		<ul className="list">
-			{tasks.map((task: any) => <Item key={task.id} data={task} />)}
+			{tasksIds.map((taskId: any) => <Item key={taskId} taskId={taskId} />)}
 		</ul>
 	)
 }
@@ -21,6 +21,6 @@ const List = ({ tasks }: ListProps) => {
 
 export default connect(
 	(state: any) => ({
-		tasks: state.tasks
+		tasksIds: state.ids
 	}),
 )(List);

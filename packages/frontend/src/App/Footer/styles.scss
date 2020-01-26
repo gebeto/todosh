@@ -71,7 +71,7 @@
 	&.entered {
 		display: flex;
 		opacity: 1;
-		z-index: 1;
+		z-index: 10;
 
 		.input {
 			margin-top: 0px;

@@ -1,4 +1,5 @@
 .app {
 	padding: 1em;
 	padding-top: calc(5.5em + env(safe-area-inset-top));
+	padding-bottom: calc(5.5em + env(safe-area-inset-bottom));
 }

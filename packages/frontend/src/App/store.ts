@@ -5,21 +5,21 @@ import thunk from 'redux-thunk';
 import CONFIG from '../config';
 import { Wunderlist, WTask } from './Wunderlist';
 
+
 const wunderlist = new Wunderlist(CONFIG);
-const LIST_ID = 365103446;
+// const LIST_ID = 365103446;
+const LIST_ID = 409023867;
 
 interface InitialState {
-	tasks: WTask[];
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: number[];
-	byId: Record<number, any>;
+	byId: Record<number, WTask>;
 }
 
 const initialState: InitialState = {
 	isFetchingError: false,
 	isFetching: true,
-	tasks: [],
 	ids: [],
 	byId: {},
 };
@@ -36,7 +36,6 @@ const tasks = createSlice({
 		fetchingSuccess: (state, { payload }) => ({
 			...state,
 			isFetching: false,
-			tasks: payload,
 			ids: payload.map((item: any) => item.id),
 			byId: payload.reduce((curr: any, item: any) => {
 				curr[item.id] = item;
@@ -50,26 +49,45 @@ const tasks = createSlice({
 		}),
 		added: (state, action) => ({
 			...state,
-			tasks: [...state.tasks, action.payload],
+			ids: [...state.ids, action.payload.id],
+			byId: {
+				...state.byId,
+				[action.payload.id]: action.payload
+			},
 		}),
-		completed: (state, action) => {
-			state.byId[action.payload] = {
-				...state.byId[action.payload],
-				completed: true,
-			}
+		deleted: (state, action) => {
+			delete state.byId[action.payload];
+			return state;
+		},
+		updated: (state, action) => {
 			return {
 				...state,
-				byId: { ...state.byId }
+				byId: {
+					...state.byId,
+					[action.payload.id]: {
+						...state.byId[action.payload.id],
+						...action.payload,
+					}
+				}
 			}
 		},
 	},
 });
 
 
-export const addNewTask = (taskText: string) => (dispatch: Dispatch) => {
+export const setIsCompleted = (task: WTask, isCompleted: boolean) => (dispatch: Dispatch) => {
+	dispatch(tasks.actions.updated({...task, completed: isCompleted}));
+	wunderlist.completeTask(task.id, task.revision, isCompleted).then((res: WTask) => {
+		// console.log("UPDATED", task, res);
+		// dispatch(tasks.actions.updated({...res}));
+		dispatch(tasks.actions.updated({...task, revision: res.revision, completed: res.completed}));
+	});
+}
+
+
+export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: any) => {
 	wunderlist.createTask(LIST_ID, taskText)
 		.then(task => {
-			console.log(task);
 			dispatch(tasks.actions.added(task));
 		});
 }
@@ -77,7 +95,6 @@ export const addNewTask = (taskText: string) => (dispatch: Dispatch) => {
 export const loadTasks = () => (dispatch: Dispatch) => {
 	wunderlist.getTasksForState(LIST_ID, false)
 		.then(response => {
-			// if (typeof response === "")
 			if (Array.isArray(response)) {
 				dispatch(tasks.actions.fetchingSuccess(response));
 			} else {

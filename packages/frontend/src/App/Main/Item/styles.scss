@@ -25,8 +25,6 @@
 	display: flex;
 	align-items: center;
 
-	animation: pop-unchecked 0.3s cubic-bezier(.6, 3, .3, 1);
-
 	&-check {
 		box-sizing: border-box;
 		background: transparent;
@@ -60,6 +58,11 @@
 		animation: pop-checked 0.3s cubic-bezier(.6, 3, .3, 1);
 	}
 
+	&-uncompleted {
+		transform-origin: center center;
+		animation: pop-unchecked 0.3s cubic-bezier(.6, 3, .3, 1);
+	}
+
 	&-completed &-check {
 		&:before {
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
@@ -70,6 +73,19 @@
 			top: 2px;
 			width: $check-size - 8px;
 			height: $check-size - 8px;
+		}
+	}
+
+	&-uncompleted &-check {
+		&:before {
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
+			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
+			transition-delay: 0.12s;
+			opacity: 0;
+			left: $check-size / 2 - 1px;
+			top: $check-size / 2 - 1px;
+			width: 2px;
+			height: 2px;
 		}
 	}
 
