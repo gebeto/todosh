@@ -4,9 +4,12 @@ import './styles.scss';
 import settingsIcon from './settings-icon.svg';
 
 
-export const Header = () => (
+const Header = () => (
 	<div className="header">
 		<h1>List</h1>
 		<img src={settingsIcon} height="28" />
 	</div>
 )
+
+
+export default Header;

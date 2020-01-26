@@ -6,9 +6,9 @@ import store, { loadTasks } from './store';
 
 import './styles.scss';
 
-import { Header } from './Header/';
-import List from './List/';
-import CreateTask from './CreateTask/';
+import Header from './Header/';
+import Main from './Main/';
+import Footer from './Footer/';
 
 
 const App = (props: any) => {
@@ -21,9 +21,9 @@ const App = (props: any) => {
 			<div className="app">
 				<Header />
 				<div className="main">
-					<List />
+					<Main />
 				</div>
-				<CreateTask />
+				<Footer />
 			</div>
 		</Provider>
 	)
