@@ -29,7 +29,7 @@ const Item = ({ data, toggleChecked }: ItemProps) => {
 	return (
 		<li onClick={handleClick} className={`list-item${itemClassName}`}>
 			<div className="list-item-check"></div>
-			{ data.title }
+			<div className="list-item-title">{data.title}</div>
 		</li>
 	)
 }
