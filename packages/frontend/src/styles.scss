@@ -10,6 +10,11 @@ body {
 	-o-user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
+	
+	-webkit-tap-highlight-color: transparent;
+	-moz-tap-highlight-color: transparent;
+	-o-tap-highlight-color: transparent;
+	tap-highlight-color: transparent;
 }
 
 .login-button-wrapper {
