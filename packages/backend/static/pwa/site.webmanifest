@@ -1,6 +1,6 @@
 {
-    "name": "WunderShoppingList",
-    "short_name": "WundShoppingList",
+    "name": "Wunderlist Shopping",
+    "short_name": "Wush",
     "icons": [
         {
             "src": "/static/pwa/android-chrome-192x192.png",
