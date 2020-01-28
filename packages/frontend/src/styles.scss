@@ -5,6 +5,11 @@ body {
 	min-height: 100vh;
 
 	background: #f5f5f5;
+
+	user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
 }
 
 .login-button-wrapper {
