@@ -1,19 +1,6 @@
-@keyframes pop-unchecked {
-	0% { transform: scale(1); }
-	50% { transform: scale(0.98); }
-	100% { transform: scale(1); }
-}
-
-@keyframes pop-checked {
-	0% { transform: scale(1); }
-	50% { transform: scale(0.98); }
-	100% { transform: scale(1); }
-}
+$check-size: 34px;
 
 .list-item {
-	
-	$check-size: 34px;
-
 	list-style: none;
 	background: #fff;
 	
@@ -25,19 +12,7 @@
 	display: flex;
 	align-items: center;
 
-	&-completed {
-		transform-origin: center center;
-		animation: pop-checked 0.3s cubic-bezier(.6, 3, .3, 1);
-		opacity: 0.8;
-	}
-
-	&-uncompleted {
-		transform-origin: center center;
-		animation: pop-unchecked 0.3s cubic-bezier(.6, 3, .3, 1);
-	}
-
-
-	&-check {
+	.list-item-check {
 		box-sizing: border-box;
 		background: transparent;
 		height: $check-size;
@@ -65,34 +40,7 @@
 
 	}
 
-	&-completed &-check {
-		&:before {
-			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
-			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
-			transition-delay: 0.12s;
-			opacity: 1;
-			left: 2px;
-			top: 2px;
-			width: $check-size - 8px;
-			height: $check-size - 8px;
-		}
-	}
-
-	&-uncompleted &-check {
-		&:before {
-			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
-			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
-			transition-delay: 0.12s;
-			opacity: 0;
-			left: $check-size / 2 - 1px;
-			top: $check-size / 2 - 1px;
-			width: 2px;
-			height: 2px;
-		}
-	}
-
-
-	&-title {
+	.list-item-title {
 		position: relative;
 
 		&:before {
@@ -106,10 +54,104 @@
 			transition-duration: 0.3s;
 		}
 	}
+}
 
-	&-completed &-title:before {
-		width: 100%;
+
+
+
+@keyframes pop-unchecked {
+	0% { transform: scale(1); }
+	50% { transform: scale(0.98); }
+	100% { transform: scale(1); }
+}
+
+@keyframes pop-checked {
+	0% { transform: scale(1); }
+	50% { transform: scale(0.98); }
+	100% { transform: scale(1); }
+}
+
+
+.list-item-completed-active {
+	transform-origin: center center;
+	animation: pop-checked 0.3s cubic-bezier(.6, 3, .3, 1);
+	opacity: 0.8;
+
+	.list-item-check {
+		&:before {
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
+			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
+			transition-delay: 0.12s;
+			opacity: 1;
+			left: 2px;
+			top: 2px;
+			width: $check-size - 8px;
+			height: $check-size - 8px;
+		}
 	}
 
-
+	.list-item-title:before {
+		width: 100%;
+	}
 }
+
+.list-item-completed {
+	.list-item-check {
+		&:before {
+			opacity: 1;
+			left: 2px;
+			top: 2px;
+			width: $check-size - 8px;
+			height: $check-size - 8px;
+		}
+	}
+
+	.list-item-title:before {
+		width: 100%;
+	}
+}
+
+
+
+.list-item-uncompleted-active {
+	transform-origin: center center;
+	animation: pop-unchecked 0.3s cubic-bezier(.6, 3, .3, 1);
+	
+	.list-item-check {
+		&:before {
+			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
+			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
+			transition-delay: 0.12s;
+			opacity: 0;
+			left: $check-size / 2 - 1px;
+			top: $check-size / 2 - 1px;
+			width: 2px;
+			height: 2px;
+		}
+	}
+}
+
+.list-item-uncompleted {
+	.list-item-check {
+		&:before {
+			// opacity: 0;
+			// left: $check-size / 2 - 1px;
+			// top: $check-size / 2 - 1px;
+			// width: 2px;
+			// height: 2px;
+		}
+	}
+}
+
+// .list-item {
+// 	opacity: 0;
+// }
+
+// .list-item-appearing {
+// 	opacity: 1;
+// 	transition-duration: 300ms;
+// }
+
+// .list-item-appeared {
+// 	opacity: 1;
+// }

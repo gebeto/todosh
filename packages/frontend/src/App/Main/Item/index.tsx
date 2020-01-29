@@ -1,10 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
+
 import { setIsCompleted } from '../../store';
 
 import './styles.scss';
 
 import { WTask } from '../../Wunderlist';
+
+
+const listItemTransitionClassNames: any = {
+	appear: "list-item",
+	enterActive: "list-item-completed-active",
+	enterDone: "list-item-completed",
+	exitActive: "list-item-uncompleted-active",
+	exitDone: "list-item-uncompleted",
+}
 
 
 interface ItemProps {
@@ -13,24 +24,24 @@ interface ItemProps {
 	toggleChecked: (task: WTask) => void;
 }
 
-const ifElse = (condition: any, e: any, t: any, f: any) => condition === undefined ? e : condition ? t : f;
 
 const Item = ({ data, toggleChecked }: ItemProps) => {
-	const [ itemClassName, setItemClassName ] = React.useState('');
-
 	const handleClick = React.useCallback(() => {
 		toggleChecked(data);
 	}, [data]);
 
-	React.useEffect(() => {
-		setItemClassName(ifElse(data.completed, '', ' list-item-completed', ' list-item-uncompleted'));
-	}, [data.completed]);
-
 	return (
-		<li onClick={handleClick} className={`list-item${itemClassName}`}>
-			<div className="list-item-check"></div>
-			<div className="list-item-title">{data.title}</div>
-		</li>
+		<CSSTransition
+			appear={data.completed}
+			classNames={listItemTransitionClassNames}
+			in={data.completed}
+			timeout={300}
+		>
+			<li onClick={handleClick} className="list-item">
+				<div className="list-item-check"></div>
+				<div className="list-item-title">{data.title}</div>
+			</li>
+		</CSSTransition>
 	)
 }
 
