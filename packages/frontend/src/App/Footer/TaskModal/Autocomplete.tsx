@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { tasksCompleted } from '../../store/tasks-completed';
+import { tasks, addOldTask } from '../../store/tasks';
+
 
 
 function mapWithLimit<T>(
@@ -21,19 +24,31 @@ function mapWithLimit<T>(
 }
 
 
-export const Autocomplete = ({ value, tasksCompleted }: any) => (value && tasksCompleted.length > 0) ? (
+export const AutocompleteItem = (props: any) => {
+	const handleClick = React.useCallback(() => {
+		props.onSelect(props.data);
+	}, []);
+
+	return (
+		<li className="inputter-autocomplete-item" onClick={handleClick}>
+			{props.data.title}
+		</li>
+	);
+};
+
+
+export const Autocomplete = ({ value, completedTasks, onSelect }: any) => (value && completedTasks.length > 0) ? (
 	<ul className="inputter-autocomplete">
-		{tasksCompleted.map((item: any) =>
-			<li key={item.id} className="inputter-autocomplete-item">{item.title}</li>
+		{completedTasks.map((item: any) =>
+			<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
 		)}
 	</ul>
-
 ) : null;
 
 const emptyArray: any[] = [];
 export default connect(
 	(state: any, ownProps: any) => ({
-		tasksCompleted: ownProps.value ? mapWithLimit(
+		completedTasks: ownProps.value ? mapWithLimit(
 			state.tasksCompleted.items, 5,
 			(item: any) => new RegExp(ownProps.value, 'ig').test(item.title)
 		) : emptyArray

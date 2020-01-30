@@ -131,7 +131,7 @@ export class Wunderlist {
  //  }
 
   createTask(listId: number, title: string, isCompleted?: boolean, isStarred?: boolean, due_date?: Date) {
-    return this.request("tasks", RequestMethod.POST, {
+    return this.request<WTask>("tasks", RequestMethod.POST, {
         "list_id": listId,
         "title": title,
         "completed": isCompleted,

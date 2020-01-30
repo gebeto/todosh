@@ -30,6 +30,15 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 		return false;
 	}, [value]);
 
+	const handleSubmitOldTask = React.useCallback((task: any) => {
+		inputRef.current.blur();
+		props.onSubmitOldTask(task);
+		props.handleClose();
+		setTimeout(() => {
+			setValue("");
+		}, 300);
+		return false;
+	}, [value]);
 		
 	return (
 		<form
@@ -45,7 +54,7 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 					value={value}
 					onChange={handleInputChange}
 				/>
-				<Autocomplete value={value} />
+				<Autocomplete onSelect={handleSubmitOldTask} value={value} />
 			</div>
 		</form>
 	);

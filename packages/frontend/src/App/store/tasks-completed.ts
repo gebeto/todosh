@@ -4,7 +4,7 @@ import { WTask } from '../Wunderlist';
 import { wunderlist, LIST_ID } from './utils';
 
 
-interface InitialState {
+interface TasksState {
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: number[];
@@ -12,7 +12,7 @@ interface InitialState {
 	items: WTask[];
 }
 
-const initialState: InitialState = {
+const initialState: TasksState = {
 	isFetchingError: false,
 	isFetching: true,
 	ids: [],
@@ -25,51 +25,49 @@ export const tasksCompleted = createSlice({
 	name: 'tasksCompleted',
 	initialState: initialState,
 	reducers: {
-		fetchingPending: (state, action) => ({
+		fetchingPending: (state: TasksState, { payload }: PayloadAction) => ({
 			...state,
 			isFetching: true,
 		}),
-		fetchingSuccess: (state, { payload }) => ({
+		fetchingSuccess: (state, { payload }: PayloadAction<WTask[]>) => ({
 			...state,
 			isFetching: false,
-			ids: payload.map((item: any) => item.id),
-			byId: payload.reduce((curr: any, item: any) => {
+			ids: payload.map(item => item.id),
+			byId: payload.reduce((curr: Record<number, WTask>, item) => {
 				curr[item.id] = item;
 				return curr;
 			}, {}),
 			items: payload,
 		}),
-		fetchingError: (state, action) => ({
+		fetchingError: (state: TasksState, { payload }: PayloadAction) => ({
 			...state,
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state, action) => ({
+		added: (state: TasksState, { payload }: PayloadAction<WTask>) => ({
 			...state,
-			ids: [...state.ids, action.payload.id],
+			ids: [...state.ids, payload.id],
 			byId: {
 				...state.byId,
-				[action.payload.id]: action.payload
+				[payload.id]: payload
 			},
-			items: [...state.items, action.payload]
+			items: [...state.items, payload]
 		}),
-		deleted: (state, action) => {
-			delete state.byId[action.payload];
-			state.items = state.items.filter(item => item.id !== action.payload);
+		deleted: (state: TasksState, { payload }: PayloadAction<number>) => {
+			delete state.byId[payload];
+			state.items = state.items.filter(item => item.id !== payload);
 			return state;
 		},
-		updated: (state, action) => {
-			return {
-				...state,
-				byId: {
-					...state.byId,
-					[action.payload.id]: {
-						...state.byId[action.payload.id],
-						...action.payload,
-					}
+		updated: (state: TasksState, { payload }: PayloadAction<WTask>) => ({
+			...state,
+			byId: {
+				...state.byId,
+				[payload.id]: {
+					...state.byId[payload.id],
+					...payload,
 				}
 			}
-		},
+		}),
 	},
 });
 

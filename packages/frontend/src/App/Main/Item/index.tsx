@@ -32,7 +32,6 @@ const Item = ({ data, toggleChecked }: ItemProps) => {
 
 	return (
 		<CSSTransition
-			appear={data.completed}
 			classNames={listItemTransitionClassNames}
 			in={data.completed}
 			timeout={300}

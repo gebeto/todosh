@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import './styles.scss';
 
 import { WTask } from '../Wunderlist';
-import { addNewTask } from '../store/tasks';
+import { addNewTask, addOldTask } from '../store/tasks';
+import { tasksCompleted } from '../store/tasks-completed';
 import TaskModal from './TaskModal/';
 
 import { useTransition } from '../hooks';
@@ -46,6 +47,7 @@ const CreateTask = (props: any) => {
 			<TaskModal
 				transitionState={transitionState}
 				onSubmit={props.handleSubmitItem}
+				onSubmitOldTask={props.handleSubmitOldItem}
 				handleClose={handleClose}
 				ref={ref}
 			/>
@@ -61,6 +63,13 @@ export default connect(
 	(dispatch: any) => ({
 		handleSubmitItem(itemText: string) {
 			dispatch(addNewTask(itemText))
+		},
+		handleSubmitOldItem(task: any) {
+			dispatch(addOldTask({
+				...task,
+				completed: false,
+			}));
+			dispatch(tasksCompleted.actions.deleted(task.id));
 		}
 	})
 )(CreateTask);
