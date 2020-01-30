@@ -28,15 +28,11 @@ const baseConfig = () => ({
 							presets: [
 								"@babel/preset-typescript",
 								"@babel/preset-react",
-								["@babel/preset-env", {
-									"targets": {
-									"chrome": "58",
-									"ie": "10"
-								}
-								}],
+								"@babel/preset-env",
 							],
 							plugins: [
 								"@babel/plugin-transform-typescript",
+								// "@babel/plugin-transform-regenerator",
 								"@babel/plugin-proposal-class-properties",
 								"@babel/plugin-syntax-dynamic-import",
 							]

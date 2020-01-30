@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
-import { setIsCompleted } from '../../store';
+import { setIsCompleted } from '../../store/tasks';
 
 import './styles.scss';
 
@@ -48,7 +48,7 @@ const Item = ({ data, toggleChecked }: ItemProps) => {
 
 export default connect(
 	(state: any, ownProps: any) => ({
-		data: state.byId[ownProps.taskId],
+		data: state.tasks.byId[ownProps.taskId],
 	}),
 	(dispatch: any) => ({
 		toggleChecked(task: WTask) {

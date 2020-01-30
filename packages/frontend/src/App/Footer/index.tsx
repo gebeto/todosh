@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import './styles.scss';
 
 import { WTask } from '../Wunderlist';
-import { addNewTask } from '../store';
-import TaskModal from './TaskModal';
+import { addNewTask } from '../store/tasks';
+import TaskModal from './TaskModal/';
 
 import { useTransition } from '../hooks';
 

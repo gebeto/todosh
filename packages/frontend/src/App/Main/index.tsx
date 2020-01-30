@@ -23,6 +23,6 @@ const List = ({ tasksIds }: ListProps) => {
 
 export default connect(
 	(state: any) => ({
-		tasksIds: state.ids
+		tasksIds: state.tasks.ids
 	}),
 )(List);

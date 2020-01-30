@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 
-import store, { loadTasks } from './store';
+import store from './store/';
+import { loadTasks } from './store/tasks';
+import { loadTasksCompleted } from './store/tasks-completed';
 
 import './styles.scss';
 
@@ -13,7 +15,7 @@ import Footer from './Footer/';
 
 const App = (props: any) => {
 	React.useEffect(() => {
-		props.loadTasks();
+		props.initializeTasks();
 	}, [])
 
 	return (
@@ -29,7 +31,14 @@ const App = (props: any) => {
 	)
 };
 
-const AppConnected = connect(undefined, { loadTasks })(App);
+const AppConnected = connect(undefined,
+	(dispatch: any) => ({
+		async initializeTasks() {
+			await loadTasks()(dispatch);
+			await loadTasksCompleted()(dispatch);
+		}
+	})
+)(App);
 
 
 export default (props: any) => (

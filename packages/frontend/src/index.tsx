@@ -1,3 +1,6 @@
+// import '@babel/polyfill';
+import "regenerator-runtime/runtime";
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 

@@ -1,14 +1,8 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 
-import CONFIG from '../config';
-import { Wunderlist, WTask } from './Wunderlist';
+import { WTask } from '../Wunderlist';
+import { wunderlist, LIST_ID } from './utils';
 
-
-const wunderlist = new Wunderlist(CONFIG);
-// const LIST_ID = 365103446;
-const LIST_ID = 409023867;
 
 interface InitialState {
 	isFetching: boolean;
@@ -25,7 +19,7 @@ const initialState: InitialState = {
 };
 
 
-const tasks = createSlice({
+export const tasks = createSlice({
 	name: 'tasks',
 	initialState: initialState,
 	reducers: {
@@ -92,7 +86,7 @@ export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: a
 		});
 }
 
-export const loadTasks = () => (dispatch: Dispatch) => {
+export const loadTasks = () => async (dispatch: Dispatch) => {
 	wunderlist.getTasksForState(LIST_ID, false)
 		.then(response => {
 			if (Array.isArray(response)) {
@@ -104,6 +98,3 @@ export const loadTasks = () => (dispatch: Dispatch) => {
 			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
 		});
 }
-
-
-export default createStore(tasks.reducer, applyMiddleware(thunk));

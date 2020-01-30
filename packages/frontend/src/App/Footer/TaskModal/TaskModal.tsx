@@ -1,12 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import Autocomplete from './Autocomplete';
+
 
 export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 	const wrapperRef = React.useRef(null);
 
 	const [ value, setValue ] = React.useState("");
-	const handleInputChange = React.useCallback(e => setValue(e.target.value), []);
+	const handleInputChange = React.useCallback(e => {
+		setValue(e.target.value)
+	}, []);
 
 	const handleWrapperClick = React.useCallback((e) => {
 		if (e.target === wrapperRef.current) {
@@ -34,17 +38,18 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 			ref={wrapperRef}
 			className={`inputter ${props.transitionState}`}
 		>
-			<input
-				ref={inputRef}
-				type="text"
-				className="input"
-				value={value}
-				onChange={handleInputChange}
-			/>
+			<div className="inputter-input-wrapper">
+				<input
+					ref={inputRef}
+					type="text"
+					value={value}
+					onChange={handleInputChange}
+				/>
+				<Autocomplete value={value} />
+			</div>
 		</form>
 	);
 });
 
 
-// export default (props: any) => ReactDOM.createPortal(<TaskModal {...props} />, document.body);
 export default TaskModal;
