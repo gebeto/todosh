@@ -1,6 +1,7 @@
 {
 	"private": true,
 	"scripts": {
+		"test": "exit 0",
 		"build": "yarn workspace @wsl/frontend build",
 		"start": "yarn workspace @wsl/backend start"
 	},

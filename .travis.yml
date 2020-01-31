@@ -1,7 +1,24 @@
 language: node_js
+node_js:
+  - 10
+
+before_deploy:
+  - if ! [[ $TRAVIS_TAG ]]; then export TRAVIS_TAG=1 && yarn build && mv .gitignore .gitignore1; elif [ -f .gitignore1 ]; then mv .gitignore1 .gitignore; fi
+
 deploy:
-  - on: master
-    provider: heroku
+  - provider: pages
+    on: master
+    local_dir: packages/frontend/dist/
+    verbose: true
+    github_token:
+      secure: "YH7/VG4TyUnGqrXoM21ReWVpVUQ9IU1XposKyYfDM6G9muR6Akiip3PLzVvVYdp64LLyq+q51032yrApclRI1wNyOES4IWAwzYcMd2fYRnI4eyZHOFiOKBFoapZm8zvBDUXsxpJ3F9bWOpg8n7at26XZdb8OcoG0kzjtPTxFHzlx+iOy8ZykK3leev5WQGPYi9QD2AB7UBd8ZBR5TGX62gKRJXN35+kkfqg+ZcLhJom4K6IddrobZ3phm4xLe60B86/87lnWvJEF3APiLiy04tB9hgTYku4URKYkywWQIwuh10pUF+UZjh/BQHrbZWv7ZZ4aUpSmYdhUCl4Bm6/CXyfWfKk41wZii99KJIVfTeIddgCpeA2NXZGVrGCBtzwcQa8tykCeaMAnbGRrLtWfGX7JvBFXAi8Cfuq+vPuV1FggHVPY54RrM912I34wM4WoontvoCzfK7F+t4tZ7YaZFth+HmT6ZIJJY6hD+5HF1QP56ZLMougs5aVnmuJFUVA9S4LwClYuIsfGzecHI7UekFq6wxGwtTvDA+tD3bee+urFqaGm2uytQHymokmMXj6WQMtR3IJVGRZQoRkv0K7yvddLYfPmDyN6bxvwEq0KeSypzXViYtOtiM199phoIiUet4kW1U4TRMsIpSKQf9d6fox/88WxYnOpvbzXBYkr2WQ="
+    skip_cleanup: true
+    keep_history: false
+
+  - provider: heroku
+    on: master
     app: wundershoppinglist
     api_key:
       secure: Cybd7fnkvQp46pPJRuNsA0hSMYyF4KJTZxmdTm9cah/qR+cRUVKHdROld1zNESxSQsHtrdkU6/47hkf16Kdn3kNUXBYpnpZPG0PyD0ggRweuEIUu20jSxW6BCOy7YC1AVN02VOiqkJkRkF0i2Iy9IXGO6GaM5EAeTUrmJdbSD2SwxxEPN5j6y5E6/TlB3Dvj6IVsTa/Y771n2B6ZT5xe4d/RBi1sGS8HCSarLwetVKtwBbCdVcvhakYHFOl5v+s6uOqTcy3Bcobcrb291mLvNCBe/e/SrjdTQx/brtwqsaMIBCJxWZk+TgAbF3KFM5M04uZp3SzD2WuRY7m2Zcs13g7oHp7vdvlkyZJTERWn3OUkqeQE3sSkoTkgS/4dw4qrdomRgG4CY5RkYVONklhq0yd2uPLaPx2cKEFezI9rzeJgzOae7q4/RxoT4i0+kXVW6saL1Ysy/kQNPIejc8UWonbo+f5ZYLyhjghtBg5wNhTWiQ5dFGD8D35/ZmQeiyp12Cah6Vp7fuBSrqCUwoAgF4J3sq7stoZr5rTgQmzevIMF48gfrm3F0yYBQDP7JPL23XnVkFFQtS0Zy1afZq7yTJftnkCO4QbTm3lr6rzBfYYRF8+6nUhJ6fVVbcmTXn6mczhGaHfC6CN4Wyc1iWO2L0/n7kOeru3eLaGRaTlQtjY=
+
+
