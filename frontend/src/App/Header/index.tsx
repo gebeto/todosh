@@ -2,6 +2,7 @@ import * as React from 'react';
 import './styles.scss';
 
 import settingsIcon from './settings-icon.svg';
+import logoutIcon from './logout.svg';
 
 
 const Header = (props: any) => {
@@ -14,7 +15,7 @@ const Header = (props: any) => {
 		<div className="header">
 			<div className="container header-container">
 				<h1>List</h1>
-				<img src={settingsIcon} height="28" onClick={handleLogout} />
+				<img src={logoutIcon} height="26" onClick={handleLogout} />
 			</div>
 		</div>
 	)
