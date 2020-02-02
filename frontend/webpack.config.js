@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // const CONFIG = require('@wsl/config');
 
@@ -56,11 +57,19 @@ const baseConfig = () => ({
 			},
 		]
 	},
-	// plugins: [
-	// 	new webpack.DefinePlugin({
-	// 		"process.env.CLIENT_ID": JSON.stringify(CONFIG.client_id),
-	// 	})
-	// ],
+
+	devServer: {
+		contentBase: path.join(__dirname, 'dist'),
+		compress: true,
+		port: 9000
+	},
+
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, 'src/index.ejs'),
+			inject: false,
+		}),
+	],
 });
 
 module.exports = baseConfig();
