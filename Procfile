@@ -1,2 +1,2 @@
-web: node packages/backend/index.js
+web: node backend/index.js
 

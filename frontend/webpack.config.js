@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const CONFIG = require('@wsl/config');
+// const CONFIG = require('@wsl/config');
 
 
 const baseConfig = () => ({
@@ -32,7 +32,6 @@ const baseConfig = () => ({
 							],
 							plugins: [
 								"@babel/plugin-transform-typescript",
-								// "@babel/plugin-transform-regenerator",
 								"@babel/plugin-proposal-class-properties",
 								"@babel/plugin-syntax-dynamic-import",
 							]
@@ -52,16 +51,16 @@ const baseConfig = () => ({
 				test: /\.svg$/,
 				loader: 'file-loader',
 				options: {
-					name: 'svg/[path]/[name].[ext]',
+					name: 'svg/[name].[ext]',
 				},
 			},
 		]
 	},
-	plugins: [
-		new webpack.DefinePlugin({
-			"process.env.CLIENT_ID": JSON.stringify(CONFIG.client_id),
-		})
-	],
+	// plugins: [
+	// 	new webpack.DefinePlugin({
+	// 		"process.env.CLIENT_ID": JSON.stringify(CONFIG.client_id),
+	// 	})
+	// ],
 });
 
 module.exports = baseConfig();
