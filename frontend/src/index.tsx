@@ -10,7 +10,7 @@ import './styles.scss';
 
 
 const AuthApp = () => (
-	<form className="login-button-wrapper" method="POST" action="http://localhost:5000/auth">
+	<form className="login-button-wrapper" method="POST" action="https://wundershoppinglist.herokuapp.com/auth">
 		<input type="hidden" name="redirect" value={window.location.href} />
 		<button type="submit" className="login-button">Login with Wunderlist</button>
 	</form>
