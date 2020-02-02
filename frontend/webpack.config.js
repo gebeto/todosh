@@ -1,8 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// const CONFIG = require('@wsl/config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const { fileLoaderFor } = require('./config/loaders/file-loader');
+const { babelLoaderFor } = require('./config/loaders/babel-loader');
+const { stylesLoaderFor } = require('./config/loaders/styles-loader');
 
 
 const baseConfig = () => ({
@@ -19,42 +23,9 @@ const baseConfig = () => ({
 
 	module: {
 		rules: [
-			{
-				test: /\.(t|j)sx?$/,
-				exclude: [],
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: [
-								"@babel/preset-typescript",
-								"@babel/preset-react",
-								"@babel/preset-env",
-							],
-							plugins: [
-								"@babel/plugin-transform-typescript",
-								"@babel/plugin-proposal-class-properties",
-								"@babel/plugin-syntax-dynamic-import",
-							]
-						}
-					}
-				],
-			},
-			{
-				test: /\.s?css$/,
-				use: [
-					'style-loader',
-					'css-loader',
-					'sass-loader'
-				]
-			},
-			{
-				test: /\.svg$/,
-				loader: 'file-loader',
-				options: {
-					name: 'svg/[name].[ext]',
-				},
-			},
+			babelLoaderFor(/\.(t|j)sx?$/),
+			stylesLoaderFor(/\.s?css$/),
+			fileLoaderFor(/\.svg$/, 'svg'),
 		]
 	},
 
@@ -69,7 +40,11 @@ const baseConfig = () => ({
 			template: path.resolve(__dirname, 'src/index.ejs'),
 			inject: false,
 		}),
+		new CopyPlugin([
+			{ from: 'public/pwa', to: 'pwa' }
+		])
 	],
 });
+
 
 module.exports = baseConfig();

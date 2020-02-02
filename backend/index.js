@@ -9,12 +9,8 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/dist', express.static(path.resolve(__dirname, "../frontend/dist")));
-app.use('/static', express.static(path.resolve(__dirname, "static")));
-
-
 app.get('/', function(req, res) {
-	res.sendFile(path.resolve(__dirname, 'index.html'));
+	res.send('Hello world!');
 });
 
 const data = {};
