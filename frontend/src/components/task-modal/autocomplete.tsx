@@ -45,7 +45,9 @@ export const Autocomplete = ({ value, completedTasks, onSelect }: any) => (value
 	</ul>
 ) : null;
 
+
 const emptyArray: any[] = [];
+
 export default connect(
 	(state: any, ownProps: any) => ({
 		completedTasks: ownProps.value ? mapWithLimit(

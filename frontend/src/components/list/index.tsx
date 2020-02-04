@@ -1,28 +1,26 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { ListItem } from '../list-item/';
 import './styles.scss';
 
-import { WTask } from '../Wunderlist';
-import Item from './Item/';
 
 interface ListProps {
 	tasksIds: string[];
 }
 
-const List = ({ tasksIds }: ListProps) => {
+export const ListRaw = ({ tasksIds }: ListProps) => {
 	return (
 		<div className="container">
 			<ul className="list">
-				{tasksIds.map((taskId: any) => <Item key={taskId} taskId={taskId} />)}
+				{tasksIds.map((taskId: any) => <ListItem key={taskId} taskId={taskId} />)}
 			</ul>
 		</div>
 	)
 }
 
-
-export default connect(
+export const List = connect(
 	(state: any) => ({
 		tasksIds: state.tasks.ids
 	}),
-)(List);
+)(ListRaw);

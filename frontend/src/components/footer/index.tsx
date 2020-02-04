@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 import './styles.scss';
 
-import { WTask } from '../Wunderlist';
-import { addNewTask, addOldTask } from '../store/tasks';
-import { tasksCompleted } from '../store/tasks-completed';
-import TaskModal from './TaskModal/';
+import { WTask } from '../../Wunderlist';
+import { addNewTask, addOldTask } from '../../store/tasks';
+import { tasksCompleted } from '../../store/tasks-completed';
+import TaskModal from '../task-modal/';
 
-import { useTransition } from '../hooks';
+import { useTransition } from '../../hooks/use-transition';
 
 const useFocus = () => {
 	const htmlElRef = React.useRef(null)

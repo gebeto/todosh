@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import { setIsCompleted } from '../../store/tasks';
+import { WTask } from '../../Wunderlist';
 
 import './styles.scss';
-
-import { WTask } from '../../Wunderlist';
 
 
 const listItemTransitionClassNames: any = {
@@ -25,7 +24,7 @@ interface ItemProps {
 }
 
 
-const Item = ({ data, toggleChecked }: ItemProps) => {
+export const ListItemRaw = ({ data, toggleChecked }: ItemProps) => {
 	const handleClick = React.useCallback(() => {
 		toggleChecked(data);
 	}, [data]);
@@ -45,7 +44,7 @@ const Item = ({ data, toggleChecked }: ItemProps) => {
 }
 
 
-export default connect(
+export const ListItem = connect(
 	(state: any, ownProps: any) => ({
 		data: state.tasks.byId[ownProps.taskId],
 	}),
@@ -54,4 +53,4 @@ export default connect(
 			dispatch(setIsCompleted(task, !task.completed));
 		},
 	}),
-)(Item);
+)(ListItemRaw);

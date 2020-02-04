@@ -2,18 +2,18 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 
-import store from './store/';
-import { loadTasks } from './store/tasks';
-import { loadTasksCompleted } from './store/tasks-completed';
+import store from '../../store/';
+import { loadTasks } from '../../store/tasks';
+import { loadTasksCompleted } from '../../store/tasks-completed';
 
 import './styles.scss';
 
-import Header from './Header/';
-import Main from './Main/';
-import Footer from './Footer/';
+import Header from '../../components/header/';
+import Footer from '../../components/footer/';
+import { List } from '../../components/list/';
 
 
-const App = (props: any) => {
+const ShoppingRaw = (props: any) => {
 	React.useEffect(() => {
 		props.initializeTasks();
 	}, [])
@@ -23,7 +23,7 @@ const App = (props: any) => {
 			<div className="app">
 				<Header />
 				<div className="main">
-					<Main />
+					<List />
 				</div>
 				<Footer />
 			</div>
@@ -31,18 +31,18 @@ const App = (props: any) => {
 	)
 };
 
-const AppConnected = connect(undefined,
+export const ShoppingConnected = connect(undefined,
 	(dispatch: any) => ({
 		async initializeTasks() {
 			await loadTasks()(dispatch);
 			await loadTasksCompleted()(dispatch);
 		}
 	})
-)(App);
+)(ShoppingRaw);
 
 
-export default (props: any) => (
+export const Shopping = (props: any) => (
 	<Provider store={store}>
-		<AppConnected />
+		<ShoppingConnected />
 	</Provider>
 );

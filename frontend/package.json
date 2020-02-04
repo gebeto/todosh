@@ -9,7 +9,7 @@
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
     "watch": "yarn dev --watch",
-    "serve": "webpack-dev-server --mode development"
+    "serve": "webpack-dev-server"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.3",

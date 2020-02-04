@@ -30,8 +30,8 @@ const baseConfig = () => ({
 	},
 
 	devServer: {
-		contentBase: path.join(__dirname, 'dist'),
-		compress: true,
+		// contentBase: path.resolve(__dirname, "dist"),
+		// compress: true,
 		port: 9000
 	},
 
@@ -42,7 +42,10 @@ const baseConfig = () => ({
 		}),
 		new CopyPlugin([
 			{ from: 'public/pwa', to: 'pwa' }
-		])
+		]),
+		new webpack.DefinePlugin({
+			AUTH_ENDPOINT: JSON.stringify(process.env.AUTH_ENDPOINT ? process.env.AUTH_ENDPOINT : 'http://wundershoppinglist.herokuapp.com/auth')
+		}),
 	],
 });
 
