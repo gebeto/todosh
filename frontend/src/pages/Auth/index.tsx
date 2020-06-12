@@ -1,6 +1,5 @@
 import * as React from 'react';
 import './styles.scss';
-import CONFIG from '../../config';
 
 import { UserAgentApplication, AuthResponse } from 'msal';
 

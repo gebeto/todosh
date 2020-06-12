@@ -1,8 +1,5 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-// import { ITask } from '../Wunderlist';
-// import { wunderlist, LIST_ID } from './utils';
-
 import { getTasks, ITask } from '../api/';
 
 
@@ -69,8 +66,11 @@ export const tasks = createSlice({
 });
 
 
-export const setIsCompleted = (task: ITask, isCompleted: boolean) => (dispatch: Dispatch) => {
-	dispatch(tasks.actions.updated({...task, completed: isCompleted}));
+export const toggleIsCompleted = (task: ITask) => (dispatch: Dispatch) => {
+	dispatch(tasks.actions.updated({
+		...task,
+		completedDateTime: task.completedDateTime ? null : (new Date()).toISOString(),
+	}));
 	// wunderlist.completeTask(task.id, task.revision, isCompleted).then((res: ITask) => {
 	// 	dispatch(tasks.actions.updated({...task, revision: res.revision, completed: res.completed}));
 	// });
@@ -106,7 +106,7 @@ export const loadTasks = () => async (dispatch: Dispatch) => {
 	getTasks(undefined, false)
 		.then(response => {
 			if (Array.isArray(response.value)) {
-				dispatch(tasks.actions.fetchingSuccess(response));
+				dispatch(tasks.actions.fetchingSuccess(response.value));
 			} else {
 				dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
 			}

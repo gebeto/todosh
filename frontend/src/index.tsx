@@ -5,7 +5,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import './styles.scss';
-import CONFIG from './config';
 
 import Authenticate from 'react-openidconnect';
 

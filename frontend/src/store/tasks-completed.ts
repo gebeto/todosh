@@ -83,8 +83,6 @@ export const loadTasksCompleted = () => async (dispatch: Dispatch) => {
 	// 		dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
 	// 	});
 	getTasks(undefined, true).then(res => {
-		console.log('TASKSKSSKS', res);
-		// dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
 		dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
 	})
 }

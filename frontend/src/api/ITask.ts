@@ -9,7 +9,7 @@ export interface ITask {
 	body: ITaskBody;
 	categories: any[];
 	changeKey: string;
-	completedDateTime: string;
+	completedDateTime: string | null;
 	createdDateTime: string;
 	dueDateTime: string;
 	hasAttachments: boolean;

@@ -27,9 +27,10 @@ export const getTaskFolders = async () => {
 	return tasks;
 }
 
-export const getTasks = async (folderId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==", completed = false) => {
+const defaultFolder = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
+export const getTasks = async (folderId = defaultFolder, completed = false) => {
 	const client = getAuthenticatedClient();
-	const completedFilter = completed ? "&filter=status ne 'completed'" : "&filter=status ne 'uncompleted'";
+	const completedFilter = completed ? "" : "&filter=status ne 'completed'";
 	const tasks = await client.api(`/me/outlook/taskFolders/${folderId}/tasks?count=true&top=1000${completedFilter}`).get() as Promise<{
 		["@odata.context"]: string;
 		["@odata.count"]: number;
