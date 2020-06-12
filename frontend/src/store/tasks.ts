@@ -79,10 +79,9 @@ export const toggleIsCompleted = (task: ITask) => (dispatch: Dispatch) => {
 
 
 export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: any) => {
-	// wunderlist.createTask(LIST_ID, taskText)
-	// 	.then(task => {
-	// 		dispatch(tasks.actions.added(task));
-	// 	});
+	createTask(taskText).then(res => {
+		dispatch(tasks.actions.added(res));
+	});
 }
 
 export const addOldTask = (task: ITask) => (dispatch: Dispatch, getState: any) => {
@@ -93,16 +92,7 @@ export const addOldTask = (task: ITask) => (dispatch: Dispatch, getState: any) =
 }
 
 export const loadTasks = () => async (dispatch: Dispatch) => {
-	// wunderlist.getTasksForState(LIST_ID, false)
-	// 	.then(response => {
-	// 		if (Array.isArray(response)) {
-	// 			dispatch(tasks.actions.fetchingSuccess(response));
-	// 		} else {
-	// 			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
-	// 		}
-	// 	}).catch(err => {
-	// 		dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
-	// 	});
+	dispatch(tasks.actions.fetchingPending());
 	getTasks(undefined, false)
 		.then(response => {
 			if (Array.isArray(response.value)) {

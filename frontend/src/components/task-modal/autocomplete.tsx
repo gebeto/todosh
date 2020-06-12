@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { tasksCompleted } from '../../store/tasks-completed';
-import { tasks, addOldTask } from '../../store/tasks';
+import { tasks } from '../../store/tasks';
 
 
 

@@ -51,9 +51,10 @@ export const uncompleteTask = async (taskId: string) => {
 	return completion;
 }
 
-export const createTask = async (subject: string) => {
+export const createTask = async (subject: string, folderId = defaultFolder) => {
 	const client = getAuthenticatedClient();
-	const task = await client.api(`/me/outlook/tasks`).post({ subject: subject });
+	// const task = await client.api(`/me/outlook/tasks`).post({ subject: subject });
+	const task = await client.api(`/me/outlook/taskFolders/${folderId}/tasks`).post({ subject: subject });
 	return task;
 }
 
