@@ -1,15 +1,14 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { WTask } from '../Wunderlist';
-import { wunderlist, LIST_ID } from './utils';
+import { getTasks, ITask } from '../api/';
 
 
 interface TasksState {
 	isFetching: boolean;
 	isFetchingError: boolean;
-	ids: number[];
-	byId: Record<number, WTask>;
-	items: WTask[];
+	ids: string[];
+	byId: Record<string, ITask>;
+	items: ITask[];
 }
 
 const initialState: TasksState = {
@@ -29,11 +28,11 @@ export const tasksCompleted = createSlice({
 			...state,
 			isFetching: true,
 		}),
-		fetchingSuccess: (state, { payload }: PayloadAction<WTask[]>) => ({
+		fetchingSuccess: (state, { payload }: PayloadAction<ITask[]>) => ({
 			...state,
 			isFetching: false,
 			ids: payload.map(item => item.id),
-			byId: payload.reduce((curr: Record<number, WTask>, item) => {
+			byId: payload.reduce((curr: Record<string, ITask>, item) => {
 				curr[item.id] = item;
 				return curr;
 			}, {}),
@@ -44,7 +43,7 @@ export const tasksCompleted = createSlice({
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state: TasksState, { payload }: PayloadAction<WTask>) => ({
+		added: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
 			...state,
 			ids: [...state.ids, payload.id],
 			byId: {
@@ -53,12 +52,12 @@ export const tasksCompleted = createSlice({
 			},
 			items: [...state.items, payload]
 		}),
-		deleted: (state: TasksState, { payload }: PayloadAction<number>) => {
+		deleted: (state: TasksState, { payload }: PayloadAction<string>) => {
 			delete state.byId[payload];
 			state.items = state.items.filter(item => item.id !== payload);
 			return state;
 		},
-		updated: (state: TasksState, { payload }: PayloadAction<WTask>) => ({
+		updated: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
 			...state,
 			byId: {
 				...state.byId,
@@ -73,14 +72,19 @@ export const tasksCompleted = createSlice({
 
 
 export const loadTasksCompleted = () => async (dispatch: Dispatch) => {
-	wunderlist.getTasksForState(LIST_ID, true)
-		.then(response => {
-			if (Array.isArray(response)) {
-				dispatch(tasksCompleted.actions.fetchingSuccess(response));
-			} else {
-				dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
-			}
-		}).catch(err => {
-			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
-		});
+	// wunderlist.getTasksForState(LIST_ID, true)
+	// 	.then(response => {
+	// 		if (Array.isArray(response)) {
+	// 			dispatch(tasksCompleted.actions.fetchingSuccess(response));
+	// 		} else {
+	// 			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
+	// 		}
+	// 	}).catch(err => {
+	// 		dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
+	// 	});
+	getTasks(undefined, true).then(res => {
+		console.log('TASKSKSSKS', res);
+		// dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
+		dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
+	})
 }

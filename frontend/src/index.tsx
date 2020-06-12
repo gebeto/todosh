@@ -7,11 +7,18 @@ import * as ReactDOM from 'react-dom';
 import './styles.scss';
 import CONFIG from './config';
 
+import Authenticate from 'react-openidconnect';
+
 import { Auth } from './pages/Auth/';
 import { Shopping } from './pages/Shopping/';
 
 
-const App = CONFIG.access_token ? Shopping : Auth;
 
-
-ReactDOM.render(<App/>, document.getElementById("root"));
+ReactDOM.render(
+	(
+		<Auth>
+			<Shopping />
+		</Auth>
+	),
+	document.getElementById("root")
+);

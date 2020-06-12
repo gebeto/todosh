@@ -3,6 +3,7 @@
 	"scripts": {
 		"test": "exit 0",
 		"build": "yarn workspace @wsl/frontend build",
+		"watch": "yarn workspace @wsl/frontend watch",
 		"start": "yarn workspace @wsl/backend start"
 	},
 	"workspaces": [
