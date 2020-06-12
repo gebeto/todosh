@@ -1,6 +1,6 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { getTasks, ITask } from '../api/';
+import { getTasks, completeTask, uncompleteTask, ITask } from '../api/';
 
 
 interface TasksState {
@@ -71,9 +71,10 @@ export const toggleIsCompleted = (task: ITask) => (dispatch: Dispatch) => {
 		...task,
 		completedDateTime: task.completedDateTime ? null : (new Date()).toISOString(),
 	}));
-	// wunderlist.completeTask(task.id, task.revision, isCompleted).then((res: ITask) => {
-	// 	dispatch(tasks.actions.updated({...task, revision: res.revision, completed: res.completed}));
-	// });
+	const updateTaskCompletion = task.completedDateTime ? uncompleteTask : completeTask;
+	updateTaskCompletion(task.id).then(res => {
+		dispatch(tasks.actions.updated(res));
+	})
 }
 
 

@@ -39,4 +39,16 @@ export const getTasks = async (folderId = defaultFolder, completed = false) => {
 	return tasks;
 }
 
+export const completeTask = async (taskId: string) => {
+	const client = getAuthenticatedClient();
+	const completion = await client.api(`/me/outlook/tasks/${taskId}`).patch({ status: "completed" });
+	return completion;
+}
+
+export const uncompleteTask = async (taskId: string) => {
+	const client = getAuthenticatedClient();
+	const completion = await client.api(`/me/outlook/tasks/${taskId}`).patch({ status: "notStarted" });
+	return completion;
+}
+
 export { ITask }
