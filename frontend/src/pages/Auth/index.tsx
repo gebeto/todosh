@@ -64,7 +64,7 @@ export class Auth extends React.Component<any, any> {
 		}
 		return (
 			<form className="login-button-wrapper">
-				<button type="button" onClick={this.login} className="login-button">Login with Wunderlist</button>
+				<button type="button" onClick={this.login} className="login-button">Login with Microsoft</button>
 			</form>
 		);
 
