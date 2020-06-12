@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import './styles.scss';
 
-import { WTask } from '../../Wunderlist';
 import { addNewTask, addOldTask } from '../../store/tasks';
 import { tasksCompleted } from '../../store/tasks-completed';
 import TaskModal from '../task-modal/';
@@ -67,7 +66,7 @@ export default connect(
 		handleSubmitOldItem(task: any) {
 			dispatch(addOldTask({
 				...task,
-				completed: false,
+				completedDateTime: null,
 			}));
 			dispatch(tasksCompleted.actions.deleted(task.id));
 		}

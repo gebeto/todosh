@@ -1,6 +1,6 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { getTasks, completeTask, uncompleteTask, ITask } from '../api/';
+import { getTasks, createTask, completeTask, uncompleteTask, ITask } from '../api/';
 
 
 interface TasksState {
@@ -86,11 +86,10 @@ export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: a
 }
 
 export const addOldTask = (task: ITask) => (dispatch: Dispatch, getState: any) => {
-	// dispatch(tasks.actions.added(task));
-	// wunderlist.completeTask(task.id, task.revision, task.completed)
-	// 	.then((res: ITask) => {
-	// 		dispatch(tasks.actions.updated(res));
-	// 	});
+	dispatch(tasks.actions.added(task));
+	uncompleteTask(task.id).then(res => {
+		dispatch(tasks.actions.updated(res));
+	});
 }
 
 export const loadTasks = () => async (dispatch: Dispatch) => {
