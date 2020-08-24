@@ -26,7 +26,7 @@ msalInstance.handleRedirectCallback((error, response) => {
 
 	if (response && response.tokenType === "access_token") {
 		localStorage.setItem("__accesstoken", response.accessToken);
-		query(response.accessToken);
+		// query(response.accessToken);
 	} else if (response && response.tokenType === "id_token") {
 		getToken();
 	}
