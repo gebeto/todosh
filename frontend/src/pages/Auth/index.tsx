@@ -1,6 +1,8 @@
 import * as Msal from "msal";
 import * as React from "react";
 
+import './styles.scss';
+
 
 const msalConfig = {
 	auth: {
@@ -74,9 +76,9 @@ export const AuthProvider = (props: any) => {
 
 	if (!token) {
 		return (
-			<div>
-				<button onClick={login}>Login</button>
-			</div>
+			<form className="login-button-wrapper">
+				<button type="button" onClick={login} className="login-button">Login</button>
+			</form>
 		);
 	}
 

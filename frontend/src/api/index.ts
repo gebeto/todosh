@@ -1,24 +1,12 @@
 import { Client } from '@microsoft/microsoft-graph-client';
-import { AuthResponse } from 'msal';
-
 import { ITask } from './ITask';
-
-import store from '../store/';
-
-(window as any).microsoft = {
-	Client: Client,
-}
 
 
 const getAuthenticatedClient = () => {
-	// const accessToken = localStorage.getItem('access_token');
-	// const accessToken = store.getState().user.jwtIdToken;
 	const accessToken = localStorage.getItem('__accesstoken');
-	console.log("TOKEN", accessToken)
 	const client = Client.init({
 		defaultVersion: 'beta',
 		authProvider: (done) => {
-			// console.log(done);
 			done(null, accessToken);
 		}
 	});

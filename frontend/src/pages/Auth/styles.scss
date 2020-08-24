@@ -7,12 +7,15 @@
 	align-items: center;
 	
 	.login-button {
+		font-size: 2em;
 		padding: 4em;
 		background: #fff;
 
 		text-decoration: none;
 		color: #000;
 		font-weight: lighter;
+		border: none;
+		border: 1px solid rgba(0,0,0,0.1);
 		border-radius: 1em;
 	}
 }
