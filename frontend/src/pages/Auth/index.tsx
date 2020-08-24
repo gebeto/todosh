@@ -68,11 +68,11 @@ const MSALContext = React.createContext(null);
 
 
 export const AuthProvider = (props: any) => {
-	const [token, setToken] = React.useState(null);
+	const [token, setToken] = React.useState(localStorage.getItem('__accesstoken'));
 
-	React.useEffect(() => {
-		setToken(localStorage.getItem('__accesstoken'));
-	}, []);
+	// React.useEffect(() => {
+	// 	setToken(localStorage.getItem('__accesstoken'));
+	// }, []);
 
 	if (!token) {
 		return (
@@ -83,7 +83,7 @@ export const AuthProvider = (props: any) => {
 	}
 
 	return (
-		<MSALContext.Provider value={token}>
+		<MSALContext.Provider value={null}>
 			{props.children}
 		</MSALContext.Provider>
 	);
