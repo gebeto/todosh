@@ -6,7 +6,7 @@ import { UserAgentApplication, AuthResponse } from 'msal';
 import { getUserDetails } from '../../api/';
 
 
-const scopes = ['User.Read', 'Tasks.ReadWrite'];
+const scopes = ['user.read', 'tasks.readwrite'];
 
 export class Auth extends React.Component<any, any> {
 	state = {
