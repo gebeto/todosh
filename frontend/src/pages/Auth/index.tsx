@@ -1,74 +1,93 @@
-import * as React from 'react';
-import './styles.scss';
-
-import { UserAgentApplication, AuthResponse } from 'msal';
-
-import { getUserDetails } from '../../api/';
+import * as Msal from "msal";
+import * as React from "react";
 
 
-const scopes = ['user.read', 'tasks.readwrite'];
+const msalConfig = {
+	auth: {
+		authority: "https://login.microsoftonline.com/common",
+		clientId: "7fc7de55-63f9-4fea-91a2-b7a54eed78a9",
+		redirectUri: window.location.origin + window.location.pathname,
+		navigateToLoginRequestUrl: true,
+	},
+	cache: {
+		cacheLocation: "localStorage",
+		storeAuthStateInCookie: false
+	},
+};
 
-export class Auth extends React.Component<any, any> {
-	state = {
-		user: undefined,
-		isAuthorized: !!localStorage.getItem('access_token'),
-	};
+const msalInstance = new Msal.UserAgentApplication(msalConfig as any);
 
-	userAgent = new UserAgentApplication({
-		auth: {
-			clientId: '7fc7de55-63f9-4fea-91a2-b7a54eed78a9',
-			// redirectUri: 'http://localhost:5000',
-			redirectUri: window.location.origin + window.location.pathname,
-		},
-		cache: {
-			cacheLocation: 'localStorage',
-			storeAuthStateInCookie: true,
-		}
+msalInstance.handleRedirectCallback((error, response) => {
+	if (error) {
+		alert(JSON.stringify(error));
+	}
+
+	if (response && response.tokenType === "access_token") {
+		localStorage.setItem("__accesstoken", response.accessToken);
+		query(response.accessToken);
+	} else if (response && response.tokenType === "id_token") {
+		getToken();
+	}
+});
+
+function login() {
+	msalInstance.loginRedirect({
+		scopes: ["user.read", "tasks.readwrite"]
 	});
+}
 
-	constructor(props: any) {
-		super(props);
 
-		const user = this.userAgent.getAccount();
-		console.log(user);
-	}
-
-	login = async () => {
-		await this.userAgent.loginPopup({
-			scopes: scopes,
-			prompt: 'select_account',
-		});
-		await this.getUserProfile();
-	}
-
-	logout = async () => {
-		await this.userAgent.logout();
-	}
-
-	getUserProfile = async () => {
-		const accessToken = await this.userAgent.acquireTokenSilent({
-			scopes: scopes,
-		});
-
-		if (accessToken) {
-			console.log(accessToken);
-			localStorage.setItem('access_token', accessToken.accessToken)
-			this.setState((state: any) => ({ ...state, isAuthorized: true }));
-			const user = await getUserDetails();
-		}
-	}
-
-	render() {
-		if (this.state.isAuthorized) {
-			return this.props.children;
-		}
-		return (
-			<form className="login-button-wrapper">
-				<button type="button" onClick={this.login} className="login-button">Login with Microsoft</button>
-			</form>
-		);
-
+function getToken() {
+	if (msalInstance.getAccount()) {
+		var tokenRequest = {
+			scopes: ["user.read", "tasks.readwrite"]
+		};
+		msalInstance.acquireTokenRedirect(tokenRequest);
+		return;
+	} else {
+		console.log("NO, ERROR");
 	}
 }
 
-export default Auth;
+
+function query(token: string) {
+	var headers = new Headers();
+	var bearer = "Bearer " + token;
+	headers.append("Authorization", bearer);
+	fetch("https://graph.microsoft.com/beta/me/outlook/taskFolders", {method: "GET", headers: headers})
+		.then(resp => {
+			console.log(resp);
+			return resp.json();
+		}).then(rs => alert(JSON.stringify(rs)));
+}
+
+
+const MSALContext = React.createContext(null);
+
+
+export const AuthProvider = (props: any) => {
+	const [token, setToken] = React.useState(null);
+
+	React.useEffect(() => {
+		setToken(localStorage.getItem('__accesstoken'));
+	}, []);
+
+	if (!token) {
+		return (
+			<div>
+				<button onClick={login}>Login</button>
+			</div>
+		);
+	}
+
+	return (
+		<MSALContext.Provider value={token}>
+			{props.children}
+		</MSALContext.Provider>
+	);
+}
+
+
+export const useAuth = () => {
+
+}

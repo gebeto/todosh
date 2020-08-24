@@ -8,16 +8,16 @@ import './styles.scss';
 
 import Authenticate from 'react-openidconnect';
 
-import { Auth } from './pages/Auth/';
+import { AuthProvider } from './pages/Auth/';
 import { Shopping } from './pages/Shopping/';
 
 
 
 ReactDOM.render(
 	(
-		<Auth>
+		<AuthProvider>
 			<Shopping />
-		</Auth>
+		</AuthProvider>
 	),
 	document.getElementById("root")
 );

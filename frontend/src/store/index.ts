@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 import { tasks } from './tasks';
 import { tasksCompleted } from './tasks-completed';
+import { userReducer } from './user';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -13,6 +14,7 @@ export default createStore(
 	combineReducers({
 		tasks: tasks.reducer,
 		tasksCompleted: tasksCompleted.reducer,
+		user: userReducer,
 	}),
 	composeWithDevTools(
 		applyMiddleware(
