@@ -10,7 +10,7 @@ const getAuthenticatedClient = () => {
 			done(null, accessToken);
 		}
 	});
-	console.log(client);
+	// console.log(client);
 	(window as any).CLIENT = client;
 	return client;
 }
@@ -28,6 +28,7 @@ export const getTaskFolders = async () => {
 }
 
 const defaultFolder = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
+// const defaultFolder = "AQMkADAwATM3ZmYAZS0xODZlLTk1OTkALTAwAi0wMAoALgAAA0t3b9px629OsJvfPg-6ACIBAAVFSl5n0dhJutLic88EtnUAAaIlhkcAAAA=";
 export const getTasks = async (folderId = defaultFolder, completed = false) => {
 	const client = getAuthenticatedClient();
 	const completedFilter = completed ? "" : "&filter=status ne 'completed'";
