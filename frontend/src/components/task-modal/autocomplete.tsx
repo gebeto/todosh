@@ -31,7 +31,7 @@ export const AutocompleteItem = (props: any) => {
 
 	return (
 		<li className="inputter-autocomplete-item" onClick={handleClick}>
-			{props.data.subject}
+			{props.data.title}
 		</li>
 	);
 };
@@ -52,7 +52,7 @@ export default connect(
 	(state: any, ownProps: any) => ({
 		completedTasks: ownProps.value ? mapWithLimit(
 			state.tasksCompleted.items, 5,
-			(item: any) => new RegExp(ownProps.value, 'ig').test(item.subject)
+			(item: any) => new RegExp(ownProps.value, 'ig').test(item.title)
 		) : emptyArray
 	}),
 )(Autocomplete);

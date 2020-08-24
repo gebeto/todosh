@@ -39,7 +39,7 @@ export const ListItemRaw = ({ data, toggleChecked }: ItemProps) => {
 		>
 			<li onClick={handleClick} className="list-item">
 				<div className="list-item-check"></div>
-				<div className="list-item-title">{data.subject}</div>
+				<div className="list-item-title">{data.title}</div>
 			</li>
 		</CSSTransition>
 	)

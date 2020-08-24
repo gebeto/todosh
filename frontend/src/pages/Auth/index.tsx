@@ -64,7 +64,6 @@ function getTasks(listId: string) {
 
 function getUserTasks(userId: string, listId: string) {
 	const todoTaskListId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
-	// const url = `https://graph.microsoft.com/beta/me/todo/lists/${todoTaskListId}/tasks`;
 	const url = `https://graph.microsoft.com/beta/users/${userId}/todo/lists/${todoTaskListId}/tasks`;
 	query(url);
 }
@@ -94,7 +93,7 @@ export const AuthProvider = (props: any) => {
 
 	React.useEffect(() => {
 		// getLists();
-		getTasks("");
+		// getTasks("");
 		// getMe(); 
 		// getUserTasks("78b6e861a7ae38b0", "asd");
 		// query(localStorage.getItem("__accesstoken") as any)
