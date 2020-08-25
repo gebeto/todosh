@@ -6,6 +6,8 @@
   "author": "<slavik.nychkalo@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "parcel:build": "parcel build --public-url '.' index.html",
+    "parcel:start": "parcel --port=5000 index.html",
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
     "watch": "yarn dev --watch",
@@ -24,6 +26,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "msal": "^1.3.4",
+    "parcel-bundler": "^1.12.4",
     "react": "^16.12.0",
     "react-aad-msal": "^2.3.5",
     "react-dom": "^16.12.0",
@@ -40,7 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/plugin-transform-typescript": "^7.7.4",
     "@babel/polyfill": "^7.8.3",

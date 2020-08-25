@@ -4,7 +4,10 @@
 		"test": "exit 0",
 		"build": "yarn workspace @wsl/frontend build",
 		"watch": "yarn workspace @wsl/frontend watch",
-		"start": "yarn workspace @wsl/backend start"
+    "serve": "yarn workspace @wsl/frontend serve",
+		"start": "yarn workspace @wsl/backend start",
+    "parcel:start": "yarn workspace @wsl/backend parcel:start",
+    "parcel:build": "yarn workspace @wsl/backend parcel:build"
 	},
 	"workspaces": [
 		"frontend",

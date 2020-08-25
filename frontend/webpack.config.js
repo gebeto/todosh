@@ -30,23 +30,20 @@ const baseConfig = () => ({
 	},
 
 	devServer: {
-		// contentBase: path.resolve(__dirname, "dist"),
+		contentBase: path.resolve(__dirname, "dist"),
 		// compress: true,
-		port: 9000
+		port: 5000
 	},
 
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, 'src/index.ejs'),
+			template: path.resolve(__dirname, 'src/index.html'),
 			inject: false,
 		}),
 		new CopyPlugin({
 			patterns: [
 				{ from: 'public/pwa', to: 'pwa' }
 			]
-		}),
-		new webpack.DefinePlugin({
-			AUTH_ENDPOINT: JSON.stringify(process.env.AUTH_ENDPOINT ? process.env.AUTH_ENDPOINT : 'http://wundershoppinglist.herokuapp.com/auth')
 		}),
 	],
 });

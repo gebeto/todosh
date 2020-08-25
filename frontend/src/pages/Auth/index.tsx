@@ -1,4 +1,5 @@
 import { UserAgentApplication } from "msal";
+// import { UserAgentApplication } from "msal/src/UserAgentApplication";
 import * as React from "react";
 
 import './styles.scss';
