@@ -40,9 +40,11 @@ const baseConfig = () => ({
 			template: path.resolve(__dirname, 'src/index.ejs'),
 			inject: false,
 		}),
-		new CopyPlugin([
-			{ from: 'public/pwa', to: 'pwa' }
-		]),
+		new CopyPlugin({
+			patterns: [
+				{ from: 'public/pwa', to: 'pwa' }
+			]
+		}),
 		new webpack.DefinePlugin({
 			AUTH_ENDPOINT: JSON.stringify(process.env.AUTH_ENDPOINT ? process.env.AUTH_ENDPOINT : 'http://wundershoppinglist.herokuapp.com/auth')
 		}),
