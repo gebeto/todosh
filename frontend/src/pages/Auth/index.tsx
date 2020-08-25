@@ -1,4 +1,4 @@
-import * as Msal from "msal";
+import { UserAgentApplication } from "msal";
 import * as React from "react";
 
 import './styles.scss';
@@ -17,7 +17,7 @@ const msalConfig = {
 	},
 };
 
-const msalInstance = new Msal.UserAgentApplication(msalConfig as any);
+const msalInstance = new UserAgentApplication(msalConfig as any);
 
 msalInstance.handleRedirectCallback((error, response) => {
 	if (error) {

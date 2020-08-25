@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 
-export const useTransition = (initialState, isIn, timeout) => {
+export const useTransition = (initialState: any, isIn: boolean, timeout: number) => {
 	const [ state, setState ] = React.useState(initialState);
 	const [timeoutId, setTimeoutId] = React.useState(undefined);
 	
