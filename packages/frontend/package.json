@@ -1,18 +1,16 @@
 {
   "name": "@wsl/frontend",
   "version": "1.0.0",
-  "main": "./index.html",
   "repository": "https://github.com/gebeto/wundershoppinglist",
   "author": "<slavik.nychkalo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build ./index.html",
-    "start": "parcel --port=5000 ./index.html"
+    "build": "parcel build index.html",
+    "start": "parcel --port=5000 index.html"
   },
   "targets": {
-    "main": {
-      "distDir": "dist/test",
-      "publicUrl": "."
+    "default": {
+      "publicUrl": "./"
     }
   },
   "dependencies": {
