@@ -2,9 +2,6 @@ language: node_js
 node_js:
   - 10
 
-# before_deploy:
-#   - if ! [[ $TRAVIS_TAG ]]; then export TRAVIS_TAG=1 && yarn build && mv .gitignore .gitignore1; elif [ -f .gitignore1 ]; then mv .gitignore1 .gitignore; fi
-
 deploy:
   - provider: pages
     on: master
