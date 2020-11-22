@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 12
+
+deploy:
+  - provider: pages
+    on: master
+    local_dir: frontend/dist/
+    verbose: true
+    github_token:
+      secure: "YH7/VG4TyUnGqrXoM21ReWVpVUQ9IU1XposKyYfDM6G9muR6Akiip3PLzVvVYdp64LLyq+q51032yrApclRI1wNyOES4IWAwzYcMd2fYRnI4eyZHOFiOKBFoapZm8zvBDUXsxpJ3F9bWOpg8n7at26XZdb8OcoG0kzjtPTxFHzlx+iOy8ZykK3leev5WQGPYi9QD2AB7UBd8ZBR5TGX62gKRJXN35+kkfqg+ZcLhJom4K6IddrobZ3phm4xLe60B86/87lnWvJEF3APiLiy04tB9hgTYku4URKYkywWQIwuh10pUF+UZjh/BQHrbZWv7ZZ4aUpSmYdhUCl4Bm6/CXyfWfKk41wZii99KJIVfTeIddgCpeA2NXZGVrGCBtzwcQa8tykCeaMAnbGRrLtWfGX7JvBFXAi8Cfuq+vPuV1FggHVPY54RrM912I34wM4WoontvoCzfK7F+t4tZ7YaZFth+HmT6ZIJJY6hD+5HF1QP56ZLMougs5aVnmuJFUVA9S4LwClYuIsfGzecHI7UekFq6wxGwtTvDA+tD3bee+urFqaGm2uytQHymokmMXj6WQMtR3IJVGRZQoRkv0K7yvddLYfPmDyN6bxvwEq0KeSypzXViYtOtiM199phoIiUet4kW1U4TRMsIpSKQf9d6fox/88WxYnOpvbzXBYkr2WQ="
+    skip_cleanup: true
+    keep_history: false
