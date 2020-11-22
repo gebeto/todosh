@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - 12
 
+cache: yarn
+
 install:
   - yarn
 
@@ -13,7 +15,7 @@ deploy:
   provider: pages
   on:
     branch: master
-  local_dir: frontend/dist/
+  local_dir: packages/frontend/dist/
   verbose: true
   github_token: $GITHUB_TOKEN
   skip_cleanup: true
