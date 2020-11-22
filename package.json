@@ -6,6 +6,6 @@
     "build": "yarn workspace @wsl/frontend build"
 	},
 	"workspaces": [
-		"frontend"
+		"packages/*"
 	]
 }
