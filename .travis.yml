@@ -2,6 +2,13 @@ language: node_js
 node_js:
   - 12
 
+install:
+  - yarn
+
+script:
+  - yarn test
+  - yarn build
+
 deploy:
   provider: pages
   on:
