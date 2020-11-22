@@ -1,7 +1,5 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { getTasks, createTask, completeTask, uncompleteTask, ITask } from '../api/';
-
 
 interface UserState {
 	accessToken?: string;

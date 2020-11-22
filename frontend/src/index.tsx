@@ -1,22 +1,19 @@
-// import '@babel/polyfill';
-import "regenerator-runtime/runtime";
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+// import "regenerator-runtime/runtime";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import './styles.scss';
 
-import Authenticate from 'react-openidconnect';
-
 import { AuthProvider } from './pages/Auth/';
 import { Shopping } from './pages/Shopping/';
+import { Test } from './pages/Auth/Test';
 
 
 
 ReactDOM.render(
 	(
 		<AuthProvider>
-			<Shopping />
+			<Test />
 		</AuthProvider>
 	),
 	document.getElementById("root")

@@ -2,15 +2,10 @@
 	"private": true,
 	"scripts": {
 		"test": "exit 0",
-		"build": "yarn workspace @wsl/frontend build",
-		"watch": "yarn workspace @wsl/frontend watch",
-    "serve": "yarn workspace @wsl/frontend serve",
-		"start": "yarn workspace @wsl/backend start",
-    "parcel:start": "yarn workspace @wsl/backend parcel:start",
-    "parcel:build": "yarn workspace @wsl/backend parcel:build"
+    "start": "yarn workspace @wsl/frontend start",
+    "build": "yarn workspace @wsl/frontend build"
 	},
 	"workspaces": [
-		"frontend",
-		"backend"
+		"frontend"
 	]
 }

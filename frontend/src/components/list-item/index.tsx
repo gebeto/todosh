@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import { toggleIsCompleted } from '../../store/tasks';
-import { ITask } from '../../api/';
+import { ITask } from '../../api';
 
 import './styles.scss';
 

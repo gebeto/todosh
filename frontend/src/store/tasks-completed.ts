@@ -1,6 +1,6 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { getTasks, ITask } from '../api/';
+import { ITask } from '../api';
 
 
 interface TasksState {
