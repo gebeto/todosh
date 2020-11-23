@@ -17,7 +17,6 @@ export const defaultContextValue: MSALValue = {
 };
 
 export const MSALContext = React.createContext<MSALValue>(defaultContextValue);
-
 export const useMSAL = () => React.useContext(MSALContext);
 
 export const GraphClientContext = React.createContext<any>(undefined);
@@ -27,17 +26,29 @@ export const useGraphClientContext = () => React.useContext(GraphClientContext);
 export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	const [client, setClient] = React.useState<Client>();
 
+	const authCallback = (err: any, authResponse: any) => {
+		const client = Client.init({
+			authProvider: (done) => {
+				console.log(authResponse.accessToken);
+				done(null, authResponse.accessToken);
+			}
+		});
+		setClient(client);
+	}
+
 	const userAgentApplication = React.useMemo(() => {
-		return new UserAgentApplication({
+		const userAgentApplication = new UserAgentApplication({
 			auth: {
 				clientId: config.appId,
 				redirectUri: window.location.origin + window.location.pathname,
 			},
 			cache: {
 				cacheLocation: "localStorage",
-				storeAuthStateInCookie: false
+				// storeAuthStateInCookie: false,
+				storeAuthStateInCookie: true,
 			},
 		});
+		return userAgentApplication;
 	}, []);
 
 	const account = React.useMemo(() => {
@@ -45,17 +56,21 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	}, []);
 
 	const acquare = React.useCallback(async () => {
-		const authResponse = await userAgentApplication.acquireTokenSilent({
+		const acquareData = {
 			scopes: config.scopes,
-		});
-
-		if (authResponse) {
-			const client = Client.init({
-				authProvider: (done) => {
-					done(null, authResponse.accessToken);
+		};
+		const authResponse = await userAgentApplication
+			.acquireTokenSilent(acquareData)
+			.catch(err => {
+				console.error(err);
+				if (err.errorCode === 'interaction_required') {
+					return userAgentApplication
+						.acquireTokenPopup(acquareData)
 				}
+				console.error(err);
 			});
-			setClient(client);
+		if (authResponse) {
+			authCallback(null, authResponse);
 		}
 	}, [userAgentApplication]);
 
