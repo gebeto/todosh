@@ -90,18 +90,3 @@ export const addOldTask = (task: ITask) => (dispatch: Dispatch, getState: any) =
 		dispatch(tasks.actions.updated(res));
 	});
 }
-
-export const loadTasks = () => async (dispatch: Dispatch) => {
-	dispatch(tasks.actions.fetchingPending());
-	getTasks(undefined, false)
-		.then(response => {
-			if (Array.isArray(response.value)) {
-				dispatch(tasks.actions.fetchingSuccess(response.value));
-			} else {
-				dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
-			}
-		})
-		.catch(err => {
-			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
-		});
-}

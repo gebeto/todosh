@@ -1,14 +1,14 @@
-import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { ITask } from '../api';
+import { Task } from '../api';
 
 
 interface TasksState {
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: string[];
-	byId: Record<string, ITask>;
-	items: ITask[];
+	byId: Record<string, Task>;
+	items: Task[];
 }
 
 const initialState: TasksState = {
@@ -28,11 +28,11 @@ export const tasksCompleted = createSlice({
 			...state,
 			isFetching: true,
 		}),
-		fetchingSuccess: (state, { payload }: PayloadAction<ITask[]>) => ({
+		fetchingSuccess: (state, { payload }: PayloadAction<Task[]>) => ({
 			...state,
 			isFetching: false,
 			ids: payload.map(item => item.id),
-			byId: payload.reduce((curr: Record<string, ITask>, item) => {
+			byId: payload.reduce((curr: Record<string, Task>, item) => {
 				curr[item.id] = item;
 				return curr;
 			}, {}),
@@ -43,7 +43,7 @@ export const tasksCompleted = createSlice({
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
+		added: (state: TasksState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			ids: [...state.ids, payload.id],
 			byId: {
@@ -57,7 +57,7 @@ export const tasksCompleted = createSlice({
 			state.items = state.items.filter(item => item.id !== payload);
 			return state;
 		},
-		updated: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
+		updated: (state: TasksState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			byId: {
 				...state.byId,

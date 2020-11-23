@@ -2,7 +2,7 @@ import { Client } from '@microsoft/microsoft-graph-client';
 import { Task, TasksList } from './entities';
 
 
-const todoTaskListId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
+export const todoTaskListId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
 
 
 export class ToDoClient {

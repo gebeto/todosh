@@ -15,6 +15,7 @@ const pca = new PublicClientApplication({
 	auth: {
 		clientId: config.appId,
 		redirectUri: window.location.origin + window.location.pathname,
+		// postLogoutRedirectUri: window.location.origin + window.location.pathname,
 	},
 	cache: {
 		cacheLocation: "localStorage",

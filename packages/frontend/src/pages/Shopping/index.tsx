@@ -1,22 +1,38 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { connect, Provider } from 'react-redux';
+import React from 'react';
+import { Provider, useDispatch } from 'react-redux';
 
-import store from '../../store/';
-import { loadTasks } from '../../store/tasks';
-import { loadTasksCompleted } from '../../store/tasks-completed';
+import { store } from '../../store/';
+import { tasks } from '../../store/tasks';
+import { tasksCompleted } from '../../store/tasks-completed';
 
 import './styles.scss';
 
 import Header from '../../components/header/';
 import Footer from '../../components/footer/';
 import { List } from '../../components/list/';
+import { useToDoClient } from '../Auth/ToDoClientContext';
+import { todoTaskListId } from '../../api/ToDoClient';
 
 
 const ShoppingRaw = (props: any) => {
+	const client = useToDoClient();
+	const dispatch = useDispatch();
+
 	React.useEffect(() => {
-		props.initializeTasks();
-	}, [])
+		dispatch(tasks.actions.fetchingPending());
+		client?.getTasks(todoTaskListId, false).then(res => {
+			dispatch(tasks.actions.fetchingSuccess(res.value));
+		}).catch(err => {
+			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
+		});
+
+		dispatch(tasksCompleted.actions.fetchingPending());
+		client?.getTasks(todoTaskListId, true).then(res => {
+			dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
+		}).catch(err => {
+			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
+		});
+	}, []);
 
 	return (
 		<Provider store={store}>
@@ -31,18 +47,9 @@ const ShoppingRaw = (props: any) => {
 	)
 };
 
-export const ShoppingConnected = connect(undefined,
-	(dispatch: any) => ({
-		async initializeTasks() {
-			await loadTasks()(dispatch);
-			await loadTasksCompleted()(dispatch);
-		}
-	})
-)(ShoppingRaw);
-
 
 export const Shopping = (props: any) => (
 	<Provider store={store}>
-		<ShoppingConnected />
+		<ShoppingRaw />
 	</Provider>
 );
