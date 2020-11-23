@@ -1,34 +1,36 @@
 import * as React from "react";
 
+import { MsalProvider } from '@azure/msal-react';
+
 import { ToDoClientProvider } from './ToDoClientContext';
-import { MSALProvider, useMSAL } from './MSALContext';
+import { Authorization } from './Authorization';
 
 import './styles.scss';
 
+import { PublicClientApplication } from '@azure/msal-browser';
+import { config } from "./config";
 
-export const LoginComponent: React.FC<any> = (props) => {
-	const msal = useMSAL();
 
-	if (!msal.isAuthenticated) {
-		return (
-			<form className="login-button-wrapper">
-				<button type="button" onClick={msal.login} className="login-button">Login</button>
-			</form>
-		);
-	}
-
-	return props.children;
-}
+const pca = new PublicClientApplication({
+	auth: {
+		clientId: config.appId,
+		redirectUri: window.location.origin + window.location.pathname,
+	},
+	cache: {
+		cacheLocation: "localStorage",
+		storeAuthStateInCookie: false,
+	},
+});
 
 
 export const AuthProvider: React.FC<any> = (props) => {
 	return (
-		<MSALProvider>
-			<ToDoClientProvider>
-				<LoginComponent>
+		<MsalProvider instance={pca}>
+			<Authorization>
+				<ToDoClientProvider>
 					{props.children}
-				</LoginComponent>
-			</ToDoClientProvider>
-		</MSALProvider>
+				</ToDoClientProvider>
+			</Authorization>
+		</MsalProvider>
 	);
 }
