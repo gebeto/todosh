@@ -40,6 +40,8 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 		});
 
 		const authCallback = (err: any, authResponse: any) => {
+			console.log('AUTH CALLBACK', authResponse);
+			if (!authResponse.accessToken) return;
 			const client = Client.init({
 				authProvider: (done) => {
 					console.log(authResponse.accessToken);
@@ -78,6 +80,7 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	}, [userAgentApplication]);
 
 	React.useEffect(() => {
+		console.log('IS REDIRECT', isRedirect);
 		if (!isRedirect) {
 			acquare();
 		}
