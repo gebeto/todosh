@@ -1,5 +1,5 @@
 {
-    "name": "Wunderlist Shopping",
+    "name": "To-Do Shopping",
     "short_name": "Wush",
     "icons": [
         {
@@ -13,8 +13,8 @@
             "type": "image/png"
         }
     ],
-    "scope": "/wundershoppinglist",
-    "start_url": "/wundershoppinglist",
+    "scope": "/todosh",
+    "start_url": "/todosh",
     "background_color": "#f5f5f5",
     "display": "standalone",
     "theme_color": "#f5f5f5"
