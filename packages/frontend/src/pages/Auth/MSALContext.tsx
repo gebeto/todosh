@@ -22,19 +22,10 @@ export const useMSAL = () => React.useContext(MSALContext);
 export const GraphClientContext = React.createContext<any>(undefined);
 export const useGraphClientContext = () => React.useContext(GraphClientContext);
 
+const isRedirect = !!window.location.hash;
 
 export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	const [client, setClient] = React.useState<Client>();
-
-	const authCallback = (err: any, authResponse: any) => {
-		const client = Client.init({
-			authProvider: (done) => {
-				console.log(authResponse.accessToken);
-				done(null, authResponse.accessToken);
-			}
-		});
-		setClient(client);
-	}
 
 	const userAgentApplication = React.useMemo(() => {
 		const userAgentApplication = new UserAgentApplication({
@@ -44,10 +35,22 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 			},
 			cache: {
 				cacheLocation: "localStorage",
-				// storeAuthStateInCookie: false,
-				storeAuthStateInCookie: true,
+				storeAuthStateInCookie: false,
 			},
 		});
+
+		const authCallback = (err: any, authResponse: any) => {
+			const client = Client.init({
+				authProvider: (done) => {
+					console.log(authResponse.accessToken);
+					done(null, authResponse.accessToken);
+				}
+			});
+			setClient(client);
+		}
+
+		userAgentApplication.handleRedirectCallback(authCallback);
+
 		return userAgentApplication;
 	}, []);
 
@@ -59,19 +62,7 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 		const acquareData = {
 			scopes: config.scopes,
 		};
-		const authResponse = await userAgentApplication
-			.acquireTokenSilent(acquareData)
-			.catch(err => {
-				console.error(err);
-				if (err.errorCode === 'interaction_required') {
-					return userAgentApplication
-						.acquireTokenPopup(acquareData)
-				}
-				console.error(err);
-			});
-		if (authResponse) {
-			authCallback(null, authResponse);
-		}
+		userAgentApplication.acquireTokenRedirect(acquareData)
 	}, [userAgentApplication]);
 
 	const login = React.useCallback(async () => {
@@ -87,7 +78,9 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	}, [userAgentApplication]);
 
 	React.useEffect(() => {
-		acquare();
+		if (!isRedirect) {
+			acquare();
+		}
 	}, [account]);
 
 	const msalValue: MSALValue = React.useMemo(() => ({
