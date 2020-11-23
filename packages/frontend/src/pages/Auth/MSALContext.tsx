@@ -1,22 +1,7 @@
 import * as React from "react";
-// import { AuthResponse, UserAgentApplication } from "msal";
-import * as MSAL from '@azure/msal-browser';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { Client } from "@microsoft/microsoft-graph-client";
 import { config } from "./config";
-
-console.log('MSALLL', MSAL);
-
-// const pap = new MSAL.PublicClientApplication({
-// 	auth: {
-// 		clientId: config.appId,
-// 		redirectUri: window.location.origin + window.location.pathname,
-// 	},
-// 	cache: {
-// 		cacheLocation: "localStorage",
-// 		storeAuthStateInCookie: false,
-// 	},
-// });
-// console.log(pap);
 
 
 export type MSALValue = {
@@ -52,7 +37,7 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	}
 
 	const userAgentApplication = React.useMemo(() => {
-		const userAgentApplication = new MSAL.PublicClientApplication({
+		const userAgentApplication = new PublicClientApplication({
 			auth: {
 				clientId: config.appId,
 				redirectUri: window.location.origin + window.location.pathname,
