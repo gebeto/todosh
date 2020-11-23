@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMsalAuthentication, useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { InteractionType } from '@azure/msal-browser';
+import { AccountInfo, InteractionType } from '@azure/msal-browser';
 import { GraphClientContext } from './MSALContext';
 import { config } from './config';
 import { Client } from '@microsoft/microsoft-graph-client';
@@ -9,34 +9,42 @@ import { Client } from '@microsoft/microsoft-graph-client';
 export const Authorization: React.FC<any> = (props) => {
 	const [client, setClient] = React.useState<any>(undefined);
 	const isAuthenticated = useIsAuthenticated();
-	const msal = useMsalAuthentication(InteractionType.Popup);
+	const { instance, accounts } = useMsal();
 
-	const { instance, accounts, inProgress } = useMsal();
+	const createClient = (authResponse: any) => {
+		if (!authResponse.accessToken) return;
+		const client = Client.init({
+			authProvider: (done) => {
+				done(null, authResponse.accessToken);
+			}
+		});
+		setClient(client);
+	}
+
+	const acquare = async (account: AccountInfo) => {
+		const authResponse = await instance.acquireTokenSilent({
+			account: account,
+			scopes: config.scopes,
+		});
+		createClient(authResponse);
+	}
 
 	React.useEffect(() => {
-		(async () => {
-			if (accounts.length) {
-				console.log(accounts);
-				const authResponse = await instance.acquireTokenSilent({
-					account: accounts[0],
-					scopes: config.scopes,
-				});
-				if (!authResponse.accessToken) return;
-				const client = Client.init({
-					authProvider: (done) => {
-						console.log(authResponse.accessToken);
-						done(null, authResponse.accessToken);
-					}
-				});
-				setClient(client);
-			}
-		})()
-	}, []);
+		if (accounts.length) {
+			acquare(accounts[0]);
+		}
+	}, [ instance ]);
+
+	const handleLogin = async (e: any) => {
+		const loginResponse = await instance.loginPopup();
+		console.log(loginResponse);
+		acquare(loginResponse.account);
+	}
 
 	if (!isAuthenticated) {
 		return (
 			<form className="login-button-wrapper">
-				<button type="button" onClick={(e) => msal.login()} className="login-button">Login san</button>
+				<button type="button" onClick={handleLogin} className="login-button">Login</button>
 			</form>
 		);
 	}
