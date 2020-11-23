@@ -1,7 +1,22 @@
 import * as React from "react";
-import { AuthResponse, UserAgentApplication } from "msal";
+// import { AuthResponse, UserAgentApplication } from "msal";
+import * as MSAL from '@azure/msal-browser';
 import { Client } from "@microsoft/microsoft-graph-client";
 import { config } from "./config";
+
+console.log('MSALLL', MSAL);
+
+// const pap = new MSAL.PublicClientApplication({
+// 	auth: {
+// 		clientId: config.appId,
+// 		redirectUri: window.location.origin + window.location.pathname,
+// 	},
+// 	cache: {
+// 		cacheLocation: "localStorage",
+// 		storeAuthStateInCookie: false,
+// 	},
+// });
+// console.log(pap);
 
 
 export type MSALValue = {
@@ -22,13 +37,22 @@ export const useMSAL = () => React.useContext(MSALContext);
 export const GraphClientContext = React.createContext<any>(undefined);
 export const useGraphClientContext = () => React.useContext(GraphClientContext);
 
-const isRedirect = !!window.location.hash;
-
 export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	const [client, setClient] = React.useState<Client>();
 
+	const authCallback = (authResponse: any) => {
+		if (!authResponse.accessToken) return;
+		const client = Client.init({
+			authProvider: (done) => {
+				console.log(authResponse.accessToken);
+				done(null, authResponse.accessToken);
+			}
+		});
+		setClient(client);
+	}
+
 	const userAgentApplication = React.useMemo(() => {
-		const userAgentApplication = new UserAgentApplication({
+		const userAgentApplication = new MSAL.PublicClientApplication({
 			auth: {
 				clientId: config.appId,
 				redirectUri: window.location.origin + window.location.pathname,
@@ -39,32 +63,15 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 			},
 		});
 
-		const authCallback = (err: any, authResponse: any) => {
-			console.log('AUTH CALLBACK', authResponse);
-			if (!authResponse.accessToken) return;
-			const client = Client.init({
-				authProvider: (done) => {
-					console.log(authResponse.accessToken);
-					done(null, authResponse.accessToken);
-				}
-			});
-			setClient(client);
-		}
-
-		userAgentApplication.handleRedirectCallback(authCallback);
-
 		return userAgentApplication;
 	}, []);
 
-	const account = React.useMemo(() => {
-		return userAgentApplication.getAccount();
-	}, []);
-
 	const acquare = React.useCallback(async () => {
-		const acquareData = {
+		const authResponse = await userAgentApplication.acquireTokenSilent({
+			account: {} as any,
 			scopes: config.scopes,
-		};
-		userAgentApplication.acquireTokenRedirect(acquareData)
+		});
+		authCallback(authResponse);
 	}, [userAgentApplication]);
 
 	const login = React.useCallback(async () => {
@@ -80,11 +87,8 @@ export const MSALProvider: React.FC<any> = ({ children, msal }) => {
 	}, [userAgentApplication]);
 
 	React.useEffect(() => {
-		console.log('IS REDIRECT', isRedirect);
-		if (!isRedirect) {
-			acquare();
-		}
-	}, [account]);
+		acquare();
+	}, []);
 
 	const msalValue: MSALValue = React.useMemo(() => ({
 		isAuthenticated: !!client,
