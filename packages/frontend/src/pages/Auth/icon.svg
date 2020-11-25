@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#30BAFF" offset="0%"></stop>
+            <stop stop-color="#0082FF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M112.259145,36.5 L258.259145,36.5 C265.991131,36.5 272.259145,42.7680135 272.259145,50.5 L272.259145,196.5 C272.259145,204.231986 265.991131,210.5 258.259145,210.5 L172.259145,210.5 C131.390073,210.5 98.259145,177.369071 98.259145,136.5 L98.259145,50.5 C98.259145,42.7680135 104.527158,36.5 112.259145,36.5 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#30BAFF" offset="0%"></stop>
+            <stop stop-color="#0082FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#30BAFF" offset="0%"></stop>
+            <stop stop-color="#0082FF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-5" cx="354.5" cy="359.5" r="29.5"></circle>
+        <circle id="path-6" cx="158.5" cy="359.5" r="29.5"></circle>
+    </defs>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="512" height="512" rx="88"></rect>
+        <g id="Tick" transform="translate(71.162951, 122.196699)">
+            <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" transform="translate(108.184506, 107.980231) rotate(45.000000) translate(-108.184506, -107.980231) " x="-0.315494168" y="64.4802307" width="217" height="87" rx="14"></rect>
+            <g id="Rectangle" transform="translate(185.259145, 123.500000) rotate(-45.000000) translate(-185.259145, -123.500000) ">
+                <use fill="#D8D8D8" xlink:href="#path-2"></use>
+                <use fill="#185ABD" xlink:href="#path-2"></use>
+            </g>
+            <path d="M217.240855,-7 L276.240855,-7 C283.972842,-7 290.240855,-0.731986498 290.240855,7 L290.240855,210.5 C290.240855,234.524387 270.765242,254 246.740855,254 L217.240855,254 C209.508869,254 203.240855,247.731986 203.240855,240 L203.240855,7 C203.240855,-0.731986498 209.508869,-7 217.240855,-7 Z" id="Rectangle" fill="url(#linearGradient-3)" transform="translate(246.740855, 123.500000) rotate(45.000000) translate(-246.740855, -123.500000) "></path>
+        </g>
+        <g id="Oval">
+            <use fill="#0486FF" xlink:href="#path-5"></use>
+            <use fill="url(#linearGradient-4)" xlink:href="#path-5"></use>
+        </g>
+        <g id="Oval-Copy">
+            <use fill="#0486FF" xlink:href="#path-6"></use>
+            <use fill="url(#linearGradient-4)" xlink:href="#path-6"></use>
+        </g>
+    </g>
+</svg>

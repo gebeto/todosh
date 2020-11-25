@@ -5,6 +5,9 @@ import { GraphClientContext } from './MSALContext';
 import { config } from './config';
 import { Client } from '@microsoft/microsoft-graph-client';
 
+import logoSrc from 'url:./icon.svg';
+import micSrc from 'url:./mic.svg';
+
 
 export const Authorization: React.FC<any> = (props) => {
 	const [client, setClient] = React.useState<any>(undefined);
@@ -50,8 +53,15 @@ export const Authorization: React.FC<any> = (props) => {
 
 	if (!isAuthenticated) {
 		return (
-			<form className="login-button-wrapper">
-				<button type="button" onClick={handleLogin} className="login-button">Login</button>
+			<form className="login-wrapper">
+				<span className="login-icon-wrapper">
+					<img className="login-icon" src={logoSrc} width={200} />
+				</span>
+				<div className="login-spacer"></div>
+				<button type="button" onClick={handleLogin} className="login-button">
+					<img width={26} src={micSrc} />
+					Sign in with Microsoft
+				</button>
 			</form>
 		);
 	}
