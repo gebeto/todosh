@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './styles.scss';
 
-import logoutIcon from 'url:./logout.svg';
+import logoutIcon from 'url:./settings-icon.svg';
 
 
 const Header = (props: any) => {

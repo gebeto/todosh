@@ -1,7 +1,8 @@
 {
 	"private": true,
 	"scripts": {
-		"test": "exit 0",
+    "test": "exit 0",
+    "deploy": "node deploy.js",
     "start": "yarn workspace @wsl/frontend start",
     "build": "yarn workspace @wsl/frontend build"
 	},

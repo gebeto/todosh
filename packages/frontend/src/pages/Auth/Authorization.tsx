@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMsalAuthentication, useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { AccountInfo, InteractionType } from '@azure/msal-browser';
+import { AccountInfo, InteractionRequiredAuthError, InteractionType, SilentRequest } from '@azure/msal-browser';
 import { GraphClientContext } from './MSALContext';
 import { config } from './config';
 import { Client } from '@microsoft/microsoft-graph-client';
@@ -22,10 +22,17 @@ export const Authorization: React.FC<any> = (props) => {
 	}
 
 	const acquare = async (account: AccountInfo) => {
-		const authResponse = await instance.acquireTokenSilent({
+		const options = {
 			account: account,
 			scopes: config.scopes,
-		});
+			forceRefresh: true,
+		};
+		const authResponse = await instance.acquireTokenSilent(options).catch(error => {
+			console.log('SSSSICK', error);
+			if (error instanceof InteractionRequiredAuthError) {
+				return instance.acquireTokenRedirect(options);
+			}
+		});;
 		createClient(authResponse);
 	}
 

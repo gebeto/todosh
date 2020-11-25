@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "parcel build index.html",
-    "start": "parcel --port=5000 index.html",
-    "deploy": "yarn build && node deploy.js"
+    "start": "parcel --port=5000 index.html"
   },
   "targets": {
     "default": {
