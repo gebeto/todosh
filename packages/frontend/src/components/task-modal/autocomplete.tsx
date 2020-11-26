@@ -37,7 +37,7 @@ export const AutocompleteItem = (props: any) => {
 };
 
 
-export const Autocomplete = ({ value, completedTasks, onSelect }: any) => (value && completedTasks.length > 0) ? (
+export const Autocomplete = ({ completedTasks, onSelect }: any) => (completedTasks.length > 0) ? (
 	<ul className="inputter-autocomplete">
 		{completedTasks.map((item: any) =>
 			<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
@@ -46,13 +46,11 @@ export const Autocomplete = ({ value, completedTasks, onSelect }: any) => (value
 ) : null;
 
 
-const emptyArray: any[] = [];
-
 export default connect(
 	(state: any, ownProps: any) => ({
 		completedTasks: ownProps.value ? mapWithLimit(
 			state.tasksCompleted.items, 5,
 			(item: any) => new RegExp(ownProps.value, 'ig').test(item.title)
-		) : emptyArray
+		) : state.tasksCompleted.items.slice(0, 5)
 	}),
 )(Autocomplete);

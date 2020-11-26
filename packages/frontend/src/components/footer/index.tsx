@@ -64,10 +64,12 @@ export default connect(
 			dispatch(addNewTask(itemText))
 		},
 		handleSubmitOldItem(task: any) {
-			dispatch(addOldTask({
-				...task,
-				completedDateTime: null,
-			}));
+			try {
+				dispatch(addOldTask({
+					...task,
+					completedDateTime: null,
+				}));
+			} catch(e) {}
 			dispatch(tasksCompleted.actions.deleted(task.id));
 		}
 	})

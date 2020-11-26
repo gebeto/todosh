@@ -1,7 +1,7 @@
 .app {
-	padding: 1em;
-	padding-top: calc(5.5em + env(safe-area-inset-top));
-	padding-bottom: calc(5.5em + env(safe-area-inset-bottom));
+	padding: 16pt;
+	padding-top: calc(52pt + 16pt);
+	padding-bottom: calc(64pt + env(safe-area-inset-bottom));
 }
 
 .container {
