@@ -67,7 +67,11 @@ export const Authorization: React.FC<any> = (props) => {
 	}
 
 	if (!client) {
-		return <div>Loading...</div>
+		return (
+			<div className="loading">
+				<img src={logoSrc} width={200} />
+			</div>
+		)
 	}
 
 	return (
