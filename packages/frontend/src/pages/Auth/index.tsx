@@ -1,14 +1,14 @@
 import * as React from "react";
 
 import { MsalProvider } from '@azure/msal-react';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 import { ToDoClientProvider } from '../../api/ToDoClientContext';
 import { Authorization } from './Authorization';
 
-import './styles.scss';
-
-import { PublicClientApplication } from '@azure/msal-browser';
 import { config } from "./config";
+
+import './styles.scss';
 
 
 const pca = new PublicClientApplication({

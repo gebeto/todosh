@@ -1,6 +1,6 @@
 import React from 'react';
-import { useMsalAuthentication, useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { AccountInfo, InteractionRequiredAuthError, InteractionType, SilentRequest } from '@azure/msal-browser';
+import { useIsAuthenticated, useMsal } from '@azure/msal-react';
+import { AccountInfo, InteractionRequiredAuthError } from '@azure/msal-browser';
 import { GraphClientContext } from './MSALContext';
 import { config } from './config';
 import { Client } from '@microsoft/microsoft-graph-client';
