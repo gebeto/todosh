@@ -4,12 +4,13 @@ import { createSecretKey } from 'crypto';
 import { Task, TaskId } from '../api';
 
 
-interface TasksState {
+export type TasksState = {
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: TaskId[];
 	byId: Record<TaskId, Task>;
 }
+
 
 const initialState: TasksState = {
 	isFetchingError: false,
@@ -27,6 +28,7 @@ export const tasks = createSlice({
 			...state,
 			isFetching: true,
 		}),
+
 		fetchingSuccess: (state: TasksState, { payload }: PayloadAction<Task[]>) => ({
 			...state,
 			isFetching: false,
@@ -36,33 +38,40 @@ export const tasks = createSlice({
 				return curr;
 			}, {})
 		}),
+
 		fetchingError: (state: TasksState, { payload }: PayloadAction) => ({
 			...state,
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state: TasksState, { payload }: PayloadAction<Task>) => ({
-			...state,
-			ids: [...state.ids, payload.id],
-			byId: {
-				...state.byId,
-				[payload.id]: payload
-			},
-		}),
+
+		added: (state: TasksState, { payload }: PayloadAction<Task>) => {
+			state.ids.push(payload.id);
+			state.byId[payload.id] = payload;
+			return state;
+		},
+
 		deleted: (state: TasksState, { payload }: PayloadAction<TaskId>) => {
+			const rmIndex = state.ids.indexOf(payload);
+			if (rmIndex > -1) {
+				const newIds = state.ids.slice();
+				newIds.splice(rmIndex, 1);
+				state.ids = newIds;
+			}
 			delete state.byId[payload];
 			return state;
 		},
-		updated: (state: TasksState, { payload }: PayloadAction<Task>) => ({
-			...state,
-			byId: {
-				...state.byId,
-				[payload.id]: {
+
+		updated: (state: TasksState, { payload }: PayloadAction<Task>) => {
+			if (state.byId[payload.id]) {
+				state.byId[payload.id] = {
 					...state.byId[payload.id],
 					...payload,
 				}
 			}
-		}),
+
+			return state;
+		},
 	},
 });
 
@@ -76,29 +85,3 @@ export const selctorTaskById = createSelector(
 	[selctorTasksById, selectorTaskIdFromProps],
 	(byId, id) => byId[id]
 );
-
-
-export const toggleIsCompleted = (task: Task) => (dispatch: Dispatch) => {
-	dispatch(tasks.actions.updated({
-		...task,
-		completedDateTime: task.completedDateTime ? null : (new Date()).toISOString(),
-	}));
-	const updateTaskCompletion = task.completedDateTime ? uncompleteTask : completeTask;
-	updateTaskCompletion(task.id).then(res => {
-		dispatch(tasks.actions.updated(res));
-	})
-}
-
-
-export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: any) => {
-	createTask(taskText).then(res => {
-		dispatch(tasks.actions.added({ ...res, newlyAdded: true }));
-	});
-}
-
-export const addOldTask = (task: Task) => (dispatch: Dispatch, getState: any) => {
-	dispatch(tasks.actions.added({ ...task, newlyAdded: true }));
-	uncompleteTask(task.id).then(res => {
-		dispatch(tasks.actions.updated(res));
-	});
-}

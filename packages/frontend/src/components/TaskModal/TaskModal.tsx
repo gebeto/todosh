@@ -1,58 +1,63 @@
 import * as React from 'react';
 
+import { useDocumentEvent } from '../../hooks/useDocumentEvent';
 import { Autocomplete } from './Autocomplete';
 
 
-export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
+export const TaskModal: React.FC<any> = React.forwardRef((props: any, inputRef: any) => {
 	const wrapperRef = React.useRef(null);
-
 	const [ value, setValue ] = React.useState("");
-	const handleInputChange = React.useCallback(e => {
-		setValue(e.target.value)
-	}, []);
 
-	const handleWrapperClick = React.useCallback((e) => {
-		if (e.target === wrapperRef.current) {
-			props.handleClose(e);
-		}
-	}, []);
-	
-	const handleFormSubmit = React.useCallback((e) => {
-		e.preventDefault();
-		e.stopPropagation();
+	const handleModalClose = React.useCallback(() => {
 		inputRef.current.blur();
-		props.onSubmit(value);
 		props.handleClose();
 		setTimeout(() => {
 			setValue("");
 		}, 300);
+	}, []);
+
+	const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value);
+	}, []);
+
+	const handleWrapperClick = React.useCallback((e: React.MouseEvent) => {
+		if (e.target === wrapperRef.current) {
+			handleModalClose();
+		}
+	}, []);
+	
+	const handleFormSubmit = React.useCallback((e: React.FormEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		props.onSubmit(value);
+		handleModalClose();
 		return false;
 	}, [value]);
 
 	const handleSubmitOldTask = React.useCallback((task: any) => {
 		inputRef.current.blur();
-		props.onSubmitOldTask(task);
-		props.handleClose();
 		setTimeout(() => {
-			setValue("");
-		}, 300);
+			props.onSubmitOldTask(task);
+		}, 250);
+		handleModalClose();
 		return false;
 	}, [value]);
-		
+
+	useDocumentEvent<KeyboardEvent>("keydown", (e) => {
+		if (e.key === "Escape") {
+			handleModalClose()
+		}
+	});
+
 	return (
 		<form
-			onSubmit={handleFormSubmit}
-			onClick={handleWrapperClick}
 			ref={wrapperRef}
+			onClick={handleWrapperClick}
+			onSubmit={handleFormSubmit}
 			className={`inputter ${props.transitionState}`}
 		>
 			<div className="inputter-input-wrapper">
-				<input
-					ref={inputRef}
-					type="text"
-					value={value}
-					onChange={handleInputChange}
-				/>
+				<input ref={inputRef} type="text" value={value} onChange={handleInputChange} />
 				<Autocomplete onSelect={handleSubmitOldTask} value={value} />
 			</div>
 		</form>

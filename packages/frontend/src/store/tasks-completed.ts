@@ -4,7 +4,7 @@ import { Task } from '../api';
 import { filterWithLimit } from '../helpers/filterWithLimit';
 
 
-interface TasksState {
+export type TasksCompletedState = {
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: string[];
@@ -12,7 +12,8 @@ interface TasksState {
 	items: Task[];
 }
 
-const initialState: TasksState = {
+
+const initialState: TasksCompletedState = {
 	isFetchingError: false,
 	isFetching: true,
 	ids: [],
@@ -25,7 +26,7 @@ export const tasksCompleted = createSlice({
 	name: 'tasksCompleted',
 	initialState: initialState,
 	reducers: {
-		fetchingPending: (state: TasksState, { payload }: PayloadAction) => ({
+		fetchingPending: (state: TasksCompletedState, { payload }: PayloadAction) => ({
 			...state,
 			isFetching: true,
 		}),
@@ -39,12 +40,12 @@ export const tasksCompleted = createSlice({
 			}, {}),
 			items: payload,
 		}),
-		fetchingError: (state: TasksState, { payload }: PayloadAction) => ({
+		fetchingError: (state: TasksCompletedState, { payload }: PayloadAction) => ({
 			...state,
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state: TasksState, { payload }: PayloadAction<Task>) => ({
+		added: (state: TasksCompletedState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			ids: [...state.ids, payload.id],
 			byId: {
@@ -53,12 +54,12 @@ export const tasksCompleted = createSlice({
 			},
 			items: [...state.items, payload]
 		}),
-		deleted: (state: TasksState, { payload }: PayloadAction<string>) => {
+		deleted: (state: TasksCompletedState, { payload }: PayloadAction<string>) => {
 			delete state.byId[payload];
 			state.items = state.items.filter(item => item.id !== payload);
 			return state;
 		},
-		updated: (state: TasksState, { payload }: PayloadAction<Task>) => ({
+		updated: (state: TasksCompletedState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			byId: {
 				...state.byId,
@@ -73,14 +74,14 @@ export const tasksCompleted = createSlice({
 
 
 export const selectorValueFromProps = (state: any, value: string) => value;
-export const selectorTasksCompletedRoot = (state: any) => state[tasksCompleted.name] as TasksState;
+export const selectorTasksCompletedRoot = (state: any) => state[tasksCompleted.name] as TasksCompletedState;
 export const selectorTasksIds = createSelector([selectorTasksCompletedRoot], (state) => state.ids);
 export const selectorTasksById = createSelector([selectorTasksCompletedRoot], (state) => state.byId);
 export const selectorTasksItems = createSelector([selectorTasksCompletedRoot], (state) => state.items);
 export const selectorTasksFilteredByValue = createSelector(
 	[selectorTasksItems, selectorValueFromProps],
 	(items, value) => {
-		if (value) {
+		if (value && value.length) {
 			return filterWithLimit(items, 5,
 				(item: any) => new RegExp(value, 'ig').test(item.title)
 			);
@@ -89,19 +90,3 @@ export const selectorTasksFilteredByValue = createSelector(
 		return items.slice(0, 5);
 	}
 );
-
-export const loadTasksCompleted = () => async (dispatch: Dispatch) => {
-	// wunderlist.getTasksForState(LIST_ID, true)
-	// 	.then(response => {
-	// 		if (Array.isArray(response)) {
-	// 			dispatch(tasksCompleted.actions.fetchingSuccess(response));
-	// 		} else {
-	// 			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
-	// 		}
-	// 	}).catch(err => {
-	// 		dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }]));
-	// 	});
-	getTasks(undefined, true).then(res => {
-		dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
-	})
-}

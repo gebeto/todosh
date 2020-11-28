@@ -10,7 +10,7 @@ import './styles.scss';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { TasksList } from '../../components/TasksList';
-import { useToDoClient } from '../Auth/ToDoClientContext';
+import { useToDoClient } from '../../api/ToDoClientContext';
 import { todoTaskListId } from '../../api/ToDoClient';
 
 
@@ -35,15 +35,13 @@ const ShoppingRaw = (props: any) => {
 	}, []);
 
 	return (
-		<Provider store={store}>
-			<div className="app">
-				<Header />
-				<div className="main">
-					<TasksList />
-				</div>
-				<Footer />
+		<div className="app">
+			<Header />
+			<div className="main">
+				<TasksList />
 			</div>
-		</Provider>
+			<Footer />
+		</div>
 	)
 };
 

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { MsalProvider } from '@azure/msal-react';
 
-import { ToDoClientProvider } from './ToDoClientContext';
+import { ToDoClientProvider } from '../../api/ToDoClientContext';
 import { Authorization } from './Authorization';
 
 import './styles.scss';

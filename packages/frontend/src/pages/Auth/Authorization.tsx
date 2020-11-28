@@ -31,7 +31,6 @@ export const Authorization: React.FC<any> = (props) => {
 			forceRefresh: true,
 		};
 		const authResponse = await instance.acquireTokenSilent(options).catch(error => {
-			console.log('SSSSICK', error);
 			if (error instanceof InteractionRequiredAuthError) {
 				return instance.acquireTokenRedirect(options);
 			}

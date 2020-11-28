@@ -6,7 +6,7 @@ export const todoTaskListId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJ
 
 
 export class ToDoClient {
-	private client: Client;
+	public client: Client;
 
 	constructor(client: Client) {
 		this.client = client;
@@ -41,20 +41,20 @@ export class ToDoClient {
 	}
 	
 	async completeTask(taskId: string) {
-		const completion = await this.client.api(`/me/outlook/tasks/${taskId}`)
+		const completion = await this.client.api(`/me/todo/lists/${todoTaskListId}/tasks/${taskId}`)
 			.patch({ status: "completed" });
 		return completion;
 	}
 	
 	async uncompleteTask(taskId: string) {
-		const completion = await this.client.api(`/me/outlook/tasks/${taskId}`)
+		const completion = await this.client.api(`/me/todo/lists/${todoTaskListId}/tasks/${taskId}`)
 			.patch({ status: "notStarted" });
 		return completion;
 	}
 	
-	async createTask(folderId: string, subject: string) {
-		const task = await this.client.api(`/me/outlook/taskFolders/${folderId}/tasks`)
-			.post({ subject: subject }) as Promise<Task>;
+	async createTask(folderId: string, text: string) {
+		const task = await this.client.api(`/me/todo/lists/${folderId}/tasks`)
+			.post({ title: text }) as Promise<Task>;
 		return task;
 	}
 }

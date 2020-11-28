@@ -3,37 +3,37 @@ import { useDispatch } from 'react-redux';
 
 import './styles.scss';
 
-import { addNewTask, addOldTask } from '../../store/tasks';
+import { tasks } from '../../store/tasks';
 import { tasksCompleted } from '../../store/tasks-completed';
 import { TaskModal } from '../TaskModal';
 
 import { useTransition } from '../../hooks/use-transition';
 import { useFocus } from '../../hooks/useFocus';
+import { todoTaskListId } from '../../api';
+import { useToDoClient } from '../../api/ToDoClientContext';
 
 
 export const Footer: React.FC = () => {
+	const client = useToDoClient();
 	const dispatch = useDispatch();
 	const [ isOpened, setIsOpened ] = React.useState(false);
 
 	const transitionState = useTransition("exited", isOpened, 500);
 	const [ ref, setFocus ] = useFocus() as any;
 
-	const handleSubmitItem = (itemText: string) => {
-		dispatch(addNewTask(itemText))
+	const handleSubmitItem = async (text: string) => {
+		const task = await client?.createTask(todoTaskListId, text);
+		if (task) {
+			dispatch(tasks.actions.added(task));
+		}
 	}
 
 	const handleSubmitOldItem = (task: any) => {
-		try {
-			dispatch(
-				addOldTask({
-					...task,
-					completedDateTime: null,
-				})
-			);
-		} catch (e) {
-
-		}
-		dispatch(tasksCompleted.actions.deleted(task.id));
+		dispatch(tasks.actions.added({...task, newlyAdded: true}));
+		client?.uncompleteTask(task.id).then(task => {
+			dispatch(tasksCompleted.actions.deleted(task.id));
+			dispatch(tasks.actions.updated(task));
+		});
 	}
 
 	const handleOpen = React.useCallback(() => {
