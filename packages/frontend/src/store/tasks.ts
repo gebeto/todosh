@@ -80,12 +80,12 @@ export const toggleIsCompleted = (task: Task) => (dispatch: Dispatch) => {
 
 export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: any) => {
 	createTask(taskText).then(res => {
-		dispatch(tasks.actions.added(res));
+		dispatch(tasks.actions.added({ ...res, newlyAdded: true }));
 	});
 }
 
 export const addOldTask = (task: Task) => (dispatch: Dispatch, getState: any) => {
-	dispatch(tasks.actions.added(task));
+	dispatch(tasks.actions.added({ ...task, newlyAdded: true }));
 	uncompleteTask(task.id).then(res => {
 		dispatch(tasks.actions.updated(res));
 	});

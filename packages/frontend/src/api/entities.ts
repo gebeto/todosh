@@ -20,6 +20,7 @@ export type Task = {
 	createdDateTime: ISOString;
 	lastModifiedDateTime: ISOString;
 	body: TaskBody;
+	newlyAdded?: boolean;
 }
 
 export type TasksList = {
