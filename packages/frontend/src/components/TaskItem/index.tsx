@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { toggleIsCompleted } from '../../store/tasks';
 import { TaskId } from '../../api';
+import { Fade } from './Fade';
 
 import './styles.scss';
 
@@ -19,10 +20,11 @@ const taskItemTransitionClassNames: any = {
 
 export type TaskItemProps = {
 	taskId: TaskId;
+	index: any;
 }
 
 
-export const TaskItem = ({ taskId }: TaskItemProps) => {
+export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 	const task = useSelector((state: any) => state.tasks.byId[taskId]);
 	const dispatch = useDispatch();
 	const [ completed, setCompleted ] = React.useState(!!task.completedDateTime);
@@ -37,10 +39,16 @@ export const TaskItem = ({ taskId }: TaskItemProps) => {
 			in={!!task.completedDateTime}
 			timeout={300}
 		>
-			<li onClick={handleClick} className="list-item">
-				<div className="list-item-check" />
-				<div className="list-item-title">{task.title}</div>
-			</li>
+			<Fade offset={index * 50}>
+				<li onClick={handleClick} className="list-item">
+					<div className="list-item-check" />
+					<div className="list-item-title">{task.title}</div>
+				</li>
+			</Fade>
 		</CSSTransition>
 	)
+}
+
+TaskItem.defaultProps = {
+	className: '',
 }

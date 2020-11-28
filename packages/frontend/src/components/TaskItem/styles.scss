@@ -133,28 +133,3 @@ $check-size: 34px;
 		}
 	}
 }
-
-.list-item-uncompleted {
-	.list-item-check {
-		&:before {
-			// opacity: 0;
-			// left: $check-size / 2 - 1px;
-			// top: $check-size / 2 - 1px;
-			// width: 2px;
-			// height: 2px;
-		}
-	}
-}
-
-// .list-item {
-// 	opacity: 0;
-// }
-
-// .list-item-appearing {
-// 	opacity: 1;
-// 	transition-duration: 300ms;
-// }
-
-// .list-item-appeared {
-// 	opacity: 1;
-// }
