@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { selctorTasksIds } from '../../store/tasks';
 
 import { TaskItem } from '../TaskItem';
 import './styles.scss';
 
 
 export const TasksList: React.FC = () => {
-	const tasksIds = useSelector((state: any) => state.tasks.ids);
+	const tasksIds = useSelector(selctorTasksIds);
 
 	return (
 		<div className="container">

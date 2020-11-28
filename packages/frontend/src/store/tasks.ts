@@ -1,13 +1,14 @@
-import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, createAction, PayloadAction, Dispatch, createSelector } from '@reduxjs/toolkit';
+import { createSecretKey } from 'crypto';
 
-import { Task } from '../api';
+import { Task, TaskId } from '../api';
 
 
 interface TasksState {
 	isFetching: boolean;
 	isFetchingError: boolean;
-	ids: string[];
-	byId: Record<string, Task>;
+	ids: TaskId[];
+	byId: Record<TaskId, Task>;
 }
 
 const initialState: TasksState = {
@@ -30,7 +31,7 @@ export const tasks = createSlice({
 			...state,
 			isFetching: false,
 			ids: payload.map(item => item.id),
-			byId: payload.reduce((curr: Record<string, Task>, item) => {
+			byId: payload.reduce((curr: Record<TaskId, Task>, item) => {
 				curr[item.id] = item;
 				return curr;
 			}, {})
@@ -48,7 +49,7 @@ export const tasks = createSlice({
 				[payload.id]: payload
 			},
 		}),
-		deleted: (state: TasksState, { payload }: PayloadAction<string>) => {
+		deleted: (state: TasksState, { payload }: PayloadAction<TaskId>) => {
 			delete state.byId[payload];
 			return state;
 		},
@@ -64,6 +65,17 @@ export const tasks = createSlice({
 		}),
 	},
 });
+
+
+export const selectorTaskIdFromProps = (state: any, taskId: TaskId) => taskId;
+export const selctorTasksRoot = (state: any) => state[tasks.name] as TasksState;
+export const selctorTasksIds = createSelector([selctorTasksRoot], state => state.ids);
+export const selctorTasksById = createSelector([selctorTasksRoot], state => state.byId);
+
+export const selctorTaskById = createSelector(
+	[selctorTasksById, selectorTaskIdFromProps],
+	(byId, id) => byId[id]
+);
 
 
 export const toggleIsCompleted = (task: Task) => (dispatch: Dispatch) => {

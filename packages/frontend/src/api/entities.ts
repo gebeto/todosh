@@ -20,6 +20,7 @@ export type Task = {
 	createdDateTime: ISOString;
 	lastModifiedDateTime: ISOString;
 	body: TaskBody;
+	completedDateTime?: ISOString | null;
 	newlyAdded?: boolean;
 }
 
