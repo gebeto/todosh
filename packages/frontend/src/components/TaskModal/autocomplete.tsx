@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import { tasksCompleted } from '../../store/tasks-completed';
 import { tasks } from '../../store/tasks';
@@ -13,44 +13,52 @@ function mapWithLimit<T>(
 ) {
 	const arrLength = arr.length;
 	const result: T[] = [];
-	for (let i = 0, count = 0; i < arrLength; i++) {
+	for (let i = 0; i < arrLength; i++) {
 		if (callback(arr[i], arrLength, arr)) {
 			result.push(arr[i]);
-			count++;
 		}
-		if (count >= limit) break;
+		
+		if (result.length >= limit){
+			break;
+		}
 	}
 	return result;
 }
 
 
-export const AutocompleteItem = (props: any) => {
-	const handleClick = React.useCallback(() => {
-		props.onSelect(props.data);
-	}, []);
+export const AutocompleteItem = (props: any) => (
+	<li
+		className="inputter-autocomplete-item"
+		onClick={() => props.onSelect(props.data)}
+	>
+		{props.data.title}
+	</li>
+);
+
+
+export const Autocomplete = ({ value, onSelect }: any) => {
+	const completedTasks = useSelector((state: any) => {
+		if (value) {
+			return mapWithLimit(
+				state.tasksCompleted.items,
+				5,
+				(item: any) => new RegExp(value, 'ig').test(item.title)
+			);
+		}
+
+		return state.tasksCompleted.items.slice(0, 5);
+
+	})
+
+	if (!completedTasks.length) {
+		return null;
+	}
 
 	return (
-		<li className="inputter-autocomplete-item" onClick={handleClick}>
-			{props.data.title}
-		</li>
+		<ul className="inputter-autocomplete">
+			{completedTasks.map((item: any) =>
+				<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
+			)}
+		</ul>
 	);
 };
-
-
-export const Autocomplete = ({ completedTasks, onSelect }: any) => (completedTasks.length > 0) ? (
-	<ul className="inputter-autocomplete">
-		{completedTasks.map((item: any) =>
-			<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
-		)}
-	</ul>
-) : null;
-
-
-export default connect(
-	(state: any, ownProps: any) => ({
-		completedTasks: ownProps.value ? mapWithLimit(
-			state.tasksCompleted.items, 5,
-			(item: any) => new RegExp(ownProps.value, 'ig').test(item.title)
-		) : state.tasksCompleted.items.slice(0, 5)
-	}),
-)(Autocomplete);

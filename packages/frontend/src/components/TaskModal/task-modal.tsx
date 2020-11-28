@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import Autocomplete from './autocomplete';
+import { Autocomplete } from './autocomplete';
 
 
 export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
