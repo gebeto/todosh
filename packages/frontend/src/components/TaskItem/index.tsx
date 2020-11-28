@@ -39,7 +39,7 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 			in={!!task.completedDateTime}
 			timeout={300}
 		>
-			<Fade offset={index * 50}>
+			<Fade offset={index * 70}>
 				<li onClick={handleClick} className="list-item">
 					<div className="list-item-check" />
 					<div className="list-item-title">{task.title}</div>

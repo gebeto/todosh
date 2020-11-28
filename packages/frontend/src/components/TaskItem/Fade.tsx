@@ -1,7 +1,7 @@
 import React from 'react';
 import { Transition } from 'react-transition-group';
 
-const duration = 200;
+const duration = 300;
 
 const defaultStyle = {
 	transition: `opacity ${duration}ms ease-in-out, transform ${duration}ms cubic-bezier(0.6, 0, 0, 1)`,
@@ -9,11 +9,12 @@ const defaultStyle = {
 }
 
 const transitionStyles: any = {
-	entering: { opacity: 1, transform: 'translateY(0px)', },
-	entered: { opacity: 1, transform: 'translateY(0px)', },
-	exiting: { opacity: 0, transform: 'translateY(-10px)', },
-	exited: { opacity: 0, transform: 'translateY(-10px)', },
+	entering: { opacity: 1, transform: 'translateX(0px)', },
+	entered: { opacity: 1, transform: 'translateX(0px)', },
+	exiting: { opacity: 0, transform: 'translateX(-10px)', },
+	exited: { opacity: 0, transform: 'translateX(-10px)', },
 };
+
 
 export const Fade: React.FC<any> = ({ children, offset, ...props }) => {
 	const [s, setS] = React.useState(false);
