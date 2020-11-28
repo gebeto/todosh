@@ -1,13 +1,13 @@
 import { createSlice, createAction, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 
-import { ITask } from '../api';
+import { Task } from '../api';
 
 
 interface TasksState {
 	isFetching: boolean;
 	isFetchingError: boolean;
 	ids: string[];
-	byId: Record<string, ITask>;
+	byId: Record<string, Task>;
 }
 
 const initialState: TasksState = {
@@ -26,11 +26,11 @@ export const tasks = createSlice({
 			...state,
 			isFetching: true,
 		}),
-		fetchingSuccess: (state: TasksState, { payload }: PayloadAction<ITask[]>) => ({
+		fetchingSuccess: (state: TasksState, { payload }: PayloadAction<Task[]>) => ({
 			...state,
 			isFetching: false,
 			ids: payload.map(item => item.id),
-			byId: payload.reduce((curr: Record<string, ITask>, item) => {
+			byId: payload.reduce((curr: Record<string, Task>, item) => {
 				curr[item.id] = item;
 				return curr;
 			}, {})
@@ -40,7 +40,7 @@ export const tasks = createSlice({
 			isFetching: false,
 			isFetchingError: true,
 		}),
-		added: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
+		added: (state: TasksState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			ids: [...state.ids, payload.id],
 			byId: {
@@ -52,7 +52,7 @@ export const tasks = createSlice({
 			delete state.byId[payload];
 			return state;
 		},
-		updated: (state: TasksState, { payload }: PayloadAction<ITask>) => ({
+		updated: (state: TasksState, { payload }: PayloadAction<Task>) => ({
 			...state,
 			byId: {
 				...state.byId,
@@ -66,7 +66,7 @@ export const tasks = createSlice({
 });
 
 
-export const toggleIsCompleted = (task: ITask) => (dispatch: Dispatch) => {
+export const toggleIsCompleted = (task: Task) => (dispatch: Dispatch) => {
 	dispatch(tasks.actions.updated({
 		...task,
 		completedDateTime: task.completedDateTime ? null : (new Date()).toISOString(),
@@ -84,7 +84,7 @@ export const addNewTask = (taskText: string) => (dispatch: Dispatch, getState: a
 	});
 }
 
-export const addOldTask = (task: ITask) => (dispatch: Dispatch, getState: any) => {
+export const addOldTask = (task: Task) => (dispatch: Dispatch, getState: any) => {
 	dispatch(tasks.actions.added(task));
 	uncompleteTask(task.id).then(res => {
 		dispatch(tasks.actions.updated(res));

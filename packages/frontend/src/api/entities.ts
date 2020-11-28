@@ -7,8 +7,11 @@ export type TaskBody = {
 }
 
 
+export type TaskId = string;
+
+
 export type Task = {
-	"@odata.etag": string;
+	"@odata.etag": TaskId;
 	id: string;
 	importance: "normal" | "high";
 	isReminderOn: boolean;

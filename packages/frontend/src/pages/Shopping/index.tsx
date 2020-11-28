@@ -7,9 +7,9 @@ import { tasksCompleted } from '../../store/tasks-completed';
 
 import './styles.scss';
 
-import Header from '../../components/header/';
-import Footer from '../../components/footer/';
-import { List } from '../../components/list/';
+import Header from '../../components/Header';
+import { Footer } from '../../components/Footer';
+import { TasksList } from '../../components/TasksList';
 import { useToDoClient } from '../Auth/ToDoClientContext';
 import { todoTaskListId } from '../../api/ToDoClient';
 
@@ -39,7 +39,7 @@ const ShoppingRaw = (props: any) => {
 			<div className="app">
 				<Header />
 				<div className="main">
-					<List />
+					<TasksList />
 				</div>
 				<Footer />
 			</div>
