@@ -7,7 +7,7 @@ import { tasksCompleted } from '../../store/tasks-completed';
 
 import './styles.scss';
 
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { TasksList } from '../../components/TasksList';
 import { useToDoClient } from '../Auth/ToDoClientContext';

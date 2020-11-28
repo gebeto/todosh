@@ -4,7 +4,7 @@ import './styles.scss';
 import logoutIcon from 'url:./settings-icon.svg';
 
 
-const Header = (props: any) => {
+export const Header: React.FC = () => {
 	const handleLogout = React.useCallback(() => {
 		localStorage.clear();
 		window.location.reload();
@@ -19,6 +19,3 @@ const Header = (props: any) => {
 		</div>
 	)
 }
-
-
-export default Header;

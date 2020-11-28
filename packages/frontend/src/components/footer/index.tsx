@@ -5,7 +5,7 @@ import './styles.scss';
 
 import { addNewTask, addOldTask } from '../../store/tasks';
 import { tasksCompleted } from '../../store/tasks-completed';
-import TaskModal from '../TaskModal';
+import { TaskModal } from '../TaskModal';
 
 import { useTransition } from '../../hooks/use-transition';
 import { useFocus } from '../../hooks/useFocus';

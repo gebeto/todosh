@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
-import { Autocomplete } from './autocomplete';
+import { Autocomplete } from './Autocomplete';
 
 
 export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
@@ -16,7 +15,7 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 		if (e.target === wrapperRef.current) {
 			props.handleClose(e);
 		}
-	}, [])
+	}, []);
 	
 	const handleFormSubmit = React.useCallback((e) => {
 		e.preventDefault();
@@ -59,6 +58,3 @@ export const TaskModal = React.forwardRef((props: any, inputRef: any) => {
 		</form>
 	);
 });
-
-
-export default TaskModal;

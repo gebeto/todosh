@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Dispatch, createSelector } from '@reduxjs/toolkit';
 
 import { Task } from '../api';
+import { filterWithLimit } from '../helpers/filterWithLimit';
 
 
 interface TasksState {
@@ -70,6 +71,24 @@ export const tasksCompleted = createSlice({
 	},
 });
 
+
+export const selectorValueFromProps = (state: any, value: string) => value;
+export const selectorTasksCompletedRoot = (state: any) => state[tasksCompleted.name] as TasksState;
+export const selectorTasksIds = createSelector([selectorTasksCompletedRoot], (state) => state.ids);
+export const selectorTasksById = createSelector([selectorTasksCompletedRoot], (state) => state.byId);
+export const selectorTasksItems = createSelector([selectorTasksCompletedRoot], (state) => state.items);
+export const selectorTasksFilteredByValue = createSelector(
+	[selectorTasksItems, selectorValueFromProps],
+	(items, value) => {
+		if (value) {
+			return filterWithLimit(items, 5,
+				(item: any) => new RegExp(value, 'ig').test(item.title)
+			);
+		}
+
+		return items.slice(0, 5);
+	}
+);
 
 export const loadTasksCompleted = () => async (dispatch: Dispatch) => {
 	// wunderlist.getTasksForState(LIST_ID, true)
