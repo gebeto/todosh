@@ -6,6 +6,17 @@ export type TaskBody = {
 	contentType: "html" | "json" | "text",
 }
 
+export type TaskCompletedDateTime = {
+	dateTime: ISOString;
+	timeZone: 'UTC' | any;
+}
+
+export enum TaskStatus {
+	completed = "completed",
+	notStarted = "notStarted",
+	// started = "started",
+}
+
 
 export type TaskId = string;
 
@@ -15,12 +26,12 @@ export type Task = {
 	id: string;
 	importance: "normal" | "high";
 	isReminderOn: boolean;
-	status: "notStarted" | "started";
+	status: TaskStatus;
 	title: string;
 	createdDateTime: ISOString;
 	lastModifiedDateTime: ISOString;
 	body: TaskBody;
-	completedDateTime?: ISOString | null;
+	completedDateTime?: TaskCompletedDateTime | null;
 	newlyAdded?: boolean;
 }
 

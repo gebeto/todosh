@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import { tasks, selctorTaskById } from '../../store/tasks';
-import { TaskId, useToDoClient } from '../../api';
+import { TaskId, TaskStatus, useToDoClient } from '../../api';
 import { Fade } from './Fade';
 
 import './styles.scss';
@@ -29,23 +29,22 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 	const task = useSelector(state => selctorTaskById(state, taskId));
 	const client = useToDoClient();
 	const dispatch = useDispatch();
-	const completed = React.useMemo(() => !!task.completedDateTime, [task.completedDateTime]);
+	const completed = React.useMemo(() => task.status === TaskStatus.completed, [task.status]);
 
 	const handleClick = () => {
-		const completed = !!task.completedDateTime;
 		dispatch(
 			tasks.actions.updated({
 				...task,
-				completedDateTime: completed ? null : (new Date()).toISOString(),
+				status: TaskStatus.completed,
 			})
 		);
 		if (completed) {
-			client?.uncompleteTask(task.id).then(task => {
-				dispatch(tasks.actions.updated(task));
+			client?.uncompleteTask(task.id).then(updatedTask => {
+				dispatch(tasks.actions.updated(updatedTask));
 			});
 		} else {
-			client?.completeTask(task.id).then(task => {
-				dispatch(tasks.actions.updated(task));
+			client?.completeTask(task.id).then(updatedTask => {
+				dispatch(tasks.actions.updated(updatedTask));
 			});
 		}
 	};
