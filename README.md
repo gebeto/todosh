@@ -1,8 +1,14 @@
-# todosh
-Shoppinglist based on Microsoft To-Do api
-
-[![Build Status](https://api.travis-ci.com/gebeto/todosh.svg?branch=master)](https://travis-ci.org/gebeto/todosh)
-[![License](https://img.shields.io/github/license/gebeto/wundershoppinglist)](LICENSE)
+<p align="center">
+  <img src="preview.png" />
+  Shoppinglist based on Microsoft To-Do api
+  <br />
+  <a href="https://travis-ci.com/gebeto/todosh" alt="Build Status">
+    <img src="https://api.travis-ci.com/gebeto/todosh.svg?branch=master" />
+  </a>
+  <a href="LICENSE" alt="License">
+    <img src="https://img.shields.io/github/license/gebeto/todosh" />
+  </a>
+</p>
 
 
 ## Api
