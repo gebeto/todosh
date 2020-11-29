@@ -75,14 +75,17 @@
 	}
 
 	&.exited {
-		visibility: hidden;
 		display: flex;
 		z-index: -1;
 		opacity: 0;
-
+		
 		.inputter-input-wrapper {
 			margin-top: 160px;
 			opacity: 0;
+		}
+
+		.autocomplete {
+			visibility: hidden;
 		}
 	}
 

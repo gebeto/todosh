@@ -51,13 +51,13 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 	};
 
 	return (
-		<CSSTransition classNames={taskItemTransitionClassNames} in={completed} timeout={300}>
-			<Fade offset={task.newlyAdded ? 0 : index * 70}>
+		<Fade delay={task.newlyAdded ? 0 : index * 70}>
+			<CSSTransition classNames={taskItemTransitionClassNames} in={completed} timeout={300}>
 				<li onClick={handleClick} className="list-item">
 					<div className="list-item-check" />
 					<div className="list-item-title">{task.title}</div>
 				</li>
-			</Fade>
-		</CSSTransition>
+			</CSSTransition>
+		</Fade>
 	)
 }

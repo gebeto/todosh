@@ -17,13 +17,13 @@ const transitionStyles: any = {
 };
 
 
-export const Fade: React.FC<any> = ({ children, offset, ...props }) => {
+export const Fade: React.FC<any> = ({ children, delay, ...props }) => {
 	const [s, setS] = React.useState(false);
 
 	React.useEffect(() => {
 		setTimeout(() => {
 			setS(true);
-		}, offset);
+		}, delay);
 	}, []);
 
 	return (
