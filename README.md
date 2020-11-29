@@ -1,7 +1,7 @@
-# wundershoppinglist
-Shoppinglist based on Wunderlist api
+# todosh
+Shoppinglist based on Microsoft To-Do api
 
-[![Build Status](https://travis-ci.org/gebeto/wundershoppinglist.svg?branch=master)](https://travis-ci.org/gebeto/wundershoppinglist)
+[![Build Status](https://api.travis-ci.com/gebeto/todosh.svg?branch=master)](https://travis-ci.org/gebeto/todosh)
 [![License](https://img.shields.io/github/license/gebeto/wundershoppinglist)](LICENSE)
 
 
