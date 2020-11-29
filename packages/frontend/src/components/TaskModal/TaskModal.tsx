@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useDocumentEvent } from '../../hooks/useDocumentEvent';
-import { Autocomplete } from './Autocomplete';
+import { Autocomplete } from '../Autocomplete';
 
 
 export const TaskModal: React.FC<any> = React.forwardRef((props: any, inputRef: any) => {
