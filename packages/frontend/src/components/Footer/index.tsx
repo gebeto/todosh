@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-
-import './styles.scss';
-
-import { TaskModal } from '../TaskModal';
 
 import { useTransition } from '../../hooks/useTransition';
 import { useFocus } from '../../hooks/useFocus';
-import { useToDoClient } from '../../api/ToDoClientContext';
+
+import { TaskModal } from '../TaskModal';
+import './styles.scss';
 
 
 export const Footer: React.FC = () => {
