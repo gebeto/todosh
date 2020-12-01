@@ -35,7 +35,7 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 		dispatch(
 			tasks.actions.updated({
 				...task,
-				status: TaskStatus.completed,
+				status: completed ? TaskStatus.notStarted : TaskStatus.completed,
 			})
 		);
 		if (completed) {

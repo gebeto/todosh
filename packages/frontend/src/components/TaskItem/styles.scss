@@ -24,7 +24,6 @@ $check-size: 16pt;
 		min-width: $check-size;
 		min-height: $check-size;
 		margin-right: 12pt;
-		// border-radius: 34%;
 		border-radius: 4pt;
 		border: 1px solid #f0f0f0;
 		position: relative;
@@ -38,7 +37,7 @@ $check-size: 16pt;
 			height: 2px;
 			background: #fda;
 			display: block;
-			border-radius: 34%;
+			border-radius: 3pt;
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s;
 			opacity: 0;
 		}
