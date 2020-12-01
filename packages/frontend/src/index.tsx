@@ -6,8 +6,6 @@ import './styles.scss';
 
 import { AuthProvider } from './pages/Auth';
 import { Shopping } from './pages/Shopping';
-import { Test } from './pages/Auth/Test';
-
 
 
 ReactDOM.render(

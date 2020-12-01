@@ -1,16 +1,17 @@
-$check-size: 34px;
+$check-size: 16pt;
 
 .list-item {
 	list-style: none;
 	background: #fff;
 
 	border: 1px solid #fafafa;
-	box-shadow: 0px 6px 6px -6px #e5e5e5;
+	// box-shadow: 0px 6px 6px -6px #e5e5e5;
 	
-	height: 3.4em;
-	padding-left: 12pt;
+	// height: 3em;
+	height: 36pt;
+	padding-left: 11pt;
 	margin-bottom: 5pt;
-	border-radius: 12pt;
+	border-radius: 10pt;
 
 	display: flex;
 	align-items: center;
@@ -22,9 +23,10 @@ $check-size: 34px;
 		width: $check-size;
 		min-width: $check-size;
 		min-height: $check-size;
-		margin-right: 1em;
-		border-radius: 50%;
-		border: 2px solid #ddd;
+		margin-right: 12pt;
+		// border-radius: 34%;
+		border-radius: 4pt;
+		border: 1px solid #f0f0f0;
 		position: relative;
 
 		&:before {
@@ -36,7 +38,7 @@ $check-size: 34px;
 			height: 2px;
 			background: #fda;
 			display: block;
-			border-radius: 50%;
+			border-radius: 34%;
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.1s;
 			opacity: 0;
 		}
@@ -87,8 +89,8 @@ $check-size: 34px;
 			opacity: 1;
 			left: 2px;
 			top: 2px;
-			width: $check-size - 8px;
-			height: $check-size - 8px;
+			width: $check-size - 6px;
+			height: $check-size - 6px;
 		}
 	}
 
@@ -105,8 +107,8 @@ $check-size: 34px;
 			opacity: 1;
 			left: 2px;
 			top: 2px;
-			width: $check-size - 8px;
-			height: $check-size - 8px;
+			width: $check-size - 6px;
+			height: $check-size - 6px;
 		}
 	}
 
