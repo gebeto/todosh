@@ -32,14 +32,16 @@ const ShoppingRaw = (props: any) => {
 		}).catch(err => {
 			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
 		});
+	}, [version]);
 
+	React.useEffect(() => {
 		dispatch(tasksCompleted.actions.fetchingPending());
 		client?.getTasks(todoTaskListId, true).then(res => {
 			dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
 		}).catch(err => {
 			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
 		});
-	}, [version]);
+	}, []);
 
 	return (
 		<RefreshContext.Provider value={refresh}>
