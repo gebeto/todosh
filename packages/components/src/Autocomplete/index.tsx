@@ -15,9 +15,17 @@ export const AutocompleteItem: React.FC<any> = (props: any) => (
 
 
 export const Autocomplete: React.FC<any> = ({ value, onSelect, items }: any) => {
+	const filteredItems = React.useMemo(() => {
+		if (value) {
+			const reg = new RegExp(value, "i");
+			return items.filter(item => reg.exec(item.title));
+		}
+		return items;
+	}, [items, value]);
+
 	return (
 		<ul className="autocomplete">
-			{items.map((item: any) =>
+			{filteredItems.map((item: any) =>
 				<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
 			)}
 		</ul>

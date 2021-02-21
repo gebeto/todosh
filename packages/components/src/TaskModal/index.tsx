@@ -1,20 +1,20 @@
 import * as React from 'react';
 
 import { Autocomplete } from '../Autocomplete';
-import { TransitionState } from '@wsl/frontend/src/hooks/useTransition';
 
 import './styles.scss';
 
 
 export type TaskModalProps = {
+	className?: string;
+	defaultValue?: string;
 	items: Array<{id: number, title: string}>;
-	transitionState: TransitionState;
-	ref: React.Ref<HTMLInputElement>;
+	inputRef: React.Ref<HTMLInputElement>;
 }
 
-export const TaskModal: React.FC<TaskModalProps> = React.forwardRef((props, inputRef) => {
-	const wrapperRef = React.useRef<HTMLFormElement>(null);
-	const [value, setValue] = React.useState("");
+
+export const TaskModal = (props) => {
+	const [value, setValue] = React.useState(props.defaultValue);
 
 	const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
@@ -22,15 +22,13 @@ export const TaskModal: React.FC<TaskModalProps> = React.forwardRef((props, inpu
 
 	return (
 		<form
-			ref={wrapperRef}
-			// onClick={handleWrapperClick}
 			// onSubmit={handleFormSubmit}
-			className={`inputter ${props.transitionState}`}
+			className={`inputter ${props.className}`}
 		>
 			<div className="inputter-input-wrapper">
-				<input ref={inputRef} type="text" value={value} onChange={handleInputChange} />
+				<input ref={props.inputRef} value={value} onChange={handleInputChange} autoFocus />
 				<Autocomplete onSelect={console.log} value={value} items={props.items} />
 			</div>
 		</form>
 	);
-});
+};
