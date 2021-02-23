@@ -1,20 +1,22 @@
 import * as React from 'react';
 
-import '@wsl/frontend/src/styles.scss';
-import './styles.scss';
+import { List } from '../List';
 
 
-export const AutocompleteItem: React.FC<any> = (props: any) => (
-	<li
-		className="autocomplete-item"
-		onClick={() => props.onSelect(props.data)}
-	>
-		{props.data.title}
-	</li>
-);
+export type AutocompleteListItemItem = {
+	id: number,
+	title: string,
+}
 
 
-export const Autocomplete: React.FC<any> = ({ value, onSelect, items }: any) => {
+export type AutocompleteListProps = {
+	value: string,
+	items: Array<AutocompleteListItemItem>,
+	onItemSelect: (item: AutocompleteListItemItem) => void,
+};
+
+
+export const Autocomplete: React.FC<AutocompleteListProps> = ({ value, items, onItemSelect }) => {
 	const filteredItems = React.useMemo(() => {
 		if (value) {
 			const reg = new RegExp(value, "i");
@@ -24,10 +26,6 @@ export const Autocomplete: React.FC<any> = ({ value, onSelect, items }: any) => 
 	}, [items, value]);
 
 	return (
-		<ul className="autocomplete">
-			{filteredItems.map((item: any) =>
-				<AutocompleteItem key={item.id} data={item} onSelect={onSelect} />
-			)}
-		</ul>
+		<List onItemSelect={onItemSelect} items={filteredItems} />
 	);
 };

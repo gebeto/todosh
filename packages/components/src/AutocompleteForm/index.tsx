@@ -5,7 +5,7 @@ import { Autocomplete } from '../Autocomplete';
 import './styles.scss';
 
 
-export type TaskModalProps = {
+export type AutocompleteTaskProps = {
 	className?: string;
 	defaultValue?: string;
 	items: Array<{id: number, title: string}>;
@@ -13,7 +13,7 @@ export type TaskModalProps = {
 }
 
 
-export const TaskModal = (props) => {
+export const AutocompleteTask = (props) => {
 	const [value, setValue] = React.useState(props.defaultValue);
 
 	const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

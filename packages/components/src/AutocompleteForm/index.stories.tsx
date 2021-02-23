@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { TaskModal } from './index';
+import { AutocompleteTask } from './index';
 
 export default {
-	title: 'Task Modal',
-	component: TaskModal,
+	title: 'Autocomplete Task',
+	component: AutocompleteTask,
 	argTypes: {
 		className: {
 			type: "string",
@@ -21,7 +21,7 @@ export default {
 };
 
 
-const Template = (args) => <TaskModal {...args} />;
+const Template = (args) => <AutocompleteTask {...args} />;
 
 
 export const Simple = Template.bind({});
