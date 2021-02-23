@@ -27,7 +27,7 @@ const Template = (args) => {
 }
 
 
-export const Simple = Template.bind({}, );
+export const Simple = Template.bind({});
 Simple.args = {
 	children: (
 		<div style={{padding: 30}}>Hello world!!!</div>
@@ -35,7 +35,7 @@ Simple.args = {
 };
 
 
-export const WithList = Template.bind({}, );
+export const WithList = Template.bind({});
 WithList.args = {
 	children: (
 		<List
@@ -50,18 +50,40 @@ WithList.args = {
 };
 
 
-export const WithAutocomplete = Template.bind({}, );
-WithAutocomplete.args = {
-	children: (
-		<AutocompleteTask
-			defaultValue="hello"
-			items={[
-				{ id: 1, title: "Hel" },
-				{ id: 2, title: "Hello" },
-				{ id: 3, title: "Hello World" },
-				{ id: 4, title: "World" },
-				{ id: 5, title: "Work" },
-			]}
-		/>
-	)
-};
+
+const Template2 = (args) => {
+	const [open, setOpen] = React.useState(false);
+	const inputRef = React.useRef<HTMLInputElement>(null);
+
+	const handleOpen = () => {
+		setOpen(true);
+		inputRef.current.focus();
+	}
+
+	const handleClose = () => {
+		setOpen(false);
+	}
+
+	return (
+		<div>
+			<Modal {...args} open={open} handleClose={handleClose}>
+				<AutocompleteTask
+					inputRef={inputRef}
+					defaultValue="hello"
+					items={[
+						{ id: 1, title: "Hel" },
+						{ id: 2, title: "Hello" },
+						{ id: 3, title: "Hello World" },
+						{ id: 4, title: "World" },
+						{ id: 5, title: "Work" },
+					]}
+				/>
+			</Modal>
+			<button onClick={handleOpen}>Open</button>
+		</div>
+	);
+}
+
+
+export const WithAutocomplete = Template2.bind({});
+WithAutocomplete.args = {};
