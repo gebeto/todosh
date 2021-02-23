@@ -8,6 +8,7 @@ export default {
 	component: Modal,
 	argTypes: {
 		children: { control: false },
+		open: { control: false },
 	}
 };
 

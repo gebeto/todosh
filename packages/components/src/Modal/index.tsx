@@ -2,17 +2,16 @@ import * as React from 'react';
 import cn from 'classnames';
 
 import { useDocumentEvent } from '@wsl/frontend/src/hooks/useDocumentEvent';
-export { useTransition, TransitionState } from '@wsl/frontend/src/hooks/useTransition';
-import { useTransition, TransitionState } from '@wsl/frontend/src/hooks/useTransition';
+export { useTransition } from '@wsl/frontend/src/hooks/useTransition';
+import { useTransition } from '@wsl/frontend/src/hooks/useTransition';
 
 import './styles.scss';
 
 
-export type ModalProps = {
+export type ModalProps = React.PropsWithChildren<{
 	open: boolean,
 	handleClose(): any,
-	transitionState: TransitionState,
-}
+}>
 
 
 export const Modal: React.FC<ModalProps> = (props) => {
