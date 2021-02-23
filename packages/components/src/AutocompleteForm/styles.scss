@@ -1,95 +1,11 @@
-.inputter {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(255, 255, 255, 0.8);
-	z-index: 10;
-	display: flex;
-	justify-content: center;
-	padding-top: 60pt;
-	align-items: flex-start;
-	transition-duration: 0.3s;
-
-	&-input-wrapper {
-		position: relative;
-		transition-duration: 0.5s;
-		border: none;
-		border-radius: 16pt;
-		padding-top: 3pt;
-		background: #fff;
-		max-width: 500px;
-		width: calc(100% - 32pt);
+.autocomplete {
+	input {
+		width: 100%;
 		box-sizing: border-box;
-		overflow: hidden;
-
-		border-top: 1px solid #fafafa;
-		box-shadow: 0 4px 20px -4px #ddd;
-
-		input {
-			width: 100%;
-			box-sizing: border-box;
-			font-size: 18pt;
-			padding: 16pt 32pt;
-			border: none;
-			outline: none;
-		}
-	}
-
-	&.entering {
-		display: flex;
-		opacity: 1;
-		z-index: 10000;
-
-		.inputter-input-wrapper {
-			transition-timing-function: cubic-bezier(0, 1, 0, 1);
-			margin-top: 0px;
-			opacity: 1;
-		}
-	}
-
-	&.entered {
-		display: flex;
-		opacity: 1;
-		z-index: 10;
-
-		.inputter-input-wrapper {
-			margin-top: 0px;
-			opacity: 1;
-		}
-	}
-
-	&.exiting {
-		display: flex;
-		opacity: 0;
-		transition-delay: 0.2s;
-		
-		.inputter-input-wrapper {
-			transition: opacity 0.2s, margin 0.4s;
-			
-			transition-timing-function: cubic-bezier(0.6, 0, 0, 1);
-			margin-top: 160px;
-			opacity: 0;
-		}
-	}
-
-	&.exited {
-		display: flex;
-		z-index: -1;
-		opacity: 0;
-		
-		.inputter-input-wrapper {
-			margin-top: 160px;
-			opacity: 0;
-		}
-
-		.autocomplete {
-			visibility: hidden;
-		}
-	}
-
-	&.initial {
-		display: none;
+		font-size: 18pt;
+		padding: 16pt 32pt;
+		padding-top: 19pt;
+		border: none;
+		outline: none;
 	}
 }

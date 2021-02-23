@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Modal } from './index';
 import { List } from '../List';
+import { AutocompleteTask } from '../AutocompleteForm';
 
 
 export default {
@@ -43,6 +44,23 @@ WithList.args = {
 				{id: 1, title: "hello"},
 				{id: 2, title: "hello wo"},
 				{id: 3, title: "hello world"},
+			]}
+		/>
+	)
+};
+
+
+export const WithAutocomplete = Template.bind({}, );
+WithAutocomplete.args = {
+	children: (
+		<AutocompleteTask
+			defaultValue="hello"
+			items={[
+				{ id: 1, title: "Hel" },
+				{ id: 2, title: "Hello" },
+				{ id: 3, title: "Hello World" },
+				{ id: 4, title: "World" },
+				{ id: 5, title: "Work" },
 			]}
 		/>
 	)

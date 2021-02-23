@@ -21,7 +21,11 @@ export default {
 };
 
 
-const Template = (args) => <AutocompleteTask {...args} />;
+const Template = (args) => (
+	<div style={{border: '1px solid red'}}>
+		<AutocompleteTask {...args} />
+	</div>
+);
 
 
 export const Simple = Template.bind({});

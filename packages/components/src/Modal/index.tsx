@@ -30,7 +30,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
 	useDocumentEvent<KeyboardEvent>("keydown", (e) => {
 		if (e.key === "Escape") {
-			handleModalClose()
+			handleModalClose();
 		}
 	});
 

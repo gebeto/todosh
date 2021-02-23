@@ -21,14 +21,9 @@ export const AutocompleteTask = (props) => {
 	}, []);
 
 	return (
-		<form
-			// onSubmit={handleFormSubmit}
-			className={`inputter ${props.className}`}
-		>
-			<div className="inputter-input-wrapper">
-				<input ref={props.inputRef} value={value} onChange={handleInputChange} autoFocus />
-				<Autocomplete onSelect={console.log} value={value} items={props.items} />
-			</div>
-		</form>
+		<div className="autocomplete">
+			<input ref={props.inputRef} value={value} onChange={handleInputChange} autoFocus />
+			<Autocomplete onItemSelect={console.log} value={value} items={props.items} />
+		</div>
 	);
 };
