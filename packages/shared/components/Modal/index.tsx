@@ -11,9 +11,16 @@ import './styles.scss';
 export { useTransition } from '../../hooks/useTransition';
 
 
+export enum ModalPosition {
+	top = "position-top",
+	center = "position-center",
+	bottom = "position-bottom",
+}
+
 export type ModalProps = React.PropsWithChildren<{
-	open: boolean,
-	handleClose(): any,
+	open: boolean;
+	handleClose(): any;
+	position?: ModalPosition;
 }>
 
 
@@ -37,9 +44,11 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		}
 	});
 
+	const className = cn("modal-wrapper", props.position, transitionState);
+
 	return ReactDOM.createPortal(
 		(
-			<div ref={wrapperRef} onClick={handleWrapperClick} className={cn("modal-wrapper", transitionState)}>
+			<div ref={wrapperRef} onClick={handleWrapperClick} className={className}>
 				<div className="modal">
 					{props.children}
 				</div>
@@ -48,3 +57,8 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		document.body,
 	)
 };
+
+
+Modal.defaultProps = {
+	position: ModalPosition.top,
+}

@@ -9,8 +9,23 @@
 	display: flex;
 	justify-content: center;
 	padding-top: 60pt;
+	padding-bottom: 60pt;
 	align-items: flex-start;
 	transition-duration: 0.3s;
+	max-height: 100vh;
+	box-sizing: border-box;
+
+	&.position-top {
+		align-items: flex-start;
+	}
+
+	&.position-center {
+		align-items: center;
+	}
+
+	&.position-bottom {
+		align-items: flex-end;
+	}
 
 	.modal {
 		position: relative;
@@ -35,7 +50,8 @@
 
 		.modal {
 			transition-timing-function: cubic-bezier(0, 1, 0, 1);
-			margin-top: 0px;
+			// margin-top: 0px;
+			transform: translateY(0px);
 			opacity: 1;
 		}
 	}
@@ -46,7 +62,8 @@
 		z-index: 10;
 
 		.modal {
-			margin-top: 0px;
+			// margin-top: 0px;
+			transform: translateY(0px);
 			opacity: 1;
 		}
 	}
@@ -57,10 +74,11 @@
 		transition-delay: 0.2s;
 
 		.modal {
-			transition: opacity 0.2s, margin 0.4s;
+			transition: opacity 0.2s, transform 0.4s;
 
 			transition-timing-function: cubic-bezier(0.6, 0, 0, 1);
-			margin-top: 160px;
+			// margin-top: 160px;
+			transform: translateY(160px);
 			opacity: 0;
 		}
 	}
@@ -71,7 +89,8 @@
 		opacity: 0;
 
 		.modal {
-			margin-top: 160px;
+			// margin-top: 160px;
+			transform: translateY(160px);
 			opacity: 0;
 		}
 	}
