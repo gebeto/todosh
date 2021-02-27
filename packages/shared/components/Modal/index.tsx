@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
 import { useDocumentEvent } from '../../hooks/useDocumentEvent';
@@ -36,11 +37,14 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		}
 	});
 
-	return (
-		<div ref={wrapperRef} onClick={handleWrapperClick} className={cn("modal-wrapper", transitionState)}>
-			<div className="modal">
-				{props.children}
+	return ReactDOM.createPortal(
+		(
+			<div ref={wrapperRef} onClick={handleWrapperClick} className={cn("modal-wrapper", transitionState)}>
+				<div className="modal">
+					{props.children}
+				</div>
 			</div>
-		</div>
-	);
+		),
+		document.body,
+	)
 };
