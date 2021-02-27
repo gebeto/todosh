@@ -19,7 +19,7 @@ const items = [
 
 Simple hook usage.
 ```js
-const filtered = useAutocomplete(items, 'hello w');
+const filtered = useAutocomplete(items, 'title', 'hello w');
 
 // Result:
 [{id: 3, title: "Hello Wo"}, {id: 4, title: "Hello World"}]
@@ -29,7 +29,7 @@ const filtered = useAutocomplete(items, 'hello w');
 Additionally you can pass third parameter named `limit` for limitting the amount of result items.
 
 ```js
-const filtered = useAutocomplete(items, 'hello w', 1);
+const filtered = useAutocomplete(items, 'title', 'hello w', 1);
 
 // Result:
 [{id: 3, title: "Hello Wo"}]

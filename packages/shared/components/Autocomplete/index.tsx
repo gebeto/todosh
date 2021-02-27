@@ -6,25 +6,26 @@ import { useAutocomplete } from '../../hooks/useAutocomplete';
 import './styles.scss';
 
 
-export type AutocompleteProps = {
-	defaultValue?: string;
-	items: Array<{id: number, title: string}>;
-	inputRef: React.Ref<HTMLInputElement>;
+export type AutocompleteItem = {
+	id: number;
+	title: string;
 }
 
 
-export const Autocomplete = (props) => {
+export type AutocompleteProps = {
+	items: Array<AutocompleteItem>;
+	inputRef: React.Ref<HTMLInputElement>;
+	defaultValue?: string;
+}
+
+
+export const Autocomplete: React.FC<AutocompleteProps> = (props) => {
 	const [value, setValue] = React.useState(props.defaultValue);
-
-	const handleInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		setValue(e.target.value);
-	}, []);
-
-	const filteredItems = useAutocomplete(props.items, value, 5);
+	const filteredItems = useAutocomplete(props.items, "title", value, 5);
 
 	return (
 		<div className="autocomplete">
-			<input ref={props.inputRef} value={value} onChange={handleInputChange} />
+			<input ref={props.inputRef} value={value} onChange={e => setValue(e.target.value)} />
 			<List onItemSelect={console.log} items={filteredItems} />
 		</div>
 	);

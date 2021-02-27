@@ -1,24 +1,21 @@
 import React from 'react';
+import { filterIterator, map, OnlyTypes } from './generators';
 
 
-export const useAutocomplete = (items, term, limit=5) => {
+const strToRegExpReg = /([().,*+])/g;
+const strToRegExpPreparer = (str: string) => str.replace(strToRegExpReg, "\\$1");
+const strToRegExp = str => new RegExp(strToRegExpPreparer(str), "i");
+
+
+export const useAutocomplete = <
+	T extends Record<string, any>,
+	F extends OnlyTypes<T, string>,
+>(items: Array<T>, key: keyof F, term: string, limit=5) => {
 	const filteredItems = React.useMemo(() => {
-		const result = [];
-		let foundCount = 0;
 		if (term) {
-			const _term = term.replace(/([().,*+])/g, "\\$1");
-			const reg = new RegExp(_term, "i");
-			for (let i = 0; i < items.length; i++) {
-				const item = items[i];
-				if (reg.test(item.title)) {
-					result.push(item);
-					foundCount++;
-				}
-				if (foundCount >= limit) {
-					break;
-				}
-			}
-			return result;
+			const reg = strToRegExp(term);
+			const iterator = filterIterator(items, key, reg);
+			return map(iterator, limit);
 		}
 		return items.slice(0, limit);
 	}, [items, term]);
