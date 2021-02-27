@@ -1,16 +1,16 @@
 import React from 'react';
 
 
-export const useDocumentEvent = <T>(eventType: string, callback: (e: T) => void) => {
+export const useDocumentEvent = (eventType: keyof DocumentEventMap, callback: (e: DocumentEvent) => void) => {
 	React.useEffect(() => {
-		const handleCallback = (e: T) => {
+		const handleCallback = (e: DocumentEvent) => {
 			callback(e);
 		}
 		
-		document.addEventListener(eventType as any, handleCallback);
+		document.addEventListener(eventType, handleCallback as any);
 		
 		return () => {
-			document.removeEventListener(eventType as any, handleCallback);
+			document.removeEventListener(eventType, handleCallback as any);
 		}
 	}, []);
 }

@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { RenderWithLogic } from '../helpers/RenderWithLogic';
+import { useFocus } from './useFocus';
+
+
+<Meta title="Hooks/useFocus" />
+
+
+# useFocus
+
+This hook is used for handling `focus()` on input ref.
+Ref creation and `focus` call is decoupled to the hook.
+
+Simple hook usage.
+```js
+const Test = () => {
+  const [ref, focus] = useFocus();
+
+  return (
+    <div>
+      <button onClick={focus}>Focus!</button>
+      <input ref={ref} />
+    </div>
+  );
+}
+```
+
+Try it out.
+
+Click the button to focus on the input.
+
+<RenderWithLogic render={() => {
+  const [ref, focus] = useFocus();
+  
+  return <div>
+    <button onClick={focus}>Focus!</button>
+    <input ref={ref} />
+  </div>;
+}}/>
