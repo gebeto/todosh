@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './styles.scss';
 
-import { Modal } from '@wsl/shared/components/Modal';
+import { Modal, ModalPosition } from '@wsl/shared/components/Modal';
 import { List } from '@wsl/shared/components/List';
 
 import { useRefresh } from '../../pages/Shopping/RefreshContext';
@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
 				<h1>List</h1>
 				<img src={logoutIcon} height="26" onClick={handleOpen} />
 			</div>
-			<Modal open={open} handleClose={handleClose}>
+			<Modal position={ModalPosition.center} open={open} handleClose={handleClose}>
 				<List onItemSelect={onItemSelect} items={[
 					{ id: 1, title: "Refresh", callback: refresh },
 					{ id: 2, title: "Logout", callback: handleLogout},
