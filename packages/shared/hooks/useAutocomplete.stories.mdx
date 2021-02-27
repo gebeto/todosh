@@ -6,17 +6,31 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # useAutocomplete
 
-This hook is created for filtering array of `items` using `term` string.
+This hook is used for filtering array of `items` using `term` string.
 
 ```js
-const items = useAutocomplete([
+const items = [
   {id: 1, title: "Hel"},
   {id: 2, title: "Hello"},
   {id: 3, title: "Hello Wo"},
   {id: 4, title: "Hello World"},
-], 'hello w');
+];
+```
 
+Simple hook usage.
+```js
+const filtered = useAutocomplete(items, 'hello w');
 
 // Result:
 [{id: 3, title: "Hello Wo"}, {id: 4, title: "Hello World"}]
+```
+
+
+Additionally you can pass third parameter named `limit` for limitting the amount of result items.
+
+```js
+const filtered = useAutocomplete(items, 'hello w', 1);
+
+// Result:
+[{id: 3, title: "Hello Wo"}]
 ```
