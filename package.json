@@ -3,8 +3,8 @@
 	"scripts": {
 		"test": "exit 0",
 		"deploy": "node deploy.js",
-		"start": "yarn workspace @wsl/frontend start",
-		"build": "yarn workspace @wsl/frontend build"
+		"start": "yarn workspace @wsl/app start",
+		"build": "yarn workspace @wsl/app build"
 	},
 	"workspaces": [
 		"packages/*"

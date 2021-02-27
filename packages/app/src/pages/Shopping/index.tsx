@@ -3,7 +3,7 @@ import { Provider, useDispatch } from 'react-redux';
 
 import { RefreshContext } from './RefreshContext';
 
-import { store } from '../../store/';
+import { store } from '../../store';
 import { tasks } from '../../store/tasks';
 import { tasksCompleted } from '../../store/tasks-completed';
 
