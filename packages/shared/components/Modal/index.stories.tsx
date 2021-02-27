@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal } from './index';
 import { List } from '../List';
-import { AutocompleteTask } from '../AutocompleteForm';
+import { Autocomplete } from '../Autocomplete';
 
 
 export default {
@@ -67,7 +67,7 @@ const Template2 = (args) => {
 	return (
 		<div>
 			<Modal {...args} open={open} handleClose={handleClose}>
-				<AutocompleteTask
+				<Autocomplete
 					inputRef={inputRef}
 					defaultValue="hello"
 					items={[

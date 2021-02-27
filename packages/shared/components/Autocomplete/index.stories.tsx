@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { AutocompleteTask } from './index';
+import { Autocomplete } from './index';
 
 export default {
-	title: 'Components/Autocomplete Task',
-	component: AutocompleteTask,
+	title: 'Components/Autocomplete',
+	component: Autocomplete,
 	argTypes: {
-		className: {
-			type: "string",
-		},
 		items: {
 			type: "object",
 			control: "object",
@@ -23,7 +20,7 @@ export default {
 
 const Template = (args) => (
 	<div style={{border: '1px solid red'}}>
-		<AutocompleteTask {...args} />
+		<Autocomplete {...args} />
 	</div>
 );
 
@@ -36,11 +33,10 @@ Simple.args = {
 		{ id: 2, title: "Hello" },
 		{ id: 3, title: "Hello World" },
 		{ id: 4, title: "World" },
-		{ id: 5, title: "Work" },
-		{ id: 6, title: "Hello World" },
-		{ id: 7, title: "Hello World" },
-		{ id: 8, title: "Hello World" },
-		{ id: 9, title: "Hello World" },
-		{ id: 10, title: "Hello World" },
+		{ id: 5, title: "Hello 1 World" },
+		{ id: 6, title: "Hello 2 World" },
+		{ id: 7, title: "Hello 3 World" },
+		{ id: 8, title: "Hello 4 World" },
+		{ id: 9, title: "Hello 5 World" },
 	],
 };
