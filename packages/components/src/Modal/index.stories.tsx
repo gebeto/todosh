@@ -6,7 +6,7 @@ import { AutocompleteTask } from '../AutocompleteForm';
 
 
 export default {
-	title: 'Modal',
+	title: 'Components/Modal',
 	component: Modal,
 	argTypes: {
 		children: { control: false },

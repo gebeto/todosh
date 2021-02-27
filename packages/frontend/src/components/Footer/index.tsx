@@ -11,16 +11,16 @@ export const Footer: React.FC = () => {
 	const [ isOpened, setIsOpened ] = React.useState(false);
 
 	const transitionState = useTransition("exited", isOpened, 500);
-	const [ ref, setFocus ] = useFocus() as any;
+	const [ ref, setFocus ] = useFocus<HTMLInputElement>();
 
 	const handleOpen = React.useCallback(() => {
 		setIsOpened(true);
 		setFocus();
-	}, [])
+	}, []);
 
 	const handleClose = React.useCallback(() => {
 		setIsOpened(false);
-	}, [])
+	}, []);
 
 	return (
 		<React.Fragment>

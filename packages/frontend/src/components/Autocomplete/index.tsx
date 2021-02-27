@@ -18,7 +18,7 @@ export const AutocompleteItem = (props: any) => (
 
 export const Autocomplete = ({ value, onSelect }: any) => {
 	const autocompleteTasks = useSelector(state => selectorTasksFilteredByValue(state, value));
-
+	
 	return (
 		<ul className="autocomplete">
 			{autocompleteTasks.map((item: any) =>

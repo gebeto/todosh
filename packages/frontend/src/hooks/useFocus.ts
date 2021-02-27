@@ -1,9 +1,12 @@
 import React from 'react';
 
 
-export const useFocus = () => {
-	const htmlElRef = React.useRef(null)
-	const setFocus = () => { htmlElRef.current && (htmlElRef.current as any).focus() }
+export const useFocus = <T extends HTMLElement>() => {
+	const htmlElRef = React.useRef<T>(null);
 
-	return [htmlElRef, setFocus];
+	const setFocus = () => {
+		htmlElRef.current?.focus();
+	};
+
+	return [htmlElRef, setFocus] as [typeof htmlElRef, typeof setFocus];
 }

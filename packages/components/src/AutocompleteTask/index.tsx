@@ -22,7 +22,7 @@ export const AutocompleteTask = (props) => {
 
 	return (
 		<div className="autocomplete">
-			<input ref={props.inputRef} value={value} onChange={handleInputChange} autoFocus />
+			<input ref={props.inputRef} value={value} onChange={handleInputChange} />
 			<Autocomplete onItemSelect={console.log} value={value} items={props.items} />
 		</div>
 	);

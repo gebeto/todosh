@@ -3,7 +3,7 @@ import React from 'react';
 import { AutocompleteTask } from './index';
 
 export default {
-	title: 'Autocomplete Task',
+	title: 'Components/Autocomplete Task',
 	component: AutocompleteTask,
 	argTypes: {
 		className: {
@@ -37,5 +37,10 @@ Simple.args = {
 		{ id: 3, title: "Hello World" },
 		{ id: 4, title: "World" },
 		{ id: 5, title: "Work" },
+		{ id: 6, title: "Hello World" },
+		{ id: 7, title: "Hello World" },
+		{ id: 8, title: "Hello World" },
+		{ id: 9, title: "Hello World" },
+		{ id: 10, title: "Hello World" },
 	],
 };
