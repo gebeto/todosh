@@ -7,15 +7,14 @@ import { TaskId, TaskStatus, useToDoClient } from '../../api';
 import { Fade } from './Fade';
 
 import './styles.scss';
-import { compileFunction } from 'vm';
 
 
 const taskItemTransitionClassNames: any = {
-	appear: "list-item",
-	enterActive: "list-item-completed-active",
-	enterDone: "list-item-completed",
-	exitActive: "list-item-uncompleted-active",
-	exitDone: "list-item-uncompleted",
+	appear: "task-list-item",
+	enterActive: "task-list-item-completed-active",
+	enterDone: "task-list-item-completed",
+	exitActive: "task-list-item-uncompleted-active",
+	exitDone: "task-list-item-uncompleted",
 }
 
 
@@ -52,9 +51,9 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 	return (
 		<Fade delay={task.newlyAdded ? 0 : index * 70}>
 			<CSSTransition classNames={taskItemTransitionClassNames} in={completed} timeout={300}>
-				<li onClick={handleClick} className="list-item">
-					<div className="list-item-check" />
-					<div className="list-item-title">{task.title}</div>
+				<li onClick={handleClick} className="task-list-item">
+					<div className="task-list-item-check" />
+					<div className="task-list-item-title">{task.title}</div>
 				</li>
 			</CSSTransition>
 		</Fade>

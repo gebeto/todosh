@@ -1,25 +1,22 @@
 import * as React from 'react';
 
-import { useTransition } from '../../hooks/useTransition';
-import { useFocus } from '../../hooks/useFocus';
+import { useFocus } from '@wsl/shared/hooks/useFocus';
+import { TasksAutocomplete } from '../TasksAutocomplete';
 
-import { TaskModal } from '../TaskModal';
 import './styles.scss';
 
 
 export const Footer: React.FC = () => {
-	const [ isOpened, setIsOpened ] = React.useState(false);
-
-	const transitionState = useTransition("exited", isOpened, 500);
-	const [ ref, setFocus ] = useFocus<HTMLInputElement>();
+	const [open, setOpen] = React.useState(false);
+	const [inputRef, focus] = useFocus<HTMLInputElement>();
 
 	const handleOpen = React.useCallback(() => {
-		setIsOpened(true);
-		setFocus();
+		setOpen(true);
+		focus();
 	}, []);
 
 	const handleClose = React.useCallback(() => {
-		setIsOpened(false);
+		setOpen(false);
 	}, []);
 
 	return (
@@ -29,10 +26,10 @@ export const Footer: React.FC = () => {
 					<div onClick={handleOpen} className="create-task-input">Add item to list</div>
 				</div>
 			</div>
-			<TaskModal
-				transitionState={transitionState}
+			<TasksAutocomplete
 				handleClose={handleClose}
-				ref={ref}
+				inputRef={inputRef}
+				open={open}
 			/>
 		</React.Fragment>
 	)

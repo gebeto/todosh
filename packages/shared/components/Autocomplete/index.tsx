@@ -16,17 +16,26 @@ export type AutocompleteProps = {
 	items: Array<AutocompleteItem>;
 	inputRef: React.Ref<HTMLInputElement>;
 	defaultValue?: string;
+
+	onItemSelect?: any;
+	onItemCreate?: any;
 }
 
 
 export const Autocomplete: React.FC<AutocompleteProps> = (props) => {
-	const [value, setValue] = React.useState(props.defaultValue);
+	const [value, setValue] = React.useState(props.defaultValue || '');
 	const filteredItems = useAutocomplete(props.items, "title", value, 5);
 
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		props.onItemCreate(value);
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
 	return (
-		<div className="autocomplete">
+		<form className="autocomplete" onSubmit={handleSubmit}>
 			<input ref={props.inputRef} value={value} onChange={e => setValue(e.target.value)} />
-			<List onItemSelect={console.log} items={filteredItems} />
-		</div>
+			<List onItemSelect={props.onItemSelect} items={filteredItems} />
+		</form>
 	);
 };

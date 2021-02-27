@@ -1,11 +1,13 @@
 import * as React from 'react';
 import cn from 'classnames';
 
-import { useDocumentEvent } from '@wsl/frontend/src/hooks/useDocumentEvent';
-export { useTransition } from '@wsl/frontend/src/hooks/useTransition';
-import { useTransition } from '@wsl/frontend/src/hooks/useTransition';
+import { useDocumentEvent } from '../../hooks/useDocumentEvent';
+import { useTransition } from '../../hooks/useTransition';
 
 import './styles.scss';
+
+
+export { useTransition } from '../../hooks/useTransition';
 
 
 export type ModalProps = React.PropsWithChildren<{

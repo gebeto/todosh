@@ -11,7 +11,7 @@ export const TasksList: React.FC = () => {
 
 	return (
 		<div className="container">
-			<ul className="list">
+			<ul className="task-list">
 				{tasksIds.map((taskId: any, index: number) => (
 					<TaskItem key={taskId} index={index} taskId={taskId} />
 				))}

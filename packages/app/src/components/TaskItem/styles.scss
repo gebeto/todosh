@@ -1,6 +1,6 @@
 $check-size: 16pt;
 
-.list-item {
+.task-list-item {
 	list-style: none;
 	background: #fff;
 
@@ -14,7 +14,7 @@ $check-size: 16pt;
 	display: flex;
 	align-items: center;
 
-	.list-item-check {
+	.task-list-item-check {
 		box-sizing: border-box;
 		background: transparent;
 		height: $check-size;
@@ -42,7 +42,7 @@ $check-size: 16pt;
 
 	}
 
-	.list-item-title {
+	.task-list-item-title {
 		position: relative;
 
 		&:before {
@@ -74,11 +74,11 @@ $check-size: 16pt;
 }
 
 
-.list-item-completed-active {
+.task-list-item-completed-active {
 	transform-origin: center center;
 	animation: pop-checked 0.3s cubic-bezier(.6, 3, .3, 1);
 
-	.list-item-check {
+	.task-list-item-check {
 		&:before {
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
 			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
@@ -91,15 +91,15 @@ $check-size: 16pt;
 		}
 	}
 
-	.list-item-title:before {
+	.task-list-item-title:before {
 		width: 100%;
 	}
 }
 
-.list-item-completed {
+.task-list-item-completed {
 	opacity: 0.5;
 
-	.list-item-check {
+	.task-list-item-check {
 		&:before {
 			opacity: 1;
 			left: 2px;
@@ -109,18 +109,18 @@ $check-size: 16pt;
 		}
 	}
 
-	.list-item-title:before {
+	.task-list-item-title:before {
 		width: 100%;
 	}
 }
 
 
 
-.list-item-uncompleted-active {
+.task-list-item-uncompleted-active {
 	transform-origin: center center;
 	animation: pop-unchecked 0.3s cubic-bezier(.6, 3, .3, 1);
 	
-	.list-item-check {
+	.task-list-item-check {
 		&:before {
 			transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s;
 			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
