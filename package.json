@@ -4,7 +4,7 @@
 		"test": "exit 0",
 		"deploy": "node deploy.js",
 		"start": "yarn workspace @wsl/app start",
-		"build": "yarn workspace @wsl/app build"
+		"build": "yarn workspace @wsl/app build && yarn workspace @wsl/shared build"
 	},
 	"workspaces": [
 		"packages/*"

@@ -13,8 +13,8 @@
             "type": "image/png"
         }
     ],
-    "scope": "/todosh",
-    "start_url": "/todosh",
+    "scope": "/",
+    "start_url": "/",
     "background_color": "#f5f5f5",
     "display": "standalone",
     "theme_color": "#f5f5f5"
