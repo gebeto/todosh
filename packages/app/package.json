@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "parcel build index.html",
-    "start": "parcel --port=5000 index.html"
+    "start": "parcel --port=5000 --no-cache index.html"
   },
   "targets": {
     "default": {
