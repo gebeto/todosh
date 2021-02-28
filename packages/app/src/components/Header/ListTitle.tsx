@@ -4,6 +4,7 @@ import { Modal, ModalPosition } from '@wsl/shared/components/Modal';
 import { List } from '@wsl/shared/components/List';
 import { useToggle } from '@wsl/shared/hooks/useToggle';
 import { TasksList, useToDoClient } from '../../api';
+import { useRefresh } from '../../pages/Shopping/RefreshContext';
 
 
 export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
@@ -20,7 +21,8 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 	}, [open]);
 
 	const handleItemSelect = (item: TasksList) => {
-		console.log(' SELECT', item);
+		client?.setTodoTaskListId(item.id, item.displayName);
+		window.location.reload();
 	}
 
 	return (
@@ -37,10 +39,11 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 
 export const ListTitle: React.FC<any> = (props) => {
 	const [open, handleOpen, handleClose] = useToggle();
+	const client = useToDoClient();
 	
 	return (
 		<React.Fragment>
-			<h1 onClick={handleOpen}>{props.children}</h1>
+			<h1 onClick={handleOpen}>{client?.todoTaskListTitle || props.children}</h1>
 			<SelectListModal open={open} handleClose={handleClose} />
 		</React.Fragment>
 	);

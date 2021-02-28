@@ -13,7 +13,6 @@ import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { TasksList } from '../../components/TasksList';
 import { useToDoClient } from '../../api/ToDoClientContext';
-import { todoTaskListId } from '../../api/ToDoClient';
 
 
 const ShoppingRaw = (props: any) => {
@@ -27,7 +26,7 @@ const ShoppingRaw = (props: any) => {
 
 	React.useEffect(() => {
 		dispatch(tasks.actions.fetchingPending());
-		client?.getTasks(todoTaskListId, false).then(res => {
+		client?.getTasks(false).then(res => {
 			dispatch(tasks.actions.fetchingSuccess(res.value));
 		}).catch(err => {
 			dispatch(tasks.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
@@ -36,7 +35,7 @@ const ShoppingRaw = (props: any) => {
 
 	React.useEffect(() => {
 		dispatch(tasksCompleted.actions.fetchingPending());
-		client?.getTasks(todoTaskListId, true).then(res => {
+		client?.getTasks(true).then(res => {
 			dispatch(tasksCompleted.actions.fetchingSuccess(res.value));
 		}).catch(err => {
 			dispatch(tasksCompleted.actions.fetchingSuccess([{ id: 1, title: "Error. Not found." }] as any));
