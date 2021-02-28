@@ -3,13 +3,16 @@ import './styles.scss';
 
 import { Modal, ModalPosition } from '@wsl/shared/components/Modal';
 import { List } from '@wsl/shared/components/List';
+import { useToggle } from '@wsl/shared/hooks/useToggle';
 
 import { useRefresh } from '../../pages/Shopping/RefreshContext';
 import logoutIcon from 'url:./settings-icon.svg';
 
+import { ListTitle } from './ListTitle';
+
 
 export const Header: React.FC = () => {
-	const [open, setOpen] = React.useState(false);
+	const [open, handleOpen, handleClose] = useToggle();
 	const refresh = useRefresh();
 
 	const handleLogout = React.useCallback(() => {
@@ -17,29 +20,20 @@ export const Header: React.FC = () => {
 		window.location.reload();
 	}, []);
 
-	const handleOpen = () => {
-		setOpen(true);
-	}
-
-	const handleClose = () => {
-		setOpen(false);
-	}
-
 	const onItemSelect = (item: any) => {
-		handleClose();
 		item.callback?.();
 	}
 
 	return (
 		<div className="header">
 			<div className="container header-container">
-				<h1>List</h1>
+				<ListTitle>List</ListTitle>
 				<img src={logoutIcon} height="26" onClick={handleOpen} />
 			</div>
 			<Modal position={ModalPosition.center} open={open} handleClose={handleClose}>
 				<List onItemSelect={onItemSelect} items={[
 					{ id: 1, title: "Refresh", callback: refresh },
-					{ id: 2, title: "Logout", callback: handleLogout},
+					{ id: 2, title: "Logout", callback: handleLogout },
 				]} />
 			</Modal>
 		</div>
