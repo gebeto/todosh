@@ -3,21 +3,21 @@ import * as React from 'react';
 import './styles.scss';
 
 
-export const ListItem: React.FC<any> = (props) => (
+export const ListItem: React.FC<any> = ({ item, titleKey, onItemSelect }) => (
 	<li
 		className="wsl-list-item"
-		onClick={props.onItemSelect ? () => props.onItemSelect(props.item) : props.onItemSelect}
+		onClick={onItemSelect ? () => onItemSelect(item) : onItemSelect}
 	>
-		{props.item.title}
+		{item[titleKey]}
 	</li>
 );
 
 
-export const List: React.FC<any> = (props) => {
+export const List: React.FC<any> = ({ items, onItemSelect, titleKey="title" }) => {
 	return (
 		<ul className="wsl-list">
-			{props.items.map((item: any) =>
-				<ListItem key={item.id} item={item} onItemSelect={props.onItemSelect} />
+			{items.map((item: any) =>
+				<ListItem key={item.id} item={item} titleKey={titleKey} onItemSelect={onItemSelect} />
 			)}
 		</ul>
 	);
