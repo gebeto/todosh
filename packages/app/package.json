@@ -5,7 +5,8 @@
   "author": "<slavik.nychkalo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build --no-cache index.html",
+    "copy-icons": "cp public/pwa/android-* dist/public/pwa/",
+    "build": "parcel build --no-cache index.html && yarn copy-icons",
     "start": "parcel --port=5000 --no-cache index.html"
   },
   "targets": {

@@ -3,17 +3,17 @@
     "short_name": "Wush",
     "icons": [
         {
-            "src": "android-chrome-192x192.png",
+            "src": "%PUBLIC_URL%/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "android-chrome-512x512.png",
+            "src": "%PUBLIC_URL%/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "scope": "/index.html",
+    "scope": "/",
     "start_url": "/index.html",
     "background_color": "#f5f5f5",
     "display": "standalone",
