@@ -2,14 +2,24 @@ import { Client } from '@microsoft/microsoft-graph-client';
 import { Task, TasksList } from './entities';
 
 
-export const todoTaskListId = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
+export const DEFAULTL = "AQMkADAwATM3ZmYAZS0xNzQ5LTBjMzYtMDACLTAwCgAuAAADJZb0rY_RDES0Hj1NYJSo8wEALhRIhJvN6EaHTkQYs9qhUwABlWGG0QAAAA==";
 
 
 export class ToDoClient {
 	public client: Client;
+	public todoTaskListId: string;
+	public todoTaskListTitle?: string;
 
 	constructor(client: Client) {
 		this.client = client;
+		this.todoTaskListId = localStorage.getItem("LIST_ID") || DEFAULTL;
+		this.todoTaskListTitle = localStorage.getItem("LIST_TITLE") || undefined;
+	}
+
+	setTodoTaskListId(newId: string, title?: string) {
+		localStorage.setItem("LIST_ID", newId);
+		title && localStorage.setItem("LIST_TITLE", title);
+		this.todoTaskListId = newId;
 	}
 
 	async getUserDetails() {
@@ -27,8 +37,8 @@ export class ToDoClient {
 		return lists;
 	}
 
-	async getTasks(folderId: string, completed?: boolean) {
-		const tasks = await this.client.api(`/me/todo/lists/${folderId}/tasks`)
+	async getTasks(completed?: boolean) {
+		const tasks = await this.client.api(`/me/todo/lists/${this.todoTaskListId}/tasks`)
 			.count(true)
 			.top(1000)
 			.filter(`status ${completed ? 'eq' : 'ne'} 'completed'`)
@@ -41,13 +51,13 @@ export class ToDoClient {
 	}
 	
 	async completeTask(taskId: string) {
-		const completion = await this.client.api(`/me/todo/lists/${todoTaskListId}/tasks/${taskId}`)
+		const completion = await this.client.api(`/me/todo/lists/${this.todoTaskListId}/tasks/${taskId}`)
 			.patch({ status: "completed" });
 		return completion;
 	}
 	
 	async uncompleteTask(taskId: string) {
-		const completion = await this.client.api(`/me/todo/lists/${todoTaskListId}/tasks/${taskId}`)
+		const completion = await this.client.api(`/me/todo/lists/${this.todoTaskListId}/tasks/${taskId}`)
 			.patch({ status: "notStarted" });
 		return completion;
 	}
