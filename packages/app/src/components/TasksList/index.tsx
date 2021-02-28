@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { selctorTasksIds } from '../../store/tasks';
 
-import { TaskItem } from '../TaskItem';
+import { TaskItem } from './Item';
 import './styles.scss';
 
 
