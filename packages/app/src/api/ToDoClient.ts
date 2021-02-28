@@ -62,8 +62,8 @@ export class ToDoClient {
 		return completion;
 	}
 	
-	async createTask(folderId: string, text: string) {
-		const task = await this.client.api(`/me/todo/lists/${folderId}/tasks`)
+	async createTask(text: string) {
+		const task = await this.client.api(`/me/todo/lists/${this.todoTaskListId}/tasks`)
 			.post({ title: text }) as Promise<Task>;
 		return task;
 	}

@@ -5,7 +5,6 @@ import { Modal } from '@wsl/shared/components/Modal';
 import { Autocomplete } from '@wsl/shared/components/Autocomplete';
 
 import { TaskStatus, useToDoClient } from '../../api';
-import { todoTaskListId } from '../../api';
 
 import { tasks } from '../../store/tasks';
 import { tasksCompleted } from '../../store/tasks-completed';
@@ -41,7 +40,7 @@ export const TasksAutocomplete: React.FC<TasksAutocompleteProps> = ({ open, hand
 
 	const onItemCreate = async (text: string) => {
 		handleClose();
-		const task = await client?.createTask(todoTaskListId, text);
+		const task = await client?.createTask(text);
 		if (task) {
 			dispatch(tasks.actions.added(task));
 		}
