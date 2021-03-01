@@ -4,7 +4,7 @@ import { filterIterator, map, OnlyTypes } from './generators';
 
 const strToRegExpReg = /([().,*+])/g;
 const strToRegExpPreparer = (str: string) => str.replace(strToRegExpReg, "\\$1");
-const strToRegExp = str => new RegExp(strToRegExpPreparer(str), "i");
+const strToRegExp = (str: string) => new RegExp(strToRegExpPreparer(str), "i");
 
 
 export const useAutocomplete = <
