@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
 				<ListTitle>List</ListTitle>
 				<img src={logoutIcon} height="26" onClick={handleOpen} />
 			</div>
-			<Modal position={ModalPosition.center} open={open} handleClose={handleClose}>
+			<Modal title="Settings" position={ModalPosition.center} open={open} handleClose={handleClose}>
 				<List onItemSelect={onItemSelect} items={[
 					{ id: 1, title: "Refresh", callback: refresh },
 					{ id: 2, title: "Logout", callback: handleLogout },

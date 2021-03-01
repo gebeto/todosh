@@ -26,7 +26,7 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 	}
 
 	return (
-		<Modal position={ModalPosition.center} open={open} handleClose={handleClose}>
+		<Modal title="Default list" position={ModalPosition.center} open={open} handleClose={handleClose}>
 			<List
 				items={items}
 				titleKey="displayName"
