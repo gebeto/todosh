@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+	verbose: true,
   clearMocks: true,
   testEnvironment: "jsdom",
   testPathIgnorePatterns: [
