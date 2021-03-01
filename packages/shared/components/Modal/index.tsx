@@ -5,10 +5,8 @@ import cn from 'classnames';
 import { useDocumentEvent } from '../../hooks/useDocumentEvent';
 import { useTransition } from '../../hooks/useTransition';
 
+import { ModalTitle } from './Title';
 import './styles.scss';
-
-
-export { useTransition } from '../../hooks/useTransition';
 
 
 export enum ModalPosition {
@@ -21,6 +19,7 @@ export type ModalProps = React.PropsWithChildren<{
 	open: boolean;
 	handleClose(): any;
 	position?: ModalPosition;
+	title?: string;
 }>
 
 
@@ -50,6 +49,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		(
 			<div ref={wrapperRef} onClick={handleWrapperClick} className={className}>
 				<div className="modal">
+					{props.title && <ModalTitle>{props.title}</ModalTitle>}
 					{props.children}
 				</div>
 			</div>
@@ -62,3 +62,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
 Modal.defaultProps = {
 	position: ModalPosition.top,
 }
+
+
+export { useTransition } from '../../hooks/useTransition';

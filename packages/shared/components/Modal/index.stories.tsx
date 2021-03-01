@@ -15,7 +15,7 @@ export default {
 };
 
 
-const Template = (args) => {
+const Template = (args: any) => {
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -27,7 +27,7 @@ const Template = (args) => {
 }
 
 
-export const Simple = Template.bind({});
+export const Simple = Template.bind<any>({});
 Simple.args = {
 	children: (
 		<div style={{padding: 30}}>Hello world!!!</div>
@@ -35,8 +35,18 @@ Simple.args = {
 };
 
 
-export const WithList = Template.bind({});
+export const WithTitle = Template.bind<any>({});
+WithTitle.args = {
+	title: "Hello world",
+	children: (
+		<div style={{padding: 30}}>Hello world!!!</div>
+	)
+};
+
+
+export const WithList = Template.bind<any>({});
 WithList.args = {
+	title: "Hello world",
 	children: (
 		<List
 			onItemSelect={console.log}
@@ -51,13 +61,13 @@ WithList.args = {
 
 
 
-const Template2 = (args) => {
+const Template2 = (args: any) => {
 	const [open, setOpen] = React.useState(false);
 	const inputRef = React.useRef<HTMLInputElement>(null);
 
 	const handleOpen = () => {
 		setOpen(true);
-		inputRef.current.focus();
+		inputRef.current?.focus();
 	}
 
 	const handleClose = () => {
@@ -85,5 +95,5 @@ const Template2 = (args) => {
 }
 
 
-export const WithAutocomplete = Template2.bind({});
+export const WithAutocomplete = Template2.bind<any>({});
 WithAutocomplete.args = {};

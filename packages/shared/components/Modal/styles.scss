@@ -27,11 +27,24 @@
 		align-items: flex-end;
 	}
 
+	.modal-title {
+		margin: 0;
+		font-size: 12pt;
+		text-align: center;
+		padding-top: 8pt;
+		padding-bottom: 5pt;
+		// padding-left: 24pt;
+		// padding-right: 12pt;
+		border-bottom: 1px solid #f7f7f7;
+		color: #333;
+	}
+
 	.modal {
 		position: relative;
 		transition-duration: 0.5s;
 		border: none;
-		border-radius: 16pt;
+		// border-radius: 16pt;
+		border-radius: 12pt;
 		// padding-top: 3pt;
 		background: #fff;
 		max-width: 500px;
