@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal } from './index';
+import { Modal, ModalProps, ModalPosition } from './index';
 import { List } from '../List';
 import { Autocomplete } from '../Autocomplete';
 
@@ -11,6 +11,19 @@ export default {
 	argTypes: {
 		children: { control: false },
 		open: { control: false },
+		position: {
+			defaultValue: ModalPosition.center,
+			control: {
+				type: "radio",
+				options: ModalPosition,
+			},
+		},
+		title: {
+			defaultValue: "Header Title",
+			control: {
+				type: "text",
+			},
+		}
 	}
 };
 
