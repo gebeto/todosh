@@ -12,7 +12,7 @@ export default {
 		children: { control: false },
 		open: { control: false },
 		position: {
-			defaultValue: ModalPosition.center,
+			defaultValue: ModalPosition.top,
 			control: {
 				type: "radio",
 				options: ModalPosition,
