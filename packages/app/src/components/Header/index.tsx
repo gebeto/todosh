@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './styles.scss';
 
-import { Modal, ModalPosition } from '@wsl/shared/components/Modal';
+import { Modal, ModalPosition } from '@wsl/shared/components/SasModal';
 import { List } from '@wsl/shared/components/List';
 import { useToggle } from '@wsl/shared/hooks/useToggle';
 
