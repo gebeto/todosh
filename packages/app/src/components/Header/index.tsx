@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './styles.scss';
 
-import { Modal, ModalPosition } from '@wsl/shared/components/SasModal';
+import { Flyout } from '@wsl/shared/components/Flyout';
 import { List } from '@wsl/shared/components/List';
 import { useToggle } from '@wsl/shared/hooks/useToggle';
 
@@ -30,12 +30,12 @@ export const Header: React.FC = () => {
 				<ListTitle>List</ListTitle>
 				<img src={logoutIcon} height="26" onClick={handleOpen} />
 			</div>
-			<Modal title="Settings" position={ModalPosition.center} open={open} handleClose={handleClose}>
+			<Flyout title="Settings" open={open} handleClose={handleClose}>
 				<List onItemSelect={onItemSelect} items={[
 					{ id: 1, title: "Refresh", callback: refresh },
 					{ id: 2, title: "Logout", callback: handleLogout },
 				]} />
-			</Modal>
+			</Flyout>
 		</div>
 	)
 }

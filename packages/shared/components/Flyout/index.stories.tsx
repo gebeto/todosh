@@ -1,23 +1,16 @@
 import React from 'react';
 
-import { Modal, ModalPosition } from './index';
+import { Flyout } from './index';
 import { List } from '../List';
 import { Autocomplete } from '../Autocomplete';
 
 
 export default {
-	title: 'Components/SasModal',
-	component: Modal,
+	title: 'Components/Flyout',
+	component: Flyout,
 	argTypes: {
 		children: { control: false },
 		open: { control: false },
-		position: {
-			defaultValue: ModalPosition.top,
-			control: {
-				type: "radio",
-				options: ModalPosition,
-			},
-		},
 		title: {
 			defaultValue: "Header Title",
 			control: {
@@ -33,7 +26,7 @@ const Template = (args: any) => {
 
 	return (
 		<div>
-			<Modal {...args} open={open} handleClose={() => setOpen(false)} />
+			<Flyout {...args} open={open} handleClose={() => setOpen(false)} />
 			<button onClick={() => setOpen(true)}>Open</button>
 		</div>
 	);
@@ -89,7 +82,7 @@ const Template2 = (args: any) => {
 
 	return (
 		<div>
-			<Modal {...args} open={open} handleClose={handleClose}>
+			<Flyout {...args} open={open} handleClose={handleClose}>
 				<Autocomplete
 					inputRef={inputRef}
 					defaultValue="hello"
@@ -101,7 +94,7 @@ const Template2 = (args: any) => {
 						{ id: 5, title: "Work" },
 					]}
 				/>
-			</Modal>
+			</Flyout>
 			<button onClick={handleOpen}>Open</button>
 		</div>
 	);

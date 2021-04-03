@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Modal, ModalPosition } from '@wsl/shared/components/SasModal';
+import { Flyout } from '@wsl/shared/components/Flyout';
 import { List } from '@wsl/shared/components/List';
 import { useToggle } from '@wsl/shared/hooks/useToggle';
 import { TasksList, useToDoClient } from '../../api';
-import { useRefresh } from '../../pages/Shopping/RefreshContext';
 
 
 export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
@@ -26,13 +25,13 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 	}
 
 	return (
-		<Modal title="Default list" position={ModalPosition.center} open={open} handleClose={handleClose}>
+		<Flyout title="Default list" open={open} handleClose={handleClose}>
 			<List
 				items={items}
 				titleKey="displayName"
 				onItemSelect={handleItemSelect}
 			/>
-		</Modal>
+		</Flyout>
 	);
 }
 
