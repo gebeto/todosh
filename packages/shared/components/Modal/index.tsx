@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
 import { useDocumentEvent } from '../../hooks/useDocumentEvent';
-import { useTransition } from '../../hooks/useTransition';
 
 import { ModalTitle } from './Title';
 import './styles.scss';
@@ -24,7 +23,6 @@ export type ModalProps = React.PropsWithChildren<{
 
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const transitionState = useTransition("exited", props.open, 500);
 	const wrapperRef = React.useRef(null);
 
 	const handleModalClose = React.useCallback(() => {
@@ -37,13 +35,13 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		}
 	}, []);
 
-	useDocumentEvent<KeyboardEvent>("keydown", (e) => {
+	useDocumentEvent("keydown", (e) => {
 		if (e.key === "Escape") {
 			handleModalClose();
 		}
 	});
 
-	const className = cn("modal-wrapper", props.position, transitionState);
+	const className = cn("modal-wrapper", props.position, props.open ? "open" : "close");
 
 	return ReactDOM.createPortal(
 		(
