@@ -27,14 +27,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = (props) => {
 	const filteredItems = useAutocomplete(props.items, "title", value, 5);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		props.onItemCreate(value);
+		props?.onItemCreate(value);
 		e.preventDefault();
 		e.stopPropagation();
 	}
 
 	return (
 		<form className="autocomplete" onSubmit={handleSubmit}>
-			<input ref={props.inputRef} value={value} onChange={e => setValue(e.target.value)} />
+			<input ref={props.inputRef} onChange={e => setValue(e.target.value)} />
 			<List onItemSelect={props.onItemSelect} items={filteredItems} />
 		</form>
 	);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Story } from '@storybook/react';
 
 import { Modal, ModalProps, ModalPosition } from './index';
 import { List } from '../List';
@@ -28,7 +29,7 @@ export default {
 };
 
 
-const Template = (args: any) => {
+const Template: Story<ModalProps> = (args) => {
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -82,15 +83,20 @@ const Template2 = (args: any) => {
 		setOpen(true);
 		inputRef.current?.focus();
 	}
-
+	
 	const handleClose = () => {
 		setOpen(false);
+		inputRef.current?.blur();
 	}
 
 	return (
 		<div>
 			<Modal {...args} open={open} handleClose={handleClose}>
 				<Autocomplete
+					onItemCreate={(e: any) => {
+						console.log(e);
+						handleClose();
+					}}
 					inputRef={inputRef}
 					defaultValue="hello"
 					items={[

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Story } from '@storybook/react';
 
-import { Autocomplete } from './index';
+import { Autocomplete, AutocompleteProps } from './index';
 
 export default {
 	title: 'Components/Autocomplete',
@@ -18,7 +19,7 @@ export default {
 };
 
 
-const Template = (args) => (
+const Template: Story<AutocompleteProps> = (args) => (
 	<div style={{border: '1px solid red'}}>
 		<Autocomplete {...args} />
 	</div>

@@ -13,7 +13,7 @@ import { selectorTasksItems } from '../../store/tasks-completed';
 
 export type TasksAutocompleteProps = {
 	handleClose: any;
-	inputRef: React.Ref<HTMLInputElement>;
+	inputRef: React.RefObject<HTMLInputElement>;
 	open: boolean;
 };
 
@@ -24,6 +24,7 @@ export const TasksAutocomplete: React.FC<TasksAutocompleteProps> = ({ open, hand
 	const autocompleteTasks = useSelector(selectorTasksItems);
 
 	const onItemSelect = (task: any) => {
+		inputRef.current?.blur();
 		handleClose();
 		setTimeout(() => {
 			dispatch(tasks.actions.added({
@@ -39,6 +40,7 @@ export const TasksAutocomplete: React.FC<TasksAutocompleteProps> = ({ open, hand
 	};
 
 	const onItemCreate = async (text: string) => {
+		inputRef.current?.blur();
 		handleClose();
 		const task = await client?.createTask(text);
 		if (task) {

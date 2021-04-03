@@ -17,6 +17,11 @@ export const Footer: React.FC = () => {
 
 	const handleClose = React.useCallback(() => {
 		setOpen(false);
+		setTimeout(() => {
+			if (inputRef.current) {
+				inputRef.current.value = "";
+			}
+		}, 300);
 	}, []);
 
 	return (
