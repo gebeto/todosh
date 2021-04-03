@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction, Dispatch, createSelector } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 
 import { Task } from '../api';
-import { filterWithLimit } from '../helpers/filterWithLimit';
 
 
 export type TasksCompletedState = {
@@ -26,7 +25,7 @@ export const tasksCompleted = createSlice({
 	name: 'tasksCompleted',
 	initialState: initialState,
 	reducers: {
-		fetchingPending: (state: TasksCompletedState, { payload }: PayloadAction) => ({
+		fetchingPending: (state: TasksCompletedState) => ({
 			...state,
 			isFetching: true,
 		}),
@@ -40,7 +39,7 @@ export const tasksCompleted = createSlice({
 			}, {}),
 			items: payload,
 		}),
-		fetchingError: (state: TasksCompletedState, { payload }: PayloadAction) => ({
+		fetchingError: (state: TasksCompletedState) => ({
 			...state,
 			isFetching: false,
 			isFetchingError: true,
@@ -78,15 +77,3 @@ export const selectorTasksCompletedRoot = (state: any) => state[tasksCompleted.n
 export const selectorTasksIds = createSelector([selectorTasksCompletedRoot], (state) => state.ids);
 export const selectorTasksById = createSelector([selectorTasksCompletedRoot], (state) => state.byId);
 export const selectorTasksItems = createSelector([selectorTasksCompletedRoot], (state) => state.items);
-export const selectorTasksFilteredByValue = createSelector(
-	[selectorTasksItems, selectorValueFromProps],
-	(items, value) => {
-		if (value && value.length) {
-			return filterWithLimit(items, 5,
-				(item: any) => new RegExp(value, 'ig').test(item.title)
-			);
-		}
-
-		return items.slice(0, 5);
-	}
-);
