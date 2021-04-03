@@ -62,7 +62,7 @@
 		display: flex;
 		opacity: 1;
 		z-index: 10000;
-		
+
 		.modal {
 			transition-timing-function: cubic-bezier(0,1,0,1);
 			transform: translateY(0vh);
@@ -73,9 +73,11 @@
 		display: flex;
 		opacity: 0;
 		z-index: -1;
-		
+
 		.modal {
-			transition-timing-function: cubic-bezier(1,0,1,0);
+			transition-duration: 0.5s;
+			transition-timing-function: cubic-bezier(0.32, 0.4, 0.36, 1);
+			transition-timing-function: ease-in-out;
 			transform: translateY(100vh);
 		}
 	}
