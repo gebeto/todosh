@@ -24,7 +24,7 @@ export type ModalProps = React.PropsWithChildren<{
 
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const transitionState = useTransition("exited", props.open, 500);
+	// const transitionState = useTransition("exited", props.open, 500);
 	const wrapperRef = React.useRef(null);
 
 	const handleModalClose = React.useCallback(() => {
@@ -37,13 +37,13 @@ export const Modal: React.FC<ModalProps> = (props) => {
 		}
 	}, []);
 
-	useDocumentEvent<KeyboardEvent>("keydown", (e) => {
+	useDocumentEvent("keydown", (e) => {
 		if (e.key === "Escape") {
 			handleModalClose();
 		}
 	});
 
-	const className = cn("sas-modal-wrapper", props.position, transitionState);
+	const className = cn("sas-modal-wrapper", props.position, props.open ? "open" : "close");
 
 	return ReactDOM.createPortal(
 		(
