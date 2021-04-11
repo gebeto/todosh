@@ -4,7 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 
 import { tasks, selctorTaskById } from '../../store/tasks';
 import { TaskId, TaskStatus, useToDoClient } from '../../api';
-import { Fade } from './Fade';
+import { FadeTransition } from './FadeTransition';
+import { CompletedTransition } from './CompletedTransition';
 
 import './styles.scss';
 
@@ -49,13 +50,13 @@ export const TaskItem = ({ taskId, index }: TaskItemProps) => {
 	};
 
 	return (
-		<Fade delay={task.newlyAdded ? 0 : index * 70}>
-			<CSSTransition classNames={taskItemTransitionClassNames} in={completed} timeout={300}>
+		<FadeTransition delay={task.newlyAdded ? 0 : index * 70}>
+			<CompletedTransition completed={completed}>
 				<li onClick={handleClick} className="task-list-item">
 					<div className="task-list-item-check" />
 					<div className="task-list-item-title">{task.title}</div>
 				</li>
-			</CSSTransition>
-		</Fade>
+			</CompletedTransition>
+		</FadeTransition>
 	)
 }

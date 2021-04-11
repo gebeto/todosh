@@ -17,7 +17,7 @@ const transitionStyles: any = {
 };
 
 
-export const Fade: React.FC<any> = ({ children, delay, ...props }) => {
+export const FadeTransition: React.FC<any> = ({ children, delay, ...props }) => {
 	const [s, setS] = React.useState(false);
 
 	React.useEffect(() => {
