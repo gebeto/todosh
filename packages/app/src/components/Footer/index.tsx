@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useFocus } from '@wsl/shared/hooks/useFocus';
 import { TasksAutocomplete } from '../TasksAutocomplete';
+import { FloatBottomBar } from '@wsl/shared/components/FloatBottomBar';
 
 import './styles.scss';
 
@@ -26,16 +27,8 @@ export const Footer: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<div className="create-task">
-				<div className="container">
-					<div onClick={handleOpen} className="create-task-input">Add item to list</div>
-				</div>
-			</div>
-			<TasksAutocomplete
-				handleClose={handleClose}
-				inputRef={inputRef}
-				open={open}
-			/>
+			<FloatBottomBar onClick={handleOpen} label="Add item to list" />
+			<TasksAutocomplete open={open} inputRef={inputRef} handleClose={handleClose} />
 		</React.Fragment>
 	)
 }

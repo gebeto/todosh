@@ -1,0 +1,48 @@
+.create-task {
+	position: fixed;
+	width: 100%;
+	bottom: 0%;
+	left: 0;
+	cursor: pointer;
+	
+	$pad: 16pt;
+	padding: $pad;
+	padding-bottom: unquote('max(#{$pad}, env(safe-area-inset-bottom))');
+	box-sizing: border-box;
+
+	display: flex;
+
+	&-button {
+		background: transparent;
+		width: 100%;
+		border: none;
+		
+		box-sizing: border-box;
+		font-size: 16pt;
+		font-weight: bold;
+		justify-content: center;
+		outline: none;
+		background: #ddd;
+		border-radius: 15pt;
+		line-height: 48pt;
+
+		margin-left: $pad;
+		
+		&:first-child {
+			margin-left: initial;
+		}
+	}
+
+	&-input {
+		color: #000;
+		padding: 0pt 32pt;
+	}
+
+	&-addons {
+		color: red;
+		max-width: 64px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
