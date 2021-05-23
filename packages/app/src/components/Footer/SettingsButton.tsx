@@ -18,6 +18,10 @@ export const SettingsButton = () => {
 		window.location.reload();
 	}, []);
 
+	const openDocs = () => {
+		window.location.pathname = "/docs/"
+	};
+
 	const onItemSelect = (item: any) => {
 		item.callback?.();
 		handleClose();
@@ -29,7 +33,8 @@ export const SettingsButton = () => {
 			<Flyout title="Settings" open={open} handleClose={handleClose}>
 				<List onItemSelect={onItemSelect} items={[
 					{ id: 1, title: "Refresh", callback: refresh },
-					{ id: 2, title: "Logout", callback: handleLogout },
+					{ id: 2, title: "Docs", callback: openDocs },
+					{ id: 3, title: "Logout", callback: handleLogout },
 				]} />
 			</Flyout>
 		</React.Fragment>
