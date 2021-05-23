@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { useFocus } from '@wsl/shared/hooks/useFocus';
 import { TasksAutocomplete } from '../TasksAutocomplete';
-import { FloatBottomBar } from '@wsl/shared/components/FloatBottomBar';
+import { SettingsButton } from './SettingsButton';
+import { FloatBottomBar, FloatBottomBarButtonInput, FloatBottomBarButtonAddon } from '@wsl/shared/components/FloatBottomBar';
 
 import './styles.scss';
 
@@ -27,7 +28,12 @@ export const Footer: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<FloatBottomBar onClick={handleOpen} label="Add item to list" />
+			<FloatBottomBar onClick={handleOpen}>
+				<FloatBottomBarButtonInput onClick={handleOpen}>Add item to list</FloatBottomBarButtonInput>
+				<FloatBottomBarButtonAddon>
+					<SettingsButton />
+				</FloatBottomBarButtonAddon>
+			</FloatBottomBar>
 			<TasksAutocomplete open={open} inputRef={inputRef} handleClose={handleClose} />
 		</React.Fragment>
 	)

@@ -1,19 +1,31 @@
 import * as React from 'react';
 import './styles.scss';
-import { SettingsIcon } from './settings-icon';
 
 export type FloatBottomBarProps = {
     onClick: any;
     label?: string;
 };
 
-export const FloatBottomBar: React.FC<FloatBottomBarProps> = ({ onClick, label ="Add item to list" }) => {
-    return (
-        <div className="create-task">
-            <div onClick={onClick} className="create-task-button create-task-input">{label}</div>
-            <div className="create-task-button create-task-addons">
-                <SettingsIcon width={32} height={32} />
-            </div>
-        </div>
-    )
+export const FloatBottomBar: React.FC<FloatBottomBarProps> = ({ onClick, children, label ="Add item to list" }) => {
+	if (children) {
+		return (
+			<div className="create-task">
+				{children}
+			</div>
+		);
+	}
+
+	return (
+		<div className="create-task">
+			<FloatBottomBarButtonInput onClick={onClick}>{label}</FloatBottomBarButtonInput>
+		</div>
+	);
 }
+
+export const FloatBottomBarButtonInput: React.FC<{ onClick: any }> = ({ children, onClick }) => (
+	<div onClick={onClick} className="create-task-button create-task-input">{children}</div>
+);
+
+export const FloatBottomBarButtonAddon: React.FC = ({ children }) => (
+	<div className="create-task-button create-task-addon">{children}</div>
+);
