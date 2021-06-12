@@ -52,9 +52,11 @@ WithTitle.args = {
 
 export const WithList = Template.bind<any>({});
 WithList.args = {
-	title: "Hello world",
+	title: "Settings",
 	children: (
 		<List
+			minListItemsCount={5}
+			maxListItemsCount={5}
 			onItemSelect={console.log}
 			items={[
 				{id: 1, title: "hello"},

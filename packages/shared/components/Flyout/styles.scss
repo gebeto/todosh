@@ -27,11 +27,13 @@
 	.flyout-title {
 		margin: 0;
 		font-size: 12pt;
-		text-align: center;
-		padding-top: 5pt;
-		padding-bottom: 12pt;
-		border-bottom: 1px solid #f7f7f7;
+		text-align: left;
+		padding-top: 18pt;
+		padding-bottom: 4pt;
+		padding-left: 14pt;
+		// border-bottom: 1px solid #f7f7f7;
 		color: #333;
+		font-size: 32px;
 	}
 
 	.flyout {
@@ -44,10 +46,10 @@
 		box-sizing: border-box;
 		overflow: hidden;
 
-		border-top: 1px solid #fafafa;
-		box-shadow: 0 -4px 20px -4px #ddd;
-		// padding: 10pt;
+		border-top: 1px solid rgba(0,0,0,0.03);
+		box-shadow: 0 -10px 40px -10px rgba(0,0,0,0.06);
 		max-height: 90%;
+		padding-bottom: env(safe-area-inset-bottom)
 	}
 
 	&.open {
