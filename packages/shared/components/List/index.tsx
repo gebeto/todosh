@@ -9,6 +9,7 @@ export type ListItemProps<T> = {
 	onItemSelect: (item: T) => void;
 };
 
+const LIST_ITEM_HEIGHT = 44;
 
 export function ListItem<T>({ item, titleKey, onItemSelect }: ListItemProps<T>) {
 	return (
@@ -26,12 +27,20 @@ export type ListProps<T> = {
 	items: Array<T>;
 	onItemSelect: (item: T) => void;
 	titleKey: keyof T;
+	minListItemsCount?: number;
+	maxListItemsCount?: number;
 };
 
 
-export function List<T>({ items, onItemSelect, titleKey }: ListProps<T>) {
+export function List<T>({ items, onItemSelect, titleKey, minListItemsCount = 0, maxListItemsCount = 0 }: ListProps<T>) {
+	const minHeightStyles = React.useMemo(() => ({
+		minHeight: `${minListItemsCount * LIST_ITEM_HEIGHT}pt`,
+		...(maxListItemsCount ? {maxHeight: `${maxListItemsCount * LIST_ITEM_HEIGHT}pt`} : null),
+		overflow: 'auto',
+	}), [minListItemsCount, maxListItemsCount]);
+
 	return (
-		<ul className="wsl-list">
+		<ul className="wsl-list" style={minHeightStyles}>
 			{items.map((item: any) =>
 				<ListItem key={item.id} item={item} titleKey={titleKey} onItemSelect={onItemSelect} />
 			)}

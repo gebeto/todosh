@@ -7,7 +7,11 @@
 
 	&-item {
 		border-bottom: 1px solid #f7f7f7;
-		padding: 12pt 24pt;
+		// padding: 12pt 24pt;
+		height: 44pt;
+		padding-left: 16pt;
+		display: flex;
+		align-items: center;
 	
 		&:last-child {
 			border-bottom: none;

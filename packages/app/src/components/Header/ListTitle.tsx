@@ -28,6 +28,8 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 		<Flyout title="Default list" open={open} handleClose={handleClose}>
 			<List
 				items={items}
+				minListItemsCount={5}
+				maxListItemsCount={5}
 				titleKey="displayName"
 				onItemSelect={handleItemSelect}
 			/>
