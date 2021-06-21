@@ -8,14 +8,17 @@ import { TasksList, useToDoClient } from '../../api';
 
 export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 	const client = useToDoClient();
+	const [loading, setLoading] = React.useState(false);
 	const [items, setItems] = React.useState<TasksList[]>([]);
 
 	React.useEffect(() => {
 		if (!open) return;
-
+		setLoading(true);
 		client?.getLists().then(lists => {
-			console.log(lists);
 			setItems(lists.value);
+			setLoading(false);
+		}).catch(err => {
+			setLoading(false);
 		});
 	}, [open]);
 
@@ -28,6 +31,7 @@ export const SelectListModal: React.FC<any> = ({ open, handleClose }) => {
 		<Flyout title="Default list" open={open} handleClose={handleClose}>
 			<List
 				items={items}
+				loading={loading}
 				minListItemsCount={5}
 				maxListItemsCount={5}
 				titleKey="displayName"

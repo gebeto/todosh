@@ -55,6 +55,7 @@ WithList.args = {
 	title: "Settings",
 	children: (
 		<List
+			loading
 			minListItemsCount={5}
 			maxListItemsCount={5}
 			onItemSelect={console.log}

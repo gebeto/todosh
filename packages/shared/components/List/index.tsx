@@ -44,7 +44,7 @@ export function List<T>({ items, onItemSelect, titleKey, minListItemsCount = 0, 
 	if (loading) {
 		return (
 			<div className="wsl-list" style={{...minHeightStyles, display: "flex", alignItems: "center", justifyContent: "center"}}>
-				<Loader size={40} />
+				<Loader size={26} />
 			</div>
 		);
 	}
