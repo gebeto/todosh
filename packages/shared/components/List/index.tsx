@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Loader } from '../Loader';
 
 import './styles.scss';
 
@@ -29,15 +30,24 @@ export type ListProps<T> = {
 	titleKey: keyof T;
 	minListItemsCount?: number;
 	maxListItemsCount?: number;
+	loading?: boolean;
 };
 
 
-export function List<T>({ items, onItemSelect, titleKey, minListItemsCount = 0, maxListItemsCount = 0 }: ListProps<T>) {
+export function List<T>({ items, onItemSelect, titleKey, minListItemsCount = 0, maxListItemsCount = 0, loading = false }: ListProps<T>) {
 	const minHeightStyles = React.useMemo(() => ({
 		minHeight: `${minListItemsCount * LIST_ITEM_HEIGHT}pt`,
 		...(maxListItemsCount ? {maxHeight: `${maxListItemsCount * LIST_ITEM_HEIGHT}pt`} : null),
 		overflow: 'auto',
 	}), [minListItemsCount, maxListItemsCount]);
+
+	if (loading) {
+		return (
+			<div className="wsl-list" style={{...minHeightStyles, display: "flex", alignItems: "center", justifyContent: "center"}}>
+				<Loader size={40} />
+			</div>
+		);
+	}
 
 	return (
 		<ul className="wsl-list" style={minHeightStyles}>
