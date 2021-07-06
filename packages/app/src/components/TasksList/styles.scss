@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .task-list {
 	padding: 0;
 	margin: 0;
@@ -9,6 +11,7 @@
 }
 
 $check-size: 16pt;
+$check-size-half: math.div($check-size, 2);
 
 .task-list-item {
 	list-style: none;
@@ -39,8 +42,8 @@ $check-size: 16pt;
 		&:before {
 			content: " ";
 			position: absolute;
-			left: $check-size / 2 - 1px;
-			top: $check-size / 2 - 1px;
+			left: $check-size-half - 1px;
+			top: $check-size-half - 1px;
 			width: 2px;
 			height: 2px;
 			background: #fda;
@@ -152,8 +155,8 @@ $check-size: 16pt;
 			transition-timing-function: cubic-bezier(.6, 2, .3, 1);
 			transition-delay: 0.12s;
 			opacity: 0;
-			left: $check-size / 2 - 1px;
-			top: $check-size / 2 - 1px;
+			left: $check-size-half - 1px;
+			top: $check-size-half - 1px;
 			width: 2px;
 			height: 2px;
 		}

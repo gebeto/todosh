@@ -8,7 +8,8 @@
 		"build:storybook": "yarn workspace @wsl/shared build",
 		"build:app": "yarn workspace @wsl/app build",
 		"start": "yarn start:app",
-		"build": "yarn build:app && yarn build:shared"
+		"build": "yarn build:app && yarn build:storybook",
+		"build:deploy": "rm -rf packages/*/dist && yarn build && yarn deploy"
 	},
 	"workspaces": [
 		"packages/*"
