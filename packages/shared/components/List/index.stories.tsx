@@ -7,6 +7,9 @@ export default {
 	title: 'Components/List',
 	component: List,
 	argTypes: {
+		titleKey: {
+			type: "string"
+		},
 		items: {
 			type: "object",
 			control: "object",
