@@ -3,8 +3,12 @@
 	"scripts": {
 		"test": "exit 0",
 		"deploy": "node deploy.js",
-		"start": "yarn workspace @wsl/app start",
-		"build": "yarn workspace @wsl/app build && yarn workspace @wsl/shared build"
+		"start:stroybook": "yarn workspace @wsl/shared start",
+		"start:app": "yarn workspace @wsl/app start",
+		"build:storybook": "yarn workspace @wsl/shared build",
+		"build:app": "yarn workspace @wsl/app build",
+		"start": "yarn start:app",
+		"build": "yarn build:app && yarn build:shared"
 	},
 	"workspaces": [
 		"packages/*"
